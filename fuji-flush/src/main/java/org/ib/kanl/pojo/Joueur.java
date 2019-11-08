@@ -14,12 +14,6 @@ public class Joueur< Arraylist > {
         this.email=email;
         this.password=password;
     }
-    public Joueur(int id, String pseudo, String email, String password){
-        this.id=id;
-        this.pseudo=pseudo;
-        this.email=email;
-        this.password=password;
-    }
     public Joueur(){}
 
     // Méthodes
