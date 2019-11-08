@@ -11,8 +11,9 @@ public class Joueur< Arraylist > {
     // Constructeurs
     public Joueur(String pseudo, String mmail, String mdp){
         this.pseudo=pseudo;
-        this.email=email;
+        this.mail=mail;
         this.mdp=mdp;
+        this.main=new Main();
     }
     public Joueur(){}
 

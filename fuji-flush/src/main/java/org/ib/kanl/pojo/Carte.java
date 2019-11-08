@@ -6,8 +6,8 @@ public class Carte {
     protected Integer valeur;
 
     // Constructeur
-    public carte(int id, int valeur){
-        this id=id;
+    public Carte(int id, int valeur){
+        this.id=id;
         this.valeur=valeur;
     }
 

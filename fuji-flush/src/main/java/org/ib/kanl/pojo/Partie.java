@@ -16,8 +16,4 @@ public class Partie {
         this.nbJoueur=nbJoueur;
         this.dateDebut=dateDebut;
     }
-
-
-
-
 }
