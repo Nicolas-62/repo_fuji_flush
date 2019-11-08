@@ -6,8 +6,7 @@ import java.util.Collections;
 public class Pioche< Arraylist > {
     // variables de classe
     protected Integer id;
-    protected Carte carte;
-    protected ArrayList pioche;
+    protected ArrayList <Carte> pioche;
 
     // constructeur de la pioche
     public Pioche (){
@@ -15,8 +14,7 @@ public class Pioche< Arraylist > {
         this.pioche = pioche;
     }
     //----------------------------------------------------------Methodes-----------------------------------------------------------------------
-        // Getters et Setters
-            // id
+
         // méthode permettant de créer une pioche avec 90 cartes de base et de mélanger le contenu de l'ArrayList
     public void creationPioche(){
         // ajouter les 90 cartes de base à l'arraylist pioche
@@ -42,9 +40,14 @@ public class Pioche< Arraylist > {
         // mélanger l'arrayliste initialement ordonnée
         Collections.shuffle(this.pioche);
         }
-        // méthode permettant de prendre une carte dans la pioche et de la retourner pour en connaitre sa valeur
-    public void returnFirstPioche(){
-        return this.pioche.remove(0);
+
+
+    public Carte get( int i ) {
+        return this.pioche.get(i);
+    }
+
+    public void remove( int i ) {
+        this.pioche.remove(i);
     }
 }
 
