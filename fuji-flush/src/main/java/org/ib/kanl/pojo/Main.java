@@ -1,13 +1,17 @@
 package org.ib.kanl.pojo;
 
+import java.util.ArrayList;
+
 public class Main {
     // Variables de la classe Main
-    protected Integer id;
-    protected Carte carte;
-    protected Joueur joueur;
+    private Integer id;
+    private ArrayList <Carte> main;
 
     // Constructeur de la classe Main
-    public Main(){}
+
+    public Main(){
+        this.main=new ArrayList();
+    }
 
     //----------------------------------------------------------Methodes-----------------------------------------------------------------------
         // Getters et Setters
@@ -18,18 +22,25 @@ public class Main {
     public void setId( Integer id ) {
         this.id = id;
     }
-                 // carte
-    public Carte getCarte( ) {
-        return carte;
+
+
+    public void ajouter(Carte c) {
+        this.main.add(c);
     }
-    public void setCarte( Carte carte ) {
-        this.carte = carte;
+    public Carte getCarte(int i)
+    {
+        return this.main.get(i);
     }
-                // joueur
-    public Joueur getJoueur( ) {
-        return joueur;
+    public String detailMain() {
+        String str = "\t";
+        for (int i =0; i < main.size (); i++)
+        {
+            str += getCarte(i).getValeur() + ", ";
+        }
+        return str;
     }
-    public void setJoueur( Joueur joueur ) {
-        this.joueur = joueur;
+    public int getSize()
+    {
+        return this.main.size();
     }
 }
