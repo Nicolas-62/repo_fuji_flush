@@ -9,7 +9,7 @@ public class Joueur< Arraylist > {
     protected Main main;
 
     // Constructeurs
-    public Joueur(String pseudo, String mmail, String mdp){
+    public Joueur(String pseudo, String mail, String mdp){
         this.pseudo=pseudo;
         this.mail=mail;
         this.mdp=mdp;
