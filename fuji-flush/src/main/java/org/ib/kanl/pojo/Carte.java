@@ -2,17 +2,17 @@ package org.ib.kanl.pojo;
 
 public class Carte {
     // Variables de classes
-    protected Integer valeur;
+    private Integer valeur;
 
     // Constructeur
-    public Carte(int valeur){
+    Carte(int valeur){
         this.valeur=valeur;
     }
 
     //----------------------------------------------------------Methodes-----------------------------------------------------------------------
         // Getters et Setters
             // valeur
-    public Integer getValeur( ) {
+    Integer getValeur() {
                 return valeur;
             }
     public void setValeur( Integer valeur ) {

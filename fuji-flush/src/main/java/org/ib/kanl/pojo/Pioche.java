@@ -1,23 +1,17 @@
 package org.ib.kanl.pojo;
-
 import java.util.ArrayList;
 import java.util.Collections;
-
 public class Pioche< Arraylist > {
     // variables de classe
-    protected Integer id;
-    protected ArrayList <Carte> pioche;
-
+    private Integer id;
+    private ArrayList pioche;
     // constructeur de la pioche
     public Pioche (){
         pioche=new ArrayList();
         this.pioche = pioche;
     }
     //----------------------------------------------------------Methodes-----------------------------------------------------------------------
-
-        // méthode permettant de créer une pioche avec 90 cartes de base et de mélanger le contenu de l'ArrayList
     public void creationPioche(){
-        // ajouter les 90 cartes de base à l'arraylist pioche
         for (int i = 1; i <= 16; i++) { this.pioche.add(new Carte (2)); }
         for (int i = 1; i <= 12; i++) { this.pioche.add(new Carte (3)); }
         for (int i = 1; i <= 9; i++)  { this.pioche.add(new Carte (4)); }
@@ -39,15 +33,18 @@ public class Pioche< Arraylist > {
         this.pioche.add(new Carte (20));
         // mélanger l'arrayliste initialement ordonnée
         Collections.shuffle(this.pioche);
-        }
-
-
-    public Carte get( int i ) {
-        return this.pioche.get(i);
-    }
-
-    public void remove( int i ) {
-        this.pioche.remove(i);
-    }
+        } // ajouter les 90 cartes de base à l'arraylist pioche et mélanger
+    public Carte get(int i ) {
+        return (Carte) this.pioche.get(i);
+    } // récupérer une carte de la pioche
+    public Carte tirerCartePioche() {
+        Carte c;
+        c = (Carte) pioche.get(0);
+        pioche.remove(0);
+        return c;
+    } // retirer la première carte de la pioche et retourner la carte
+    public void defausser(Carte c){
+        this.pioche.add(c);
+    } // ajouter une carte à la fin de l'Arraylist pioche
 }
 

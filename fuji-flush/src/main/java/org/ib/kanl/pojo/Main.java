@@ -35,12 +35,15 @@ public class Main {
         String str = "\t";
         for (int i =0; i < main.size (); i++)
         {
-            str += getCarte(i).getValeur() + ", ";
+            str += " | "+getCarte(i).getValeur() + " | ";
         }
         return str;
     }
     public int getSize()
     {
         return this.main.size();
+    }
+    public Carte remove(int index) {
+        return this.main.remove(index);
     }
 }
