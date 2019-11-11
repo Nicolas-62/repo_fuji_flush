@@ -1,13 +1,23 @@
 package org.ib.kanl.pojo;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="Joueur")
 public class Joueur< Arraylist > {
     // Variables de classe
-
+    @Column(name="id")
     private Integer id;
+    @Column(name="pseudo")
     private String pseudo;
+    @Column(name="mail")
     private String mail;
+    @Column(name="mdp")
     private String mdp;
     private Main mainJoueur;
+    @Column(name="score")
     private int score;
 
     // Constructeurs

@@ -1,15 +1,24 @@
 package org.ib.kanl.pojo;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+@Entity
+@Table(name="Partie")
 public class Partie {
     // Variables de classe
+    @Column(name="dateDebut")
     private String dateDebut;
     private ArrayList<Joueur> joueurs;
+    @Column (name="pioche")
     private Pioche pioche;
+    @Column (name="tapis")
     private Carte[] tapis;
     private Scanner scan = new Scanner(System.in);
+    @Column(name="nbJoueur")
     private int nbJoueur;
 
     // Constructeurs
@@ -29,16 +38,17 @@ public class Partie {
             tapis = new Carte[nbJoueur];
             while (!partieTerminee()) {
                 for (int i = 0; i < nbJoueur; i++) {
-                    verificationDebutTour(i);
+                    partieTerminee();
+                    verificationDebutTour(i); // vérifie si 1 carte est encore sur le tapis au début du tour du joueur
                     afficherMainJoueur(i);       // Affichage main du joueur
                     afficherTapis();// on affiche le tapis
                     jouerCarte(i);               // le joueur choisit une carte et la pose sur le tapis
-                    verificationFinTour(i);
+                    verificationFinTour(i);      // compare la carte aux autres à la fin du tour du joueur
+                    partieTerminee();
                 }
             }
             finDePartie();
     }
-
     // METHODES SECONDAIRES
     public int nbJoueur(){
         System.out.print("Entrez le nombre de joueurs : ");
@@ -79,9 +89,9 @@ public class Partie {
         System.out.println(j.getPseudo() + " voici votre main : " + j.getMain().detailMain());
     } // affiche la main du joueur i dans l'Arraylist joueurs
     public boolean partieTerminee() {
-        boolean partieTerminee = false;
-        for (int j = 0; j < nbJoueur; j++) {
-            if ((joueurs.get(j).getMain().getSize()) == 0 && tapis[j]==null) {
+        boolean partieTerminee=false;
+        for (int j=0; j<nbJoueur; j++) {
+            if ((joueurs.get(j).getMain().getSize()) == 0 && tapis[j] == null) {
                 partieTerminee = true;
             }
         }
@@ -128,35 +138,34 @@ public class Partie {
             tapis[i] = null;
             System.out.println(joueurs.get(i).getPseudo() + " se défausse d'une carte");
         }
-    }
+    } // vérifie si 1 carte est encore sur le tapis au début du tour du joueur
     public void verificationFinTour(int i) {
-        int valeuri=valeur(i);
-        for (int j = 0; j < nbJoueur; j++) {
-            if (tapis[i] != null && tapis[j] != null && j!=i) {
-                int valeurj=valeur(j);
-                if (valeur(j) == valeur(i)) {
-                    valeuri = valeuri + valeur(j);
-                    valeurj = valeurj+valeur(i);
-                }
-                for (int k=0; k<nbJoueur; k++){
-                    if (tapis[i] != null && tapis[j] != null && tapis[k] !=null) {
-                        if (valeur(i) == valeur(k)) {
-                            valeuri = valeuri + valeur(k);
-                        }
-                        if (valeur(j) == valeur(k)) {
-                            valeurj = valeurj + valeur(k);
-                        }
+        int[] valeurs = new int[nbJoueur]; // on crée un tableau de taille nbJoueur
+        for (int compteur = 0; compteur < nbJoueur; compteur++) {
+            if (tapis[compteur] != null) {
+                valeurs[compteur] = valeur(compteur);
+            } else {
+                valeurs[compteur] = 0;
+            }
+        } // on remplit le tableau avec les valeurs initiales des mains
+        for (int a = 0; a < nbJoueur; a++) {
+            if (tapis[a]!=null) {
+                for (int b = a; b < nbJoueur; b++) {
+                    if (tapis[b] != null && b!=a) {
+                        if (valeur(a) == valeur(b)) valeurs[a] = valeurs[b] = valeurs[a] + valeur(a);
                     }
                 }
-                if (valeurj<valeuri) {
-                    pioche.defausser(tapis[j]);
-                    tapis[j] = null;
-                    joueurs.get(j).piocherCarte(pioche.tirerCartePioche());
-                    System.out.println(joueurs.get(j).getPseudo() + " se défausse et pioche une carte");
-                }
             }
-        }
-    }
+        } // on compare toutes les valeurs nominales et on les ajoute si elles sont égales puis on change les valeurs dans le tableau valeurs
+        for (int j = 0; j < nbJoueur; j++) {
+            if (valeurs[j] < valeurs[i] && valeurs[j]!=0) {
+                pioche.defausser(tapis[j]);
+                tapis[j] = null;
+                joueurs.get(j).piocherCarte(pioche.tirerCartePioche());
+                System.out.println(joueurs.get(j).getPseudo() + " se défausse et pioche une carte");
+            }
+        }  // chaque carte inférieure à la carte posée est défaussée et le joueur pioche une carte
+    } // compare la carte aux autres à la fin du tour du joueur
     public void finDePartie(){
         for (int i = 0; i < nbJoueur; i++) {
             if (joueurs.get(i).getMain().getSize() == 0 && tapis[i] == null) {
