@@ -12,8 +12,8 @@ public class Carte {
     //----------------------------------------------------------Methodes-----------------------------------------------------------------------
         // Getters et Setters
             // valeur
-    Integer getValeur() {
-                return valeur;
+    public Integer getValeur() {
+                return this.valeur;
             }
     public void setValeur( Integer valeur ) {
         this.valeur = valeur;

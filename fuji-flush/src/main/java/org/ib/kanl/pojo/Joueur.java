@@ -1,14 +1,15 @@
 package org.ib.kanl.pojo;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+
+import javax.persistence.*;
 
 @Entity
-@Table(name="Joueur")
+@Table(name ="Joueur")
 public class Joueur< Arraylist > {
     // Variables de classe
+    @Id
     @Column(name="id")
+    @GeneratedValue
     private Integer id;
     @Column(name="pseudo")
     private String pseudo;
@@ -33,6 +34,9 @@ public class Joueur< Arraylist > {
         this.pseudo = pseudo;
         this.mainJoueur = new Main();
         this.score=score;
+    }
+    public Joueur(){
+
     }
 
     // Méthodes

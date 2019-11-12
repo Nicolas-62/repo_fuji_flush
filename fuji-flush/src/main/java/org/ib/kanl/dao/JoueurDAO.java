@@ -1,13 +1,13 @@
 package org.ib.kanl.dao;
 
-import org.ib.kanl.pojo.Carte;
 import org.ib.kanl.pojo.Joueur;
 
 import javax.persistence.EntityManager;
 
+
 public class JoueurDAO extends AbstractDAO<Joueur> {
 
-    public JoueurDAO(EntityManager em) {
+    public JoueurDAO( EntityManager em) {
         super(em);
     }
 

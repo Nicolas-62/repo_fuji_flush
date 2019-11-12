@@ -14,7 +14,7 @@ import javax.persistence.EntityManager;
         @Override
         public Main create(Main main) {
             em.getTransaction().begin();
-            em.persist(main);
+            em.persist(main.mainToString());
             em.getTransaction().commit();
             return main;
         }
@@ -29,7 +29,7 @@ import javax.persistence.EntityManager;
         @Override
         public void update(Main main) {
             em.getTransaction().begin();
-            em.merge(main);
+            em.merge(main.mainToString());
             em.getTransaction().commit();
         }
 

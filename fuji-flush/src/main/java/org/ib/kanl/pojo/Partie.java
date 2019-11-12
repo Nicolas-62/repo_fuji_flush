@@ -1,8 +1,10 @@
 package org.ib.kanl.pojo;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
+
+import java.sql.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -10,12 +12,21 @@ import java.util.Scanner;
 @Table(name="Partie")
 public class Partie {
     // Variables de classe
+    @Id
+    @Column (name="id")
+    @GeneratedValue
+    private Integer id;
     @Column(name="dateDebut")
-    private String dateDebut;
+    private Date dateDebut;
     @Column(name="dateFin")
-    private String dateFin;
+    private Date dateFin;
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "PartieJoueur",
+            joinColumns = { @JoinColumn(name = "id") },
+            inverseJoinColumns = { @JoinColumn(name = "id") })
     private ArrayList<Joueur> joueurs;
-    @Column (name="pioche")
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="idPartie")
     private Pioche pioche;
     @Column (name="tapis")
     private Carte[] tapis;
@@ -23,20 +34,23 @@ public class Partie {
     @Column(name="nbJoueur")
     private int nbJoueur;
 
+
+
     // Constructeurs
     public Partie() {
         joueurs = new ArrayList<>();
         pioche = new Pioche();
         pioche.creationPioche();
-        this.tapis = tapis;
-        this.dateDebut = dateDebut;
     }
 
     // METHODE PRINCIPALE
-    public void Partie() {
+    public void jouerPartie() {
+        DateFormat format = new SimpleDateFormat("dd-MM-YYYY HH:mm:ss");
+        this.dateDebut = new Date(System.currentTimeMillis());
         nbJoueur();
         initialisationJoueurs();
         distribuerCartes();
+        System.out.println(pioche.toString());
             tapis = new Carte[nbJoueur];
             while (!partieTerminee()) {
                 for (int i = 0; i < nbJoueur; i++) {
@@ -178,5 +192,28 @@ public class Partie {
                 System.out.println("Fin de la Partie ! C'est " + joueurs.get(i).getPseudo() + " qui a gagné la partie");
             }
         }
+        this.dateFin = new Date(System.currentTimeMillis());
+    }
+    public String tapisToString(){
+        String str = this.tapis[0].getValeur( ).toString();
+        for(int i = 1; i < this.tapis.length; i++)
+        {
+            str += "," + this.tapis[i].getValeur().toString();
+        }
+        return str;
+    }
+    public void tapisToArray(String s){
+        for (int i=0; i<this.tapis.length; i++){
+            tapis[i]=null;
+        }
+        String[] tab = s.split(",");
+        for(int i = 0; i < tab.length; i++)
+        {
+            this.tapis[i]=new Carte(Integer.parseInt(tab[i]));
+        }
+    }
+    public String dateToString(Date d){
+        DateFormat format = new SimpleDateFormat("dd-MM-YYYY HH:mm:ss");
+        return format.format(d);
     }
 }

@@ -14,7 +14,7 @@ public class PiocheDAO extends AbstractDAO<Pioche> {
     @Override
     public Pioche create(Pioche pioche) {
         em.getTransaction().begin();
-        em.persist(pioche);
+        em.persist(pioche.piocheToString());
         em.getTransaction().commit();
         return pioche;
     }
@@ -29,7 +29,7 @@ public class PiocheDAO extends AbstractDAO<Pioche> {
     @Override
     public void update(Pioche pioche) {
         em.getTransaction().begin();
-        em.merge(pioche);
+        em.merge(pioche.piocheToString());
         em.getTransaction().commit();
     }
 
