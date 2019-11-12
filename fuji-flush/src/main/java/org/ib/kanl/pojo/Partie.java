@@ -12,6 +12,8 @@ public class Partie {
     // Variables de classe
     @Column(name="dateDebut")
     private String dateDebut;
+    @Column(name="dateFin")
+    private String dateFin;
     private ArrayList<Joueur> joueurs;
     @Column (name="pioche")
     private Pioche pioche;
