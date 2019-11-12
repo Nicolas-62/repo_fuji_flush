@@ -2,9 +2,6 @@ package org.ib.kanl;
 
 import org.ib.kanl.pojo.*;
 
-import java.util.ArrayList;
-import java.util.Scanner;
-
 public class App {
     public static Partie partie = new Partie();
 

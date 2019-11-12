@@ -30,7 +30,7 @@ public class Partie {
         this.dateDebut = dateDebut;
     }
 
-    // METHODES PRINCIPALES
+    // METHODE PRINCIPALE
     public void Partie() {
         nbJoueur();
         initialisationJoueurs();
@@ -38,13 +38,16 @@ public class Partie {
             tapis = new Carte[nbJoueur];
             while (!partieTerminee()) {
                 for (int i = 0; i < nbJoueur; i++) {
-                    partieTerminee();
                     verificationDebutTour(i); // vérifie si 1 carte est encore sur le tapis au début du tour du joueur
-                    afficherMainJoueur(i);       // Affichage main du joueur
-                    afficherTapis();// on affiche le tapis
-                    jouerCarte(i);               // le joueur choisit une carte et la pose sur le tapis
-                    verificationFinTour(i);      // compare la carte aux autres à la fin du tour du joueur
-                    partieTerminee();
+                    if (partieTerminee()) {
+                        i=nbJoueur;
+                    }
+                    else {
+                        afficherMainJoueur( i );       // Affichage main du joueur
+                        afficherTapis( );// on affiche le tapis
+                        jouerCarte( i );               // le joueur choisit une carte et la pose sur le tapis
+                        verificationFinTour( i );      // compare la carte aux autres à la fin du tour du joueur
+                    }
                 }
             }
             finDePartie();
