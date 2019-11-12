@@ -6,7 +6,7 @@ import org.ib.kanl.pojo.*;
 public class App {
     //public static Partie partie = new Partie();
 
-    public static void main( String[] args ) {
+    public static void main(String[] args ) {
         // s'enregister si nouveau joueur
         // se connecter si déjà inscrit
         // Menu : commencer une nouvelle partie
@@ -23,19 +23,11 @@ public class App {
         System.out.println("Son mdp : " + joueur.getMdp());
         System.out.println("Son score : " + joueur.getScore());*/
 
-        try{Joueur moi = new Joueur();
-        moi.setPseudo("Leti");
-        moi.setEmail( "lschoepff@outlook.fr" );
-        moi.setMdp( "password" );
+        try{
+        Joueur moi = new Joueur("Leti", "lschoepff@outlook.fr", "password");
         joueurDAO.create(moi);
         System.out.println("Moi créé avec l'id : [" + moi.getId() + "]");
-
-        Joueur toi = new Joueur();
-        toi.setPseudo("al");
-        toi.setEmail( "alex@outlook.fr" );
-        toi.setMdp( "password1234" );
-        joueurDAO.create(toi);
-        System.out.println("Moi créé avec l'id : [" + toi.getId() + "]");}
+        }
         catch(Exception e){
             System.out.println("soucis" );
         }

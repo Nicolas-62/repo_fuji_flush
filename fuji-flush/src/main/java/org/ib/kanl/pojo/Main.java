@@ -1,18 +1,30 @@
 package org.ib.kanl.pojo;
 
+import org.hibernate.annotations.Columns;
+import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.List;
+
 @Entity
-@Table(name="Main")
+@Table(name="PartieJoueur")
 public class Main {
     // Variables de la classe Main
-    @Id
-    @Column(name="id")
-    @GeneratedValue
-    private Integer id;
 
-    @Column (name="valeurMain")
-    private ArrayList <Carte> main;
+    /*@MapsId
+    @JoinColumns({
+            @JoinColumn(name="PartieJoueur_Joueur_id", referencedColumnName="idJoueur"),
+            @JoinColumn(name="PartieJoueur_Partie_id", referencedColumnName="idPartie")})
+    private Integer idJoueur, idPartie;*/
+    @Id
+    @Column(name="idMain")
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
+    @GenericGenerator(name = "native", strategy = "native")
+    private Integer idMain;
+
+
+    private List<Carte> main;
 
     // Constructeur de la classe Main
 
@@ -23,12 +35,15 @@ public class Main {
     //----------------------------------------------------------Methodes-----------------------------------------------------------------------
         // Getters et Setters
                 // id
-    public Integer getId( ) {
-        return id;
+
+    public Integer getIdMain() {
+        return idMain;
     }
-    public void setId( Integer id ) {
-        this.id = id;
+
+    public void setIdMain(Integer idMain) {
+        this.idMain = idMain;
     }
+
     public void ajouter(Carte c) {
         this.main.add(c);
     }

@@ -1,42 +1,44 @@
 package org.ib.kanl.pojo;
 
 
+import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name ="Joueur")
 public class Joueur< Arraylist > {
     // Variables de classe
     @Id
-    @Column(name="id")
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
+    @GenericGenerator(name = "native", strategy = "native")
+    @Column(name="idJoueur")
     private Integer id;
     @Column(name="pseudo")
     private String pseudo;
-    @Column(name="mail")
-    private String mail;
+    @Column(name="email")
+    private String email;
     @Column(name="mdp")
     private String mdp;
-    private Main mainJoueur;
     @Column(name="score")
     private int score;
+    @OneToOne
+    @JoinColumn(name="valeurMain")
+    private Main mainJoueur;
 
     // Constructeurs
-    public Joueur(String pseudo, String mail, String mdp) {
+    public Joueur(String pseudo, String email, String mdp) {
         this.pseudo = pseudo;
-        this.mail = mail;
+        this.email = email;
         this.mdp = mdp;
-        this.mainJoueur = new Main();
-        this.score=score;
     }
     public Joueur(int id, String pseudo) {
         this.id = id;
         this.pseudo = pseudo;
-        this.mainJoueur = new Main();
-        this.score=score;
+        this.mainJoueur=new Main();
     }
     public Joueur(){
-
     }
 
     // Méthodes
@@ -53,10 +55,10 @@ public class Joueur< Arraylist > {
         this.pseudo = pseudo;
     }
     public String getEmail() {
-        return mail;
+        return email;
     }
     public void setEmail(String email) {
-        this.mail = email;
+        this.email = email;
     }
     public String getMdp() {
         return mdp;
@@ -75,9 +77,6 @@ public class Joueur< Arraylist > {
     }
     public void setScore(int score) {
         this.score = score;
-    }
-    public void DetailJoueur() {
-        System.out.println("Le joueur " + this.pseudo + " possède : " + this.mainJoueur.detailMain());
     }
     // Retirer une carte de la main
     public Carte retirerCarteMain(int index) {

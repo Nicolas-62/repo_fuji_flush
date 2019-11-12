@@ -1,11 +1,14 @@
 package org.ib.kanl.pojo;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.*;
 
 import java.sql.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 @Entity
@@ -13,28 +16,26 @@ import java.util.Scanner;
 public class Partie {
     // Variables de classe
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
+    @GenericGenerator(name = "native", strategy = "native")
     @Column (name="id")
-    @GeneratedValue
     private Integer id;
     @Column(name="dateDebut")
     private Date dateDebut;
     @Column(name="dateFin")
     private Date dateFin;
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany
     @JoinTable(name = "PartieJoueur",
-            joinColumns = { @JoinColumn(name = "id") },
-            inverseJoinColumns = { @JoinColumn(name = "id") })
-    private ArrayList<Joueur> joueurs;
-    @OneToOne(cascade = CascadeType.ALL)
+            joinColumns = @JoinColumn(name = "Joueur_id"),
+            inverseJoinColumns = @JoinColumn(name = "Partie_id"))
+    private List<Joueur> joueurs;
+    @OneToOne
     @JoinColumn(name="idPartie")
     private Pioche pioche;
     @Column (name="tapis")
     private Carte[] tapis;
-    private Scanner scan = new Scanner(System.in);
     @Column(name="nbJoueur")
     private int nbJoueur;
-
-
 
     // Constructeurs
     public Partie() {
@@ -45,6 +46,7 @@ public class Partie {
 
     // METHODE PRINCIPALE
     public void jouerPartie() {
+        Scanner scan = new Scanner(System.in);
         DateFormat format = new SimpleDateFormat("dd-MM-YYYY HH:mm:ss");
         this.dateDebut = new Date(System.currentTimeMillis());
         nbJoueur();
@@ -70,6 +72,7 @@ public class Partie {
     }
     // METHODES SECONDAIRES
     public int nbJoueur(){
+        Scanner scan = new Scanner (System.in);
         System.out.print("Entrez le nombre de joueurs : ");
         nbJoueur = scan.nextInt();
         scan.nextLine(); // buffer
@@ -98,6 +101,7 @@ public class Partie {
         } // Distribuer cartes aux joueurs
     } // Distribuer les cartes aux joueurs
     public void ajouterJoueurs(int numero) {
+        Scanner scan = new Scanner (System.in);
         System.out.print("Entrez le pseudo du joueur " + (numero + 1) + " : ");
         String s = scan.nextLine();
         joueurs.add(new Joueur(numero, s));
@@ -117,6 +121,7 @@ public class Partie {
         return partieTerminee;
     } // Booléen qui définit si la partie est terminée ou non
     public void jouerCarte(int i) {
+        Scanner scan = new Scanner(System.in);
         System.out.println("Quelle carte souhaitez-vous jouer ? (Entrez la position dans la liste)");
         int choix=scan.nextInt();
         scan.nextLine();

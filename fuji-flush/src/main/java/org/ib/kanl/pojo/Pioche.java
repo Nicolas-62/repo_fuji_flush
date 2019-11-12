@@ -1,4 +1,6 @@
 package org.ib.kanl.pojo;
+import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -7,8 +9,9 @@ import java.util.Collections;
 public class Pioche< Arraylist > {
     // variables de classe
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
+    @GenericGenerator(name = "native", strategy = "native")
     @Column( name = "id" )
-    @GeneratedValue
     private Integer id;
     @Column( name = "valeurPioche" )
     private ArrayList <Carte> pioche;
