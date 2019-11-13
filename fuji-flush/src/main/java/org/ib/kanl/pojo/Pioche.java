@@ -4,24 +4,28 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Collections;
-@Entity
-@Table(name="Pioche")
+//@Entity
+//@Table(name="Pioche")
 public class Pioche< Arraylist > {
     // variables de classe
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
-    @GenericGenerator(name = "native", strategy = "native")
-    @Column( name = "id" )
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
+//    @GenericGenerator(name = "native", strategy = "native")
+//    @Column( name = "id" )
     private Integer id;
-    @Column( name = "valeurPioche" )
+//    @Column( name = "valeurPioche" )
     private ArrayList <Carte> pioche;
 
     // constructeur de la pioche
     public Pioche( ) {
         pioche = new ArrayList( );
-        this.pioche = pioche;
     }
-
+    public Integer getId( ) {
+        return id;
+    }
+    public void setId( Integer id ) {
+        this.id = id;
+    }
     //----------------------------------------------------------Methodes-----------------------------------------------------------------------
     public void creationPioche( ) {
         for ( int i = 1 ; i <= 16 ; i++ ) {
@@ -74,13 +78,9 @@ public class Pioche< Arraylist > {
         // mélanger l'arrayliste initialement ordonnée
         Collections.shuffle( this.pioche );
     } // ajouter les 90 cartes de base à l'arraylist pioche et mélanger
-
-    public Carte get( int i ) {
-        return ( Carte ) this.pioche.get( i );
-    } // récupérer une carte de la pioche
-    public Carte tirerCartePioche( ) {
+    public Carte piocher( ) {
         Carte c;
-        c = ( Carte ) pioche.get( 0 );
+        c = pioche.get( 0 );
         pioche.remove( 0 );
         return c;
     } // retirer la première carte de la pioche et retourner la carte
@@ -88,12 +88,6 @@ public class Pioche< Arraylist > {
         this.pioche.add( c );
     } // ajouter une carte à la fin de l'Arraylist pioche
 
-    public Integer getId( ) {
-        return id;
-    }
-    public void setId( Integer id ) {
-        this.id = id;
-    }
     public String piocheToString() {
         String str = this.pioche.get( 0 ).getValeur( ).toString();
         for(int i = 1; i < this.pioche.size(); i++)

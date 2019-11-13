@@ -4,7 +4,7 @@ import org.ib.kanl.dao.JoueurDAO;
 import org.ib.kanl.pojo.*;
 
 public class App {
-    //public static Partie partie = new Partie();
+    public static Partie partie = new Partie();
 
     public static void main(String[] args ) {
         // s'enregister si nouveau joueur
@@ -15,7 +15,7 @@ public class App {
         //        voir le classement
 
         // Test DAO
-        JoueurDAO joueurDAO = new JoueurDAO(HibernateEntityManager.getInstance());
+//        JoueurDAO joueurDAO = new JoueurDAO(HibernateEntityManager.getInstance());
 
         /*Joueur joueur = joueurDAO.get(1);
         System.out.println("Son pseudo : " + joueur.getPseudo());
@@ -23,14 +23,14 @@ public class App {
         System.out.println("Son mdp : " + joueur.getMdp());
         System.out.println("Son score : " + joueur.getScore());*/
 
-        try{
-        Joueur moi = new Joueur("Leti", "lschoepff@outlook.fr", "password");
-        joueurDAO.create(moi);
-        System.out.println("Moi créé avec l'id : [" + moi.getId() + "]");
-        }
-        catch(Exception e){
-            System.out.println("soucis" );
-        }
+//        try{
+//        Joueur moi = new Joueur("Leti", "lschoepff@outlook.fr", "password");
+//        joueurDAO.create(moi);
+//        System.out.println("Moi créé avec l'id : [" + moi.getId() + "]");
+//        }
+//        catch(Exception e){
+//            System.out.println("soucis" );
+//        }
 
         /*moi.setNom("CESAR");
         //moi.setPrenom("Jules");
@@ -49,11 +49,11 @@ public class App {
 
          */
 
-        HibernateEntityManager.closeEntityManager();
+//        HibernateEntityManager.closeEntityManager();
 
 
 
         // nouvelle partie en mode console
-        //partie.jouerPartie();
+        partie.jouerPartie();
     }
 }

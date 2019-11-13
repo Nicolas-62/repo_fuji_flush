@@ -1,9 +1,5 @@
 package org.ib.kanl.pojo;
 
-import org.hibernate.annotations.GenericGenerator;
-
-import javax.persistence.*;
-
 import java.sql.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -11,30 +7,30 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-@Entity
-@Table(name="Partie")
+//@Entity
+//@Table(name="Partie")
 public class Partie {
     // Variables de classe
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
-    @GenericGenerator(name = "native", strategy = "native")
-    @Column (name="id")
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
+//    @GenericGenerator(name = "native", strategy = "native")
+//    @Column (name="id")
     private Integer id;
-    @Column(name="dateDebut")
+//    @Column(name="dateDebut")
     private Date dateDebut;
-    @Column(name="dateFin")
+//    @Column(name="dateFin")
     private Date dateFin;
-    @ManyToMany
-    @JoinTable(name = "PartieJoueur",
-            joinColumns = @JoinColumn(name = "Joueur_id"),
-            inverseJoinColumns = @JoinColumn(name = "Partie_id"))
+//    @ManyToMany
+//    @JoinTable(name = "PartieJoueur",
+//            joinColumns = @JoinColumn(name = "Joueur_id"),
+//            inverseJoinColumns = @JoinColumn(name = "Partie_id"))
     private List<Joueur> joueurs;
-    @OneToOne
-    @JoinColumn(name="idPartie")
+//    @OneToOne
+//    @JoinColumn(name="idPartie")
     private Pioche pioche;
-    @Column (name="tapis")
+//    @Column (name="tapis")
     private Carte[] tapis;
-    @Column(name="nbJoueur")
+//    @Column(name="nbJoueur")
     private int nbJoueur;
 
     // Constructeurs
@@ -88,14 +84,14 @@ public class Partie {
             for (int i = 0; i < 6; i++)                // On donne 6 cartes aux joueurs
             {
                 for (int j = 0; j < nbJoueur; j++) {
-                    joueurs.get(j).getMain().ajouter(pioche.tirerCartePioche());
+                    joueurs.get(j).getMain().ajouter(pioche.piocher());
                 }
             }
         } else {
             for (int i = 0; i < 5; i++)                // On donne 5 cartes aux joueurs
             {
                 for (int j = 0; j < nbJoueur; j++) {
-                    joueurs.get(j).getMain().ajouter(pioche.tirerCartePioche());
+                    joueurs.get(j).getMain().ajouter(pioche.piocher());
                 }
             }
         } // Distribuer cartes aux joueurs
@@ -185,7 +181,7 @@ public class Partie {
             if (valeurs[j] < valeurs[i] && valeurs[j]!=0) {
                 pioche.defausser(tapis[j]);
                 tapis[j] = null;
-                joueurs.get(j).piocherCarte(pioche.tirerCartePioche());
+                joueurs.get(j).piocherCarte(pioche.piocher());
                 System.out.println(joueurs.get(j).getPseudo() + " se défausse et pioche une carte");
             }
         }  // chaque carte inférieure à la carte posée est défaussée et le joueur pioche une carte

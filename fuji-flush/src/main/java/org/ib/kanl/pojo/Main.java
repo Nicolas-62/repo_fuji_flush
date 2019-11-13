@@ -7,8 +7,8 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity
-@Table(name="PartieJoueur")
+//@Entity
+//@Table(name="PartieJoueur")
 public class Main {
     // Variables de la classe Main
 
@@ -17,10 +17,10 @@ public class Main {
             @JoinColumn(name="PartieJoueur_Joueur_id", referencedColumnName="idJoueur"),
             @JoinColumn(name="PartieJoueur_Partie_id", referencedColumnName="idPartie")})
     private Integer idJoueur, idPartie;*/
-    @Id
-    @Column(name="idMain")
-    @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
-    @GenericGenerator(name = "native", strategy = "native")
+//    @Id
+//    @Column(name="idMain")
+//    @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
+//    @GenericGenerator(name = "native", strategy = "native")
     private Integer idMain;
 
 
