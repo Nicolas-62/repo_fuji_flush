@@ -2,17 +2,26 @@ package org.ib.kanl;
 
 import org.ib.kanl.dao.JoueurDAO;
 import org.ib.kanl.pojo.*;
+import org.ib.kanl.services.JoueurService;
+import org.ib.kanl.services.MainService;
+import org.ib.kanl.services.PartieService;
+import org.ib.kanl.services.PiocheService;
 
 public class App {
-    public static Partie partie = new Partie();
+
+    public static MainService mainService = new MainService();
+    public static JoueurService joueurService = new JoueurService();
+    public static PiocheService piocheService = new PiocheService();
+    public static PartieService partieService = new PartieService(piocheService, mainService, joueurService);
+
+     public static Partie partie = new Partie();
 
     public static void main(String[] args ) {
-        // s'enregister si nouveau joueur
-        // se connecter si déjà inscrit
-        // Menu : commencer une nouvelle partie
-        //        en rejoindre une
-        //        revoir une partie
-        //        voir le classement
+
+            partieService.initialisation(partie);
+            partieService.jouer(partie);
+
+
 
         // Test DAO
 //        JoueurDAO joueurDAO = new JoueurDAO(HibernateEntityManager.getInstance());
@@ -51,9 +60,5 @@ public class App {
 
 //        HibernateEntityManager.closeEntityManager();
 
-
-
-        // nouvelle partie en mode console
-        partie.jouerPartie();
     }
 }
