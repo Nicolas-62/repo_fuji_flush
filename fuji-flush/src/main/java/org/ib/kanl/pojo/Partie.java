@@ -1,24 +1,26 @@
 package org.ib.kanl.pojo;
 
+import org.hibernate.annotations.GenericGenerator;
+
+import javax.persistence.*;
 import java.sql.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-//@Entity
+@Entity
 public class Partie {
     // Variables de classe
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
-//    @GenericGenerator(name = "native", strategy = "native")
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
+    @GenericGenerator(name = "native", strategy = "native")
     private Integer idPartie;
     private Date dateDebut;
     private Date dateFin;
-//    @ManyToMany
+    @OneToMany
     private List<Joueur> joueurs;
-//    @OneToOne
-//    @JoinColumn(name="idPartie")
+    @OneToOne
     private Pioche pioche;
     private Carte[] tapis;
     private int nbJoueur;

@@ -1,10 +1,16 @@
 package org.ib.kanl.pojo;
+import org.hibernate.annotations.GenericGenerator;
+
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
-
+@Entity
 public class Main {
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
+    @GenericGenerator(name = "native", strategy = "native")
     private Integer idMain;
+    @OneToMany
     private List<Carte> main;
 
     // Constructeur de la classe Main

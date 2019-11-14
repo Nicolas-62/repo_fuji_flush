@@ -3,22 +3,19 @@ package org.ib.kanl.pojo;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-import java.util.List;
 
-/*@Entity
-@Table(name ="Joueur")*/
+@Entity
 public class Joueur< Arraylist > {
     // Variables de classe
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
-//    @GenericGenerator(name = "native", strategy = "native")
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
+    @GenericGenerator(name = "native", strategy = "native")
     private Integer idJoueur;
     private String pseudo;
     private String email;
     private String mdp;
     private int score;
-//    @OneToOne
-//    @JoinColumn(name="valeurMain")
+    @OneToOne
     private Main mainJoueur;
 
     // Constructeurs

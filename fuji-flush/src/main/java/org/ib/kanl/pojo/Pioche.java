@@ -1,17 +1,18 @@
 package org.ib.kanl.pojo;
+import org.hibernate.annotations.GenericGenerator;
+
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-//@Entity
-//@Table(name="Pioche")
+@Entity
 public class Pioche {
     // variables de classe
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
-//    @GenericGenerator(name = "native", strategy = "native")
-//    @Column( name = "id" )
-    private Integer id;
-//    @Column( name = "valeurPioche" )
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
+    @GenericGenerator(name = "native", strategy = "native")
+    private Integer idPioche;
+    @OneToMany
     private List<Carte> listCarte;
 
     // constructeur de la pioche
@@ -20,10 +21,10 @@ public class Pioche {
     }
 
     public Integer getId( ) {
-        return id;
+        return idPioche;
     }
     public void setId( Integer id ) {
-        this.id = id;
+        this.idPioche = idPioche;
     }
 
     public List< Carte > getListCarte( ) {

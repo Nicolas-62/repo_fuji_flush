@@ -1,6 +1,6 @@
 package org.ib.kanl;
 
-import org.ib.kanl.dao.JoueurDAO;
+import org.ib.kanl.dao.*;
 import org.ib.kanl.pojo.*;
 import org.ib.kanl.services.JoueurService;
 import org.ib.kanl.services.MainService;
@@ -9,22 +9,22 @@ import org.ib.kanl.services.PiocheService;
 
 public class App {
 
-    public static MainService mainService = new MainService();
-    public static JoueurService joueurService = new JoueurService();
-    public static PiocheService piocheService = new PiocheService();
-    public static PartieService partieService = new PartieService(piocheService, mainService, joueurService);
-
-     public static Partie partie = new Partie();
-
     public static void main(String[] args ) {
+        CarteDAO carteDAO = new CarteDAO(HibernateEntityManager.getInstance());
+        PiocheDAO piocheDAO = new PiocheDAO(HibernateEntityManager.getInstance());
+        MainDAO mainDAO = new MainDAO(HibernateEntityManager.getInstance());
+        JoueurDAO joueurDAO = new JoueurDAO(HibernateEntityManager.getInstance());
+        PartieDAO partieDAO = new PartieDAO(HibernateEntityManager.getInstance());
 
-            partieService.initialisation(partie);
-            partieService.jouer(partie);
+        MainService mainService = new MainService();
+        JoueurService joueurService = new JoueurService();
+        PiocheService piocheService = new PiocheService();
+        PartieService partieService = new PartieService(piocheService, mainService, joueurService);
 
+        Partie partie = new Partie();
 
-
-        // Test DAO
-//        JoueurDAO joueurDAO = new JoueurDAO(HibernateEntityManager.getInstance());
+            //partieService.initialisation(partie);
+            //partieService.jouer(partie);
 
         /*Joueur joueur = joueurDAO.get(1);
         System.out.println("Son pseudo : " + joueur.getPseudo());
@@ -32,14 +32,19 @@ public class App {
         System.out.println("Son mdp : " + joueur.getMdp());
         System.out.println("Son score : " + joueur.getScore());*/
 
-//        try{
-//        Joueur moi = new Joueur("Leti", "lschoepff@outlook.fr", "password");
-//        joueurDAO.create(moi);
-//        System.out.println("Moi créé avec l'id : [" + moi.getId() + "]");
-//        }
-//        catch(Exception e){
-//            System.out.println("soucis" );
-//        }
+        try{
+        Joueur moi = new Joueur();
+        moi.setPseudo("Letu");
+        moi.setEmail("lschoepff@outlook.fr");
+        moi.setScore(1);
+        moi.setMdp("password1234");
+
+        joueurDAO.create(moi);
+        System.out.println("Moi créé avec l'id : [" + moi.getIdJoueur() + "]");
+        }
+        catch(Exception e){
+            System.out.println("soucis" );
+        }
 
         /*moi.setNom("CESAR");
         //moi.setPrenom("Jules");
@@ -58,7 +63,6 @@ public class App {
 
          */
 
-//        HibernateEntityManager.closeEntityManager();
-
+        HibernateEntityManager.closeEntityManager();
     }
 }
