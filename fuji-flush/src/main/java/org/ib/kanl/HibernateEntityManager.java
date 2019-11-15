@@ -21,7 +21,7 @@ public class HibernateEntityManager {
         return em;
     }
 
-    public static void closeEntityManager() {
+    public  static void closeEntityManager() {
         em.close();
         factory.close();
     }

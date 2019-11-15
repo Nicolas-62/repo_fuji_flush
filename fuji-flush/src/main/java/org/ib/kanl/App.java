@@ -7,6 +7,9 @@ import org.ib.kanl.services.MainService;
 import org.ib.kanl.services.PartieService;
 import org.ib.kanl.services.PiocheService;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class App {
 
     public static void main(String[] args ) {
@@ -16,35 +19,61 @@ public class App {
         JoueurDAO joueurDAO = new JoueurDAO(HibernateEntityManager.getInstance());
         PartieDAO partieDAO = new PartieDAO(HibernateEntityManager.getInstance());
 
-        MainService mainService = new MainService();
-        JoueurService joueurService = new JoueurService();
-        PiocheService piocheService = new PiocheService();
-        PartieService partieService = new PartieService(piocheService, mainService, joueurService);
+        /********************** creation des joueurs **************************/
+        Joueur dede = new Joueur();
+        dede.setPseudo("dede");
+        dede.setEmail("dede@outlook.fr");
+        dede.setScore(0);
+        dede.setMdp("deded1234");
+        // SAVE joueur
+        joueurDAO.create(dede);
+        System.out.println("dede créé avec l'id : [" + dede.getIdJoueur() + "]");
 
+        Joueur letu = new Joueur();
+        letu.setPseudo("Letu");
+        letu.setEmail("lschoepff@outlook.fr");
+        letu.setScore(1);
+        letu.setMdp("password1234");
+        // SAVE joueur
+        joueurDAO.create(letu);
+        System.out.println("Letu créé avec l'id : [" + letu.getIdJoueur() + "]");
+
+        Joueur roger = new Joueur();
+        roger.setPseudo("roger");
+        roger.setEmail("dede@outlook.fr");
+        roger.setScore(0);
+        roger.setMdp("deded1234");
+        // SAVE joueur
+        joueurDAO.create(roger);
+        System.out.println("roger créé avec l'id : [" + roger.getIdJoueur() + "]");
+
+        /********************** creation de la partie **************************/
         Partie partie = new Partie();
-
-            //partieService.initialisation(partie);
-            //partieService.jouer(partie);
-
-        /*Joueur joueur = joueurDAO.get(1);
-        System.out.println("Son pseudo : " + joueur.getPseudo());
-        System.out.println("Son email : " + joueur.getEmail());
-        System.out.println("Son mdp : " + joueur.getMdp());
-        System.out.println("Son score : " + joueur.getScore());*/
-
-        try{
-        Joueur moi = new Joueur();
-        moi.setPseudo("Letu");
-        moi.setEmail("lschoepff@outlook.fr");
-        moi.setScore(1);
-        moi.setMdp("password1234");
-
-        joueurDAO.create(moi);
-        System.out.println("Moi créé avec l'id : [" + moi.getIdJoueur() + "]");
+        // ajout des joueurs
+        partie.setNbJoueur(3);
+        partie.setJoueur(dede);
+        partie.setJoueur(roger);
+        partie.setJoueur(letu);
+        // creation pioche avec 20 cartes differentes pour test
+        Pioche unePioche = new Pioche();
+        for(int i=1; i<=20; i++){
+            Carte uneCarte = new Carte(i);
+            // SAVE carte
+            carteDAO.create(uneCarte);
+           unePioche.getListCarte().add(uneCarte);
         }
-        catch(Exception e){
-            System.out.println("soucis" );
-        }
+        // SAVE pioche
+        piocheDAO.create(unePioche);
+        // ajout pioche au jeu
+        partie.setPioche(unePioche);
+        // distribuer cartes => création  des mains des joueurs
+        PartieService.distribuerCartes(partie);
+        // SAVE mains
+        mainDAO.create(dede.getMain());
+        mainDAO.create(letu.getMain());
+        mainDAO.create(roger.getMain());
+
+        //PartieService.jouer(partie);
 
         /*moi.setNom("CESAR");
         //moi.setPrenom("Jules");

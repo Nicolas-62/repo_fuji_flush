@@ -7,12 +7,8 @@ import java.util.List;
 
 public class PiocheService {
 
-    // constructeur de la pioche
-    public PiocheService( ) {
-    }
-
     //----------------------------------------------------------Methodes-----------------------------------------------------------------------
-   public void creationPioche(Pioche pioche) {
+   public static void creationPioche(Pioche pioche) {
         /* int[] tab =  {2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,3,3,3,3,3,3,3,3,3,3,3,3,4,4,4,4,4,4,4,4,4,5,5,5,5,5,5,5,5,6,6,6,6,6,6,7,7,7,7,7,7,8,8,8,8,8,9,9,9,9,10,10,10,10,11,11,11,11,12,12,12,13,13,13,14,14,14,15,15,16,17,18,19,20};
         for ( int i = 0 ; i < 90 ; i++ ) {
             pioche.getListCarte().add( new Carte( tab[i] ) );
@@ -68,13 +64,13 @@ public class PiocheService {
         Collections.shuffle(pioche.getListCarte());
     } // ajouter les 90 cartes de base à l'arraylist pioche et mélanger
 
-    public Carte piocher(Pioche pioche) {
+    public static Carte piocher(Pioche pioche) {
         Carte c = pioche.getListCarte().get( 0 );
         pioche.getListCarte().remove(0);
         return c;
     } // retirer la première carte de la pioche et retourner la carte
 
-    public void defausser(Pioche pioche, Carte c ) {
+    public static void defausser(Pioche pioche, Carte c ) {
         pioche.getListCarte().add(c);
     } // ajouter une carte à la fin de l'Arraylist pioche
 
@@ -82,11 +78,11 @@ public class PiocheService {
         return pioche.getListCarte().get( index );
     } // retirer une carte de la pioche
 
-    public void supprimerCarte(Pioche pioche, int index) {
+    public static void supprimerCarte(Pioche pioche, int index) {
         pioche.getListCarte().remove( index );
     } // retirer une carte de la pioche
 
-    public void ajouter(Pioche pioche, Carte c ) {
+    public static void ajouter(Pioche pioche, Carte c ) {
         pioche.getListCarte().add(c);
     } // ajouter une carte à la pioche
 }

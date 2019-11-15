@@ -15,17 +15,18 @@ public class Joueur< Arraylist > {
     private String email;
     private String mdp;
     private int score;
-    @OneToOne
-    private Main mainJoueur;
+    @OneToOne(mappedBy = "joueur")
+    private Main main;
 
     // Constructeurs
     public Joueur(int idJoueur, String pseudo) {
         this.idJoueur = idJoueur;
         this.pseudo = pseudo;
-        this.mainJoueur=new Main();
+        this.main = new Main();
     }
 
     public Joueur(){
+        this.main = new Main();
     }
 
     // Méthodes
@@ -68,11 +69,11 @@ public class Joueur< Arraylist > {
         this.score = score;
     }
 
-    public Main getMainJoueur() {
-        return this.mainJoueur;
+    public Main getMain() {
+        return this.main;
     }
 
-    public void setMainJoueur(Main main) {
-        this.mainJoueur = main;
+    public void setMain(Main main) {
+        this.main = main;
     }
 }

@@ -10,19 +10,19 @@ public class MainService {
     }
 
     //----------------------------------------------------------Methodes-----------------------------------------------------------------------
-    public void ajouter(Main main, Carte c) {
-        main.getMain().add(c);
+    public static void ajouter(Main main, Carte c) {
+        main.getListCarte().add(c);
     }
-    public Carte getCarte(Main main, int i)
+    public static Carte getCarte(Main main, int i)
     {
-        return main.getMain().get(i);
+        return main.getListCarte().get(i);
     }
-    public Carte remove(Main main, int index) {
-        return main.getMain().remove(index);
+    public static Carte remove(Main main, int index) {
+        return main.getListCarte().remove(index);
     }
-    public String detailMain(Main main) {
+    public static String detailMain(Main main) {
         String str = "\t";
-        for (int i =0; i < main.getMain().size(); i++)
+        for (int i =0; i < main.getListCarte().size(); i++)
         {
             str += " | "+getCarte(main, i).getValeur() + " | ";
         }

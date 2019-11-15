@@ -20,17 +20,17 @@ public class Partie {
     private Date dateFin;
     @OneToMany
     private List<Joueur> joueurs;
-    @OneToOne
+    @OneToOne(mappedBy = "partie")
     private Pioche pioche;
     private Carte[] tapis;
     private int nbJoueur;
 
     // Constructeurs
     public Partie() {
-        joueurs = new ArrayList<>();
         DateFormat format = new SimpleDateFormat("dd-MM-YYYY HH:mm:ss");
         this.dateDebut = new Date(System.currentTimeMillis());
         this.pioche = new Pioche();
+        this.joueurs = new ArrayList();
     }
 
     // getters
@@ -75,6 +75,9 @@ public class Partie {
 
     public void setJoueurs( List < Joueur > joueurs ) {
         this.joueurs = joueurs;
+    }
+    public void setJoueur( Joueur joueur ) {
+        this.joueurs.add(joueur);
     }
 
     public void setPioche( Pioche pioche ) {

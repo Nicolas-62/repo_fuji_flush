@@ -10,14 +10,16 @@ public class Main {
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
     @GenericGenerator(name = "native", strategy = "native")
     private Integer idMain;
+
     @OneToMany
-    private List<Carte> main;
+    private List<Carte> listCarte;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "joueur_id", referencedColumnName = "idJoueur")
+    private Joueur joueur;
 
     // Constructeur de la classe Main
-
-    public Main(){
-        this.main=new ArrayList();
-    }
+    public Main(){ this.listCarte = new ArrayList();}
 
    // Getters et Setters
 
@@ -29,12 +31,12 @@ public class Main {
         this.idMain = idMain;
     }
 
-    public List < Carte > getMain( ) {
-        return main;
+    public List < Carte > getListCarte( ) {
+        return this.listCarte;
     }
 
-    public void setMain( List < Carte > main ) {
-        this.main = main;
+    public void setListCarte( List < Carte > listCarte ) {
+        this.listCarte = listCarte;
     }
 
     /*public String mainToString(){
@@ -45,7 +47,7 @@ public class Main {
         }
         return str;
     }
-    public void mainToArray(String s) {
+    public static void mainToArray(String s) {
         this.main.clear();
         String[] tab = s.split(",");
 

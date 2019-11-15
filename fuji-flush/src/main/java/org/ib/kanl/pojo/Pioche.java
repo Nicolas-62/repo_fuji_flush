@@ -13,12 +13,14 @@ public class Pioche {
     @GenericGenerator(name = "native", strategy = "native")
     private Integer idPioche;
     @OneToMany
-    private List<Carte> listCarte;
+    private List<Carte> listCarte = new ArrayList();
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "partie_id", referencedColumnName = "idPartie")
+    private Partie partie;
 
     // constructeur de la pioche
-    public Pioche( ) {
-        listCarte = new ArrayList( );
-    }
+    public Pioche() { }
 
     public Integer getId( ) {
         return idPioche;
