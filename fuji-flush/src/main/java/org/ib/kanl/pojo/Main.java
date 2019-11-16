@@ -14,15 +14,28 @@ public class Main {
     @OneToMany
     private List<Carte> listCarte;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne
     @JoinColumn(name = "joueur_id", referencedColumnName = "idJoueur")
     private Joueur joueur;
 
-    // Constructeur de la classe Main
-    public Main(){ this.listCarte = new ArrayList();}
+
+    // Constructeurs de la classe Main
+    public Main() {
+        this.listCarte = new ArrayList();
+    }
+    public Main(Joueur joueur) {
+        this.joueur = joueur;
+        this.listCarte = new ArrayList();
+    }
+
 
    // Getters et Setters
-
+    public Joueur getJoueur() {
+        return joueur;
+    }
+    public void setJoueur(Joueur joueur) {
+        this.joueur = joueur;
+    }
     public Integer getIdMain() {
         return idMain;
     }

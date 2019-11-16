@@ -20,7 +20,8 @@ public class Partie {
     private Date dateFin;
     @OneToMany
     private List<Joueur> joueurs;
-    @OneToOne(mappedBy = "partie")
+    // cascade laissé mais non fonctionnel
+    @OneToOne(mappedBy = "partie", cascade = CascadeType.ALL)
     private Pioche pioche;
     private Carte[] tapis;
     private int nbJoueur;
@@ -29,7 +30,6 @@ public class Partie {
     public Partie() {
         DateFormat format = new SimpleDateFormat("dd-MM-YYYY HH:mm:ss");
         this.dateDebut = new Date(System.currentTimeMillis());
-        this.pioche = new Pioche();
         this.joueurs = new ArrayList();
     }
 

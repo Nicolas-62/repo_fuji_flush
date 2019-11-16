@@ -16,13 +16,12 @@ public class Carte {
     private Integer valeur;
 
     // Constructeur
+    public Carte() {}
     public Carte( int valeur ){
         this.valeur=valeur;
     }
 
-    public Carte() {}
-
-        // Getters et Setters
+    // Getters et Setters
 
     public Integer getValeur() {
                 return this.valeur;

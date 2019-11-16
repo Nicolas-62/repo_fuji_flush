@@ -15,20 +15,17 @@ public class Joueur< Arraylist > {
     private String email;
     private String mdp;
     private int score;
-    @OneToOne(mappedBy = "joueur")
+    // cascade laissé mais non fonctionnel
+    @OneToOne(mappedBy = "joueur", cascade = CascadeType.ALL)
     private Main main;
 
     // Constructeurs
-    public Joueur(int idJoueur, String pseudo) {
-        this.idJoueur = idJoueur;
+
+    public Joueur() {
+    }
+    public Joueur(String pseudo) {
         this.pseudo = pseudo;
-        this.main = new Main();
     }
-
-    public Joueur(){
-        this.main = new Main();
-    }
-
     // Méthodes
     public Integer getIdJoueur() {
         return idJoueur;

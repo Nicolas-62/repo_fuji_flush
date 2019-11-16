@@ -41,7 +41,7 @@ public class PartieService {
         Scanner scan = new Scanner( System.in );
         System.out.print( "Entrez le pseudo du joueur " + ( numero + 1 ) + " : " );
         String s = scan.nextLine( );
-        partie.getJoueurs( ).add( new Joueur( numero, s ) );
+        partie.getJoueurs( ).add( new Joueur(s) );
     } // ajoute des joueurs avec leur pseudo à la liste des joueurs
 
     public static void initialisationJoueurs( Partie partie ) {
@@ -56,8 +56,6 @@ public class PartieService {
             {
                 for ( int j = 0 ; j < partie.getNbJoueur( ) ; j++ ) {
                     Carte carte = PiocheService.piocher( partie.getPioche( ) );
-                    System.out.println(carte);
-                    System.out.println(partie.getJoueurs( ).get( j ).getMain( ).getListCarte( ));
                     partie.getJoueurs( ).get( j ).getMain( ).getListCarte( ).add( carte );
                 }
             }

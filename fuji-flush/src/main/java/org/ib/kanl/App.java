@@ -29,68 +29,61 @@ public class App {
         joueurDAO.create(dede);
         System.out.println("dede créé avec l'id : [" + dede.getIdJoueur() + "]");
 
-        Joueur letu = new Joueur();
-        letu.setPseudo("Letu");
-        letu.setEmail("lschoepff@outlook.fr");
-        letu.setScore(1);
-        letu.setMdp("password1234");
+        Joueur leti = new Joueur();
+        leti.setPseudo("leti");
+        leti.setEmail("lschoepff@outlook.fr");
+        leti.setScore(1);
+        leti.setMdp("password1234");
         // SAVE joueur
-        joueurDAO.create(letu);
-        System.out.println("Letu créé avec l'id : [" + letu.getIdJoueur() + "]");
+        joueurDAO.create(leti);
+        System.out.println("leti créé avec l'id : [" + leti.getIdJoueur() + "]");
 
-        Joueur roger = new Joueur();
-        roger.setPseudo("roger");
-        roger.setEmail("dede@outlook.fr");
-        roger.setScore(0);
-        roger.setMdp("deded1234");
+        Joueur bob = new Joueur();
+        bob.setPseudo("bob");
+        bob.setEmail("dede@outlook.fr");
+        bob.setScore(0);
+        bob.setMdp("deded1234");
         // SAVE joueur
-        joueurDAO.create(roger);
-        System.out.println("roger créé avec l'id : [" + roger.getIdJoueur() + "]");
+        joueurDAO.create(bob);
+        System.out.println("bob créé avec l'id : [" + bob.getIdJoueur() + "]");
 
         /********************** creation de la partie **************************/
         Partie partie = new Partie();
+        // SAVE partie
+        partieDAO.create(partie);
         // ajout des joueurs
         partie.setNbJoueur(3);
         partie.setJoueur(dede);
-        partie.setJoueur(roger);
-        partie.setJoueur(letu);
+        partie.setJoueur(bob);
+        partie.setJoueur(leti);
+        // creation pioche, on associe la pioche avec la partie (recupération partie_id pour la table pioche)
+        Pioche unePioche = new Pioche(partie);
         // creation pioche avec 20 cartes differentes pour test
-        Pioche unePioche = new Pioche();
         for(int i=1; i<=20; i++){
             Carte uneCarte = new Carte(i);
             // SAVE carte
             carteDAO.create(uneCarte);
-           unePioche.getListCarte().add(uneCarte);
+            unePioche.getListCarte().add(uneCarte);
         }
+        // ajout pioche à la partie
+        partie.setPioche(unePioche);
         // SAVE pioche
         piocheDAO.create(unePioche);
-        // ajout pioche au jeu
-        partie.setPioche(unePioche);
+        // création des mains des joueurs
+        // une main est associée à un joueur
+        dede.setMain(new Main(dede));
+        leti.setMain(new Main(leti));
+        bob.setMain(new Main(bob));
         // distribuer cartes => création  des mains des joueurs
         PartieService.distribuerCartes(partie);
         // SAVE mains
         mainDAO.create(dede.getMain());
-        mainDAO.create(letu.getMain());
-        mainDAO.create(roger.getMain());
+        mainDAO.create(leti.getMain());
+        mainDAO.create(bob.getMain());
 
-        //PartieService.jouer(partie);
+        PartieService.jouer(partie);
 
-        /*moi.setNom("CESAR");
-        //moi.setPrenom("Jules");
-        eleveDAO.update(moi);
-        System.out.println("Moi mis à jour !");
 
-        Eleve monAutreMoi = eleveDAO.get(moi.getId());
-        System.out.println("Mon nom : " + monAutreMoi.getNom());
-        System.out.println("Mon prénom : " + monAutreMoi.getPrenom());
-
-        eleveDAO.delete(moi);
-        System.out.println("Moi supprimé !");
-
-        List <Eleve> eleves = eleveDAO.find();
-        System.out.println("Nb eleve dans l'école : " + eleves.size());
-
-         */
 
         HibernateEntityManager.closeEntityManager();
     }
