@@ -78,6 +78,7 @@
           <version>3.2.2</version>
           <configuration>
             <warSourceDirectory>src/main/webapp</warSourceDirectory>
+            <!--  nom final du war généré : fuji.war .. à changer ?-->
             <warName>fuji</warName>
             <failOnMissingWebXml>false</failOnMissingWebXml>
           </configuration>

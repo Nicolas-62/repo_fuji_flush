@@ -10,6 +10,7 @@ import org.ib.kanl.dao.MainDAO;
 import org.ib.kanl.dao.PartieDAO;
 import org.ib.kanl.dao.PiocheDAO;
 
+// modele classe tiré de https://openclassrooms.com/fr/courses/626954-creez-votre-application-web-avec-java-ee/624784-le-modele-dao#/id/r-624734
 public class InitialisationDAO implements ServletContextListener {
 	private static final String ATT_PARTIE_DAO = "partieDAO";
 	private static final String ATT_PIOCHE_DAO = "piocheDAO";
