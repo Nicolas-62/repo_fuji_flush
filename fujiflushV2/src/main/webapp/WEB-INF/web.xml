@@ -3,5 +3,18 @@
  "http://java.sun.com/dtd/web-app_2_3.dtd" >
 
 <web-app>
-  <display-name>Archetype Created Web Application</display-name>
+  <display-name>fuji-flushV2</display-name>
+  <listener>
+    <listener-class>org.ib.kanl.InitialisationDAO</listener-class>
+</listener>
+ <servlet>
+  <servlet-name>Home</servlet-name>
+  <servlet-class>
+   org.ib.kanl.controleur.Home
+  </servlet-class>
+ </servlet>
+ <servlet-mapping>
+  <servlet-name>Home</servlet-name>
+  <url-pattern>/home</url-pattern>
+ </servlet-mapping>
 </web-app>
