@@ -1,0 +1,14 @@
+Joueur(bob):
+  email: bob@gmail.com
+  mdp: azerty
+  pseudo: bob
+
+Joueur(lisa):
+  email: lisa@gmail.com
+  mdp: azerty
+  pseudo: lisa
+  
+Joueur(patrick):
+  email: patrick@gmail.com
+  mdp: azerty
+  pseudo: patrick

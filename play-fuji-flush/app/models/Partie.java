@@ -1,13 +1,18 @@
 package models;
 
-import org.hibernate.annotations.GenericGenerator;
-
-import javax.persistence.*;
-import java.util.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 @Entity
 public class Partie extends IdModel{
@@ -24,7 +29,9 @@ public class Partie extends IdModel{
     @OneToOne(mappedBy = "partie", cascade = CascadeType.ALL)
     private Pioche pioche;
     
+    @Transient // annotation pour que JPA ignore cet attribut en bdd
     private Carte[] tapis;
+    @Transient
     private int nbJoueur;
 
     // Constructeurs

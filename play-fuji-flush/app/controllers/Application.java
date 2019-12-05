@@ -10,13 +10,7 @@ import models.*;
 
 public class Application extends Controller {
 
-    public static void index() {
-    	Joueur nico = new Joueur();
-    	nico.email="nlourdel62000@gmail.com";
-    	nico.mdp="azerty";
-    	nico.pseudo="nico";
-    	PartieService.get().addJoueur(nico);
-    	
+    public static void index() {   	
         render();
     }
 
