@@ -80,7 +80,7 @@ public class App {
         mainDAO.create(dede.getMain());
         mainDAO.create(leti.getMain());
         mainDAO.create(bob.getMain());
-
+        
         PartieService.jouer(partie);
 
 
