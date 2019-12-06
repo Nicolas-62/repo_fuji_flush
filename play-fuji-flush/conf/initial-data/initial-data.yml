@@ -12,3 +12,25 @@ Joueur(patrick):
   email: patrick@gmail.com
   mdp: azerty
   pseudo: patrick
+
+User(alex):
+  email: alex@gmail.com
+  password: azerty
+  firstName: alex
+  lastName: leduey
+
+User(nico):
+ email: "nlourdel62000@gmail.com"
+ password: azerty
+ firstName: nicolas
+ lastName: lourdel
+
+ 
+User(leti):
+ email: "leti@gmail.com"
+ password: azerty
+ firstName: leti
+ lastName: shopp
+
+Game(game):
+  currentPlayer: alex
