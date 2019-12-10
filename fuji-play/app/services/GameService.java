@@ -73,7 +73,7 @@ public class GameService {
     public static Game getOne() {
         return Game.find("").first();
     }
-
+    // ajoute une carte dans une main et la supprime du deck
     public static void draw(List<Card> deck, Hand hand) {
         hand.cards.add(deck.get(0));
         deck.remove(0);
