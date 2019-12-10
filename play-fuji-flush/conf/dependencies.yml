@@ -1,9 +1,0 @@
-# Application dependencies
-
-require:
-    - play
-    - play -> docviewer
-    - play -> secure
-    - org.mindrot -> jbcrypt 0.4
-    - com.google.guava -> guava 27.1-jre:
-          transitive: false
