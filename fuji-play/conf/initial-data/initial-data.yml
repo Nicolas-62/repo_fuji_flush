@@ -1,0 +1,32 @@
+User(han_solo):
+  email: han.solo@coaxys.com
+  password: $2a$12$50caQhMkg8.bk7/U3fWVZeg/43qtYd/bauO0n/JHQvoYOLRbICtnW
+  firstName: Han
+  lastName: Solo
+
+User(boba_fett):
+  email: boba.fett@coaxys.com
+  password: $2a$12$GLzxtV1YSMLGi6ETnlYnPuhCWVStHbduK3XAFvhfJP8BRNZqKQ/x.
+  firstName: Boba
+  lastName: Fett
+
+User(anakin_skywalker):
+  email: anakin.skywalker@coaxys.com
+  password: $2a$12$GLzxtV1YSMLGi6ETnlYnPuhCWVStHbduK3XAFvhfJP8BRNZqKQ/x.
+  firstName: Anakin
+  lastName: Skywalker
+
+Game(g1):
+  currentPlayer: boba_fett
+
+Hand(h1_han):
+  game: g1
+  player: han_solo
+
+Hand(h1_boba):
+  game: g1
+  player: boba_fett
+
+Hand(h1_anakin):
+  game: g1
+  player: anakin_skywalker

@@ -1,0 +1,23 @@
+#{extends 'main.html' /}
+#{set title:'Home' /}
+
+<h1>#{if game.winner}VAINQUEUR ${game.winner.firstName}#{/if}#{else}Partie en cours#{/else}</h1>
+<h2>${player.firstName}</h2>
+<ol>
+#{if game.currentPlayer.equals(player)}
+    #{list items:handPlayer.cards, as:'aCard'}
+        <li><a href="@{Application.playCard(handPlayer.id, aCard_index-1)}">${aCard.value}</a></li>
+    #{/list}
+#{/if}
+#{else}
+    #{list items:handPlayer.cards, as:'aCard'}
+        <li>${aCard.value}</li>
+    #{/list}
+#{/else}
+</ol>
+
+#{list items:game.hands, as:'aHand'}
+    <h3>${aHand.player.firstName}</h3>
+    <p>Nombre de cartes: ${aHand.cards?.size()}</p>
+    <p>Carte jouée : ${aHand.cardP?.value}</p>
+#{/list}
