@@ -3,8 +3,7 @@
 
 <div class="register">
 
-    #{form @createAccount()}
-
+    <form action="@{Home.createAccount()}" method="post">
         <h1>Register</h1>
         <p>Please fill in this form to create an account.</p>
 
@@ -18,13 +17,11 @@
         <label for="password"><b>Password</b></label>
         <input type="password" placeholder="Enter Password" name="password" required>
 
-        <label for="password-repeat"><b>Repeat Password</b></label>
-        <input type="password" placeholder="Repeat Password" name="password-repeat" required>
+        <label for="passwordRepeat"><b>Repeat Password</b></label>
+        <input type="password" placeholder="Repeat Password" name="passwordRepeat" required>
         <hr>
 
         <button type="submit" class="registerbtn">Register</button>
-
-    #{/form}
-
+    </form>
 </div>
 

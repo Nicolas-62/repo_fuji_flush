@@ -6,6 +6,7 @@
 # Home page
 GET     /                                       Home.index
 GET     /register                               Home.register
+POST    /register                               Home.createAccount
 
 # Application page
 GET     /saloon                                 Application.saloon

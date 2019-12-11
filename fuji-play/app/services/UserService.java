@@ -26,4 +26,7 @@ public class UserService {
         return BCrypt.checkpw(password, cryptedPassword);
     }
 
+    public static void addUser(User user) {
+        user.save();
+    }
 }
