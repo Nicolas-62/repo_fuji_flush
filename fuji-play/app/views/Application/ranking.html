@@ -2,3 +2,18 @@
 #{set title:'Ranking' /}
 
 <h1>Ranking</h1>
+
+<ol>
+    #{list items:listRanking, as:'aUser'}
+        <li>
+            <div>
+                <span> ${aUser.nickName} </span>
+                <span> ${aUser.score} </span>
+            </div>
+        </li>
+    #{/list}
+</ol>
+
+<hr>
+<p> Nombre de joueurs : ${nbUser} </p>
+

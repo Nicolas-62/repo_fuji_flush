@@ -7,6 +7,11 @@ import play.mvc.Controller;
 import play.mvc.With;
 import services.GameService;
 import services.HandService;
+import services.UserService;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @With(Secure.class)
@@ -14,6 +19,17 @@ public class Application extends Controller {
 
     public static void saloon() {
         render();
+    }
+
+    public static void ranking()
+    {
+        User user = Security.connectedUser();
+
+        List<User> listRanking = UserService.getTopRank();
+
+        Long nbUser = UserService.getNbUser();
+
+        render(listRanking, nbUser);
     }
 
     public static void play() {

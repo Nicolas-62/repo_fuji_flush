@@ -1,20 +1,20 @@
 User(han_solo):
   email: han.solo@coaxys.com
   password: $2a$12$50caQhMkg8.bk7/U3fWVZeg/43qtYd/bauO0n/JHQvoYOLRbICtnW
-  firstName: Han
-  lastName: Solo
+  nickName: Han
+  score: 15
 
 User(boba_fett):
   email: boba.fett@coaxys.com
   password: $2a$12$GLzxtV1YSMLGi6ETnlYnPuhCWVStHbduK3XAFvhfJP8BRNZqKQ/x.
-  firstName: Boba
-  lastName: Fett
+  nickName: Boba
+  score: 67
 
 User(anakin_skywalker):
   email: anakin.skywalker@coaxys.com
   password: $2a$12$GLzxtV1YSMLGi6ETnlYnPuhCWVStHbduK3XAFvhfJP8BRNZqKQ/x.
-  firstName: Anakin
-  lastName: Skywalker
+  nickName: Anakin
+  score: 3
 
 Game(g1):
   currentPlayer: boba_fett

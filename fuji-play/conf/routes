@@ -10,6 +10,8 @@ POST    /register                               Home.createAccount
 
 # Application page
 GET     /saloon                                 Application.saloon
+GET     /ranking                                Application.ranking
+GET     /records                                Application.records
 GET     /play                                   Application.play
 GET     /card/play                              Application.playCard
 

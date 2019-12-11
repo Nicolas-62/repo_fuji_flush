@@ -1,8 +1,11 @@
 package services;
 
+import controllers.Security;
 import models.User;
 import org.mindrot.jbcrypt.BCrypt;
 import play.Logger;
+
+import java.util.List;
 
 public class UserService {
 
@@ -28,5 +31,16 @@ public class UserService {
 
     public static void addUser(User user) {
         user.save();
+    }
+
+    public static List<User> getTopRank() {
+        List<User> list = User.find("ORDER BY score DESC").fetch(10);
+
+        return list;
+    }
+
+    public static long getNbUser()
+    {
+        return User.count();
     }
 }
