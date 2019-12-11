@@ -8,8 +8,13 @@ import play.mvc.With;
 import services.GameService;
 import services.HandService;
 
+
 @With(Secure.class)
 public class Application extends Controller {
+
+    public static void saloon() {
+        render();
+    }
 
     public static void play() {
         User player = Security.connectedUser();
@@ -40,6 +45,4 @@ public class Application extends Controller {
             forbidden();
         }
     }
-
-
 }

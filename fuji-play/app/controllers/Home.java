@@ -5,11 +5,11 @@ import play.mvc.Controller;
 
 public class Home extends Controller {
 
-           public static void index() {
+    public static void index() {
             render();
         }
 
-        public static void register() {
+    public static void register() {
            render();
         }
 

@@ -1,0 +1,71 @@
+.bandeau
+{
+    position: relative;
+
+    height: 10%;
+    width: 100%;
+
+    text-align: center;
+    text-shadow: 1px 1px 2px black, 0 0 1em #00FF00, 0 0 0.2em cyan;
+    background-color: rgba(0,0,0, .2);
+
+    font-family: 'Orbitron', sans-serif;
+}
+
+
+/* IMAGE DE FOND BODY *******************************************************/
+body
+{
+    background-image: url("../images/wallpaper.jpg");
+    background-repeat: no-repeat;
+
+    background-size: cover;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+
+    height:100%;
+    width: 100%;
+}
+
+
+/* NAVIGATION **************************************************************/
+.navigation {
+    width: 100%;
+    height: 10%;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    width: 90%;
+    margin: auto;
+
+    padding: 0;
+}
+
+/* ONGLET NAVIGATION ******************************************************/
+.navigation-item
+{
+    width: 300px;
+    height: 50px;
+
+    color: black;
+    text-decoration: none;
+    text-align: center;
+    text-shadow: 1px 1px 2px black, 0 0 1em #00FF00, 0 0 0.2em cyan;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 27px;
+
+    background: rgb(0,255,0);
+    background: linear-gradient(0deg, rgba(0,255,0,0.1) 0%, rgba(0,255,31,0.4) 16%, rgba(0,255,150,1) 61%, rgba(0,0,0,0.4) 100%);
+
+    border-radius: 10%;
+}
+
+
+/* ONGLET NAVIGATION SURVOL **********************************************/
+.navigation-item:hover
+{
+    background: linear-gradient(0deg, rgba(0,255,0,0.4) 0%, rgba(0,255,31,0.7) 16%, rgba(0,255,150,1) 61%, rgba(0,0,0,0.7) 100%);
+}
