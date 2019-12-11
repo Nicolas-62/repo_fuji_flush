@@ -13,6 +13,7 @@ import services.CardService;
 import services.GameService;
 import services.HandService;
 
+
 @With(Secure.class)
 public class Application extends Controller {
 
@@ -58,11 +59,9 @@ public class Application extends Controller {
 
             GameService.ruleFullTurn(game);
 
-            index();
+            play();
         } else {
             forbidden();
         }
     }
-
-
 }

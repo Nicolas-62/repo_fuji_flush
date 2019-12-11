@@ -1,12 +1,18 @@
 # Routes
 # This file defines all application routes (Higher priority routes first)
-# ~~~~
 
 *       /                                       module:secure
 
 # Home page
 GET     /                                       Application.index
 GET 	/game/new/{nbJoueur}					Application.newGame
+GET     /                                       Home.index
+GET     /register                               Home.register
+POST    /register                               Home.createAccount
+
+# Application page
+GET     /saloon                                 Application.saloon
+GET     /play                                   Application.play
 GET     /card/play                              Application.playCard
 
 # Ignore favicon requests
@@ -15,5 +21,4 @@ GET     /favicon.ico                            404
 # Map static resources from the /app/public folder to the /public path
 GET     /public/                                staticDir:public
 
-# Catch all
-*       /{controller}/{action}                  {controller}.{action}
+
