@@ -8,6 +8,12 @@ import java.util.List;
 
 public class GameService {
 	/**
+	 * Créé un nouveau jeu
+	 */
+	public static void addGame(Game game) {
+		game.save();
+	}
+	/**
 	 * Met à jour le currentPlayer de la partie en cours
 	 * @param game : partie en cours
 	 * @param hand : main du joueur qui vient de jouer

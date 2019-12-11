@@ -1,11 +1,15 @@
 package controllers;
 
+import java.util.Collections;
+import java.util.List;
+
+import models.Card;
 import models.Game;
 import models.Hand;
 import models.User;
 import play.mvc.Controller;
 import play.mvc.With;
-import play.templates.GroovyInlineTags;
+import services.CardService;
 import services.GameService;
 import services.HandService;
 
@@ -20,9 +24,16 @@ public class Application extends Controller {
 	 */
     public static void index() {
         User player = Security.connectedUser();
-        Hand handPlayer = HandService.getByPlayer(player);
-        Game game = handPlayer.game;
-        render(game, player, handPlayer);
+        render();
+    }
+    public static void newGame(int nbJoueur) {
+    	User player = Security.connectedUser();
+    	Game game = new Game();
+    	game.author = player;
+    	game.deck = CardService.findAll();
+    	Collections.shuffle(game.deck);   	
+    	GameService.addGame(game);
+    	
     }
     /**
      * Met à jour le jeu en fonction de la carte jouée

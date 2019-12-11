@@ -2,11 +2,21 @@ package models;
 
 
 import javax.persistence.*;
+
+import com.google.gson.annotations.Expose;
+
+import java.util.Date;
 import java.util.List;
 
 @Entity
 public class Game extends IdModel {
 
+	public User author;
+	
+	@Temporal(TemporalType.TIMESTAMP)
+	public Date dateDebut;
+
+	
     @OneToMany(mappedBy = "game")
     public List<Hand> hands;
 

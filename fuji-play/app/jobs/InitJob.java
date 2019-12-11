@@ -14,9 +14,25 @@ import java.util.List;
 
 @OnApplicationStart
 public class InitJob extends Job {
-
+	
     @Override
     public void doJob() throws Exception {
+        Fixtures.deleteAllModels();
+        Fixtures.loadModels("initial-data/initial-data.yml");
+        
+        int[] repartition = {16, 12, 9, 8, 6, 6, 5, 4, 4, 4, 3, 3, 3, 2, 1, 1, 1, 1, 1};
+        for (int i = 2; i < 21; i++) {
+            for (int j = 0; j < repartition[i - 2]; j++) {
+                Card card = new Card();
+                card.value = i;
+                card.save();
+            }
+        }
+    }
+    
+    
+    // @Override
+    public void doJobV1() throws Exception {
         Fixtures.deleteAllModels();
         Fixtures.loadModels("initial-data/initial-data.yml");
         

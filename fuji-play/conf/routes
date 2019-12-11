@@ -6,6 +6,7 @@
 
 # Home page
 GET     /                                       Application.index
+GET 	/game/new/{nbJoueur}					Application.newGame
 GET     /card/play                              Application.playCard
 
 # Ignore favicon requests
