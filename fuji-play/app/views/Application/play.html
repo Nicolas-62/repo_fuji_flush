@@ -1,7 +1,10 @@
 #{extends 'main.html' /}
-#{set title:'Home' /}
+#{set title:'Current Game' /}
 
-<h1>#{if game.winner}VAINQUEUR ${game.winner.firstName}#{/if}#{else}Partie en cours#{/else}</h1>
+<h1>#{if game.winner}VAINQUEUR ${game.winner.firstName}#{/if}
+
+#{else}Partie en cours#{/else}</h1>
+
 <h2>${player.firstName}</h2>
 <ol>
 #{if game.currentPlayer.equals(player)}
@@ -17,7 +20,7 @@
 </ol>
 
 #{list items:game.hands, as:'aHand'}
-    <h3>${aHand.player.firstName}</h3>
-    <p>Nombre de cartes: ${aHand.cards?.size()}</p>
-    <p>Carte jouée : ${aHand.cardP?.value}</p>
+<h3>${aHand.player.firstName}</h3>
+<p>Nombre de cartes: ${aHand.cards?.size()}</p>
+<p>Carte jouée : ${aHand.cardP?.value}</p>
 #{/list}

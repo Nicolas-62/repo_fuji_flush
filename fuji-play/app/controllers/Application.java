@@ -11,7 +11,7 @@ import services.HandService;
 @With(Secure.class)
 public class Application extends Controller {
 
-    public static void index() {
+    public static void play() {
         User player = Security.connectedUser();
         Hand handPlayer = HandService.getByPlayer(player);
         Game game = handPlayer.game;
@@ -35,7 +35,7 @@ public class Application extends Controller {
 
             GameService.ruleFullTurn(game);
 
-            index();
+            play();
         } else {
             forbidden();
         }
