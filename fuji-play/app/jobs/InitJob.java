@@ -15,8 +15,11 @@ import java.util.List;
 @OnApplicationStart
 public class InitJob extends Job {
 	
-    @Override
-    public void doJob() throws Exception {
+	/**
+	 * Création des cartes du jeu en bdd
+	 */
+    //@Override
+    public void doJobV2() throws Exception {
         Fixtures.deleteAllModels();
         Fixtures.loadModels("initial-data/initial-data.yml");
         
@@ -31,8 +34,8 @@ public class InitJob extends Job {
     }
     
     
-    // @Override
-    public void doJobV1() throws Exception {
+    @Override
+    public void doJob() throws Exception {
         Fixtures.deleteAllModels();
         Fixtures.loadModels("initial-data/initial-data.yml");
         

@@ -17,15 +17,11 @@ User(anakin_skywalker):
   lastName: Skywalker
 
 Game(g1):
-  currentPlayer: boba_fett
+  currentPlayer: han_solo
 
 Hand(h1_han):
   game: g1
   player: han_solo
-
-Hand(h1_boba):
-  game: g1
-  player: boba_fett
 
 Hand(h1_anakin):
   game: g1

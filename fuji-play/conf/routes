@@ -4,8 +4,6 @@
 *       /                                       module:secure
 
 # Home page
-GET     /                                       Application.index
-GET 	/game/new/{nbJoueur}					Application.newGame
 GET     /                                       Home.index
 GET     /register                               Home.register
 POST    /register                               Home.createAccount
@@ -14,6 +12,8 @@ POST    /register                               Home.createAccount
 GET     /saloon                                 Application.saloon
 GET     /play                                   Application.play
 GET     /card/play                              Application.playCard
+GET		/game/join								Application.joinGame
+POST 	/game/add								Application.addGame
 
 # Ignore favicon requests
 GET     /favicon.ico                            404

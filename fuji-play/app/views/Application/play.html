@@ -1,11 +1,15 @@
 #{extends 'main.html' /}
 #{set title:'Current Game' /}
-
-<h1>#{if game.winner}VAINQUEUR ${game.winner.firstName}#{/if}
+<nav class="navigation">
+        <a href="/rank" class="navigation-item"> CLASSEMENT </a>
+        <a href="/history" class="navigation-item"> HISTORIQUE </a>
+        <a href="@{Application.saloon()}" class="navigation-item">Mon Saloon</a>
+</nav>
+<h1>#{if game.winner}VAINQUEUR ${game.winner.nickName}#{/if}
 
 #{else}Partie en cours#{/else}</h1>
 
-<h2>${player.firstName}</h2>
+<h2>${player.nickName}</h2>
 <ol>
 #{if game.currentPlayer.equals(player)}
     #{list items:handPlayer.cards, as:'aCard'}
@@ -20,7 +24,7 @@
 </ol>
 
 #{list items:game.hands, as:'aHand'}
-<h3>${aHand.player.firstName}</h3>
+<h3>${aHand.player.nickName}</h3>
 <p>Nombre de cartes: ${aHand.cards?.size()}</p>
 <p>Carte jouée : ${aHand.cardP?.value}</p>
 #{/list}

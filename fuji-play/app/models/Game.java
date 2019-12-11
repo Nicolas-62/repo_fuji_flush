@@ -10,7 +10,7 @@ import java.util.List;
 
 @Entity
 public class Game extends IdModel {
-
+	@OneToOne
 	public User author;
 	
 	@Temporal(TemporalType.TIMESTAMP)

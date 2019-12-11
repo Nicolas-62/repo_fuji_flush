@@ -1,10 +1,12 @@
 package services;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import models.Card;
 import models.Game;
 import models.Hand;
-
-import java.util.List;
+import models.User;
 
 public class GameService {
 	/**
@@ -12,6 +14,23 @@ public class GameService {
 	 */
 	public static void addGame(Game game) {
 		game.save();
+	}
+	public static List<Game> getAll() {
+		return Game.findAll();
+	}
+	/**
+	 * 
+	 * @param game
+	 * @param player
+	 */
+	public static void joinGame(Game game, User player) {
+        Hand handPlayer = new Hand();
+        handPlayer.player = player;
+        handPlayer.cards = new ArrayList<Card>();
+        handPlayer.game = game;
+        GameService.draw(game.deck, handPlayer);		
+        game.hands.add(handPlayer);
+        game.save();
 	}
 	/**
 	 * Met à jour le currentPlayer de la partie en cours
@@ -115,7 +134,7 @@ public class GameService {
         return Game.find("").first();
     }
     /**
-     * Ajoute une carte dans une main à partir du deck
+     * Ajoute une carte dans une main à partir du deck, sauvegarde la main
      * @param deck
      * @param hand
      */
@@ -135,5 +154,8 @@ public class GameService {
         game.save();
         hand.save();
     }
+	public static Game getById(Long gameId) {
+		return Game.findById(gameId);
+	}
 
 }

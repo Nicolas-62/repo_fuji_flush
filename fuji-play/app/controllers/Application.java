@@ -17,25 +17,50 @@ import services.HandService;
 @With(Secure.class)
 public class Application extends Controller {
 
-	/**
-	 * Demande authentification du joueur, récupère le joueur, sa main, le jeu associé à sa main.
-	 * @return game : jeu
-	 * @return player : joueur
-	 * @return  handPlayer : min du joueur 
-	 */
     public static void index() {
         User player = Security.connectedUser();
         render();
     }
-    public static void newGame(int nbJoueur) {
+    public static void saloon() {
+    	User player = Security.connectedUser(); 
+    	List<Game> games = GameService.getAll();
+    	render(games, player);
+    }
+    /**
+     * Creation d'une partie par un joueur donné
+     * @param nbJoueur : nombre de joueurs voulu dans la partie
+     */
+    public static void addGame(int nbJoueur) {
     	User player = Security.connectedUser();
     	Game game = new Game();
     	game.author = player;
     	game.deck = CardService.findAll();
     	Collections.shuffle(game.deck);   	
-    	GameService.addGame(game);
+    	GameService.addGame(game);    	
+    	joinGame(game.id);
     	
     }
+	/**
+	 * Le joueur connecté rejoint la partie, on crée sa main
+	 * @param gameId : id de la partie
+	 */
+    public static void joinGame(Long gameId) {
+    	User player = Security.connectedUser();
+    	Game game = GameService.getById(gameId);
+    	GameService.joinGame(game, player);
+    	play(gameId);
+    }
+	/**
+	 * Le joueur connecté ayant déjà rejoint la partie peut jouer
+	 * @param gameId : id de la partie
+	 */
+    public static void play(Long gameId) {
+    	User player = Security.connectedUser();
+        Game game = GameService.getById(gameId);
+        Hand handPlayer = HandService.getByPlayer(player);
+        render(game, player, handPlayer);
+    }
+
     /**
      * Met à jour le jeu en fonction de la carte jouée
      * @param id : handPlayer.id, id de la main d'un joueur donné
@@ -59,7 +84,7 @@ public class Application extends Controller {
 
             GameService.ruleFullTurn(game);
 
-            play();
+            play(game.id);
         } else {
             forbidden();
         }

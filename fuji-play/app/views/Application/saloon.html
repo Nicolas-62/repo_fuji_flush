@@ -4,4 +4,39 @@
 <nav class="navigation">
     <a href="/rank" class="navigation-item"> CLASSEMENT </a>
     <a href="/history" class="navigation-item"> HISTORIQUE </a>
+    <a href="@{Application.saloon()}" class="navigation-item">Mon Saloon</a>
 </nav>
+<form action="@{Application.addGame()}" method="post">
+    <input list="nbJoueur" name="nbJoueur">
+    <datalist id="nbJoueur">
+        <option value="3">
+        <option value="4">
+        <option value="5">
+        <option value="6">
+        <option value="7">
+        <option value="8">
+    </datalist>
+    <input type="submit" value="Créer partie">
+
+</form>
+<ul>
+#{if games}
+    #{list items:games, as:'aGame'}
+        #{if aGame.winner != null}
+        <li>Game <a href="#">revoir</a></li>  
+        #{/if}  
+        #{else}
+            #{set join:true/}
+            #{list items:aGame.hands, as:'aHand'}
+                #{if aHand.player.equals(player)}
+                <li>Game <a href="@{Application.play(aGame.id)}">jouer</a></li>
+                #{set join:false/}
+                #{/if}
+            #{/list}
+            #{if join}
+            <li>Game <a href="@{Application.joinGame(aGame.id)}">rejoindre</a></li>
+            #{/if}
+        #{/else}
+    #{/list}      
+#{/if}
+</ul>
