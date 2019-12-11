@@ -12,4 +12,6 @@ public class User extends IdModel {
     public String nickName;
 
     public int score;
+
+    public long ranka;
 }

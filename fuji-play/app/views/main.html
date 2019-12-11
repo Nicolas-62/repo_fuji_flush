@@ -10,8 +10,19 @@
     </head>
     <body>
         <header>
-            <h1 class="bandeau"> FUJI FLUSH SPACE </h1>
+            <h1 class="bandeau">
+                FUJI FLUSH SPACE
+*{                <span class="header">}*
+*{                    <ul>}*
+*{                    #{if controllers.Security.isConnected()}}*
+*{                        <li class="connectedUser"> ${controllers.Security.connectedUser().nickName} </li>}*
+*{                        <li> <a class="logout" href="@{Secure.logout()}">Logout</a> </li>}*
+*{                    #{/if}}*
+*{                    </ul>}*
+*{                </span>}*
+            </h1>
         </header>
+
 
         <div>
             #{doLayout /}

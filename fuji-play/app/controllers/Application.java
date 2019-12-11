@@ -29,8 +29,11 @@ public class Application extends Controller {
 
         Long nbUser = UserService.getNbUser();
 
+        UserService.calculateRank();
+
         render(listRanking, nbUser);
     }
+
 
     public static void play() {
         User player = Security.connectedUser();

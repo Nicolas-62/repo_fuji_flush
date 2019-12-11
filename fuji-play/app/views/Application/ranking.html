@@ -1,19 +1,26 @@
 #{extends 'main.html' /}
 #{set title:'Ranking' /}
 
-<h1>Ranking</h1>
+<h1 class="titre">Ranking</h1>
 
-<ol>
-    #{list items:listRanking, as:'aUser'}
-        <li>
-            <div>
-                <span> ${aUser.nickName} </span>
-                <span> ${aUser.score} </span>
-            </div>
-        </li>
-    #{/list}
-</ol>
+<div class="panel-rank">
+    <table class="list-rank">
+        <thead class="header-table">
+            <td> RANK </td>
+            <td> NICKNAME </td>
+            <td> SCORE </td>
+        </thead>
 
-<hr>
-<p> Nombre de joueurs : ${nbUser} </p>
+        <tbody class="body-table">
+            #{list items:listRanking, as:'aUser'}
+                <tr class="${controllers.Security.connectedUser().equals(aUser)? "connected" : "player" }">
+                    <td class="ranka"> ${aUser.ranka} </td>
+                    <td class="pseudo"> ${aUser.nickName} </td>
+                    <td class="score"> ${aUser.score} </td>
+                </tr>
+            #{/list}
+        </tbody>
+    </table>
+</div>
 
+<p> Sur un total de ${nbUser} joueurs </p>
