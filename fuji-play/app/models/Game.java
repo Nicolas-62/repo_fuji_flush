@@ -13,8 +13,10 @@ public class Game extends IdModel {
 	@OneToOne
 	public User author;
 	
+	public int nbPlayerMissing;
+	
 	@Temporal(TemporalType.TIMESTAMP)
-	public Date dateDebut;
+	public Date dateStart;
 
 	
     @OneToMany(mappedBy = "game")

@@ -27,28 +27,33 @@ public class Application extends Controller {
     	render(games, player);
     }
     /**
-     * Creation d'une partie par un joueur donné
+	     * Creation d'une partie par un joueur donné puis il rejoint la partie
      * @param nbJoueur : nombre de joueurs voulu dans la partie
      */
-    public static void addGame(int nbJoueur) {
+    public static void addGame(int nbPlayer) {
     	User player = Security.connectedUser();
     	Game game = new Game();
     	game.author = player;
-    	game.deck = CardService.findAll();
-    	Collections.shuffle(game.deck);   	
-    	GameService.addGame(game);    	
-    	joinGame(game.id);
+    	game.nbPlayerMissing = nbPlayer;
+    	GameService.addGame(game);  
+    	GameService.joinGame(game, player);
+    	saloon();
     	
     }
 	/**
-	 * Le joueur connecté rejoint la partie, on crée sa main
+	 * Le joueur connecté rejoint la partie
 	 * @param gameId : id de la partie
 	 */
     public static void joinGame(Long gameId) {
     	User player = Security.connectedUser();
     	Game game = GameService.getById(gameId);
     	GameService.joinGame(game, player);
-    	play(gameId);
+    	if(game.nbPlayerMissing == 0) {
+    		play(gameId);
+    	}else {
+    		saloon();
+    	}
+
     }
 	/**
 	 * Le joueur connecté ayant déjà rejoint la partie peut jouer

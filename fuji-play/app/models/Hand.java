@@ -1,10 +1,11 @@
 package models;
 
+import java.util.List;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
-import java.util.List;
 
 @Entity
 public class Hand extends IdModel{
@@ -12,10 +13,13 @@ public class Hand extends IdModel{
     @OneToOne
     public Game game;
 
-    @OneToOne
+    @OneToOne(optional = true)
     public User player;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    /**
+     * ManyToMany et pas OneToMany sinon contrainte d'unicité sur les carte
+     */
+    @ManyToMany(cascade = CascadeType.ALL)
     public List<Card> cards;
 
     @OneToOne

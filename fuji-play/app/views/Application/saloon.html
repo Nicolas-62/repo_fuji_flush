@@ -29,12 +29,22 @@
             #{set join:true/}
             #{list items:aGame.hands, as:'aHand'}
                 #{if aHand.player.equals(player)}
-                <li>Game <a href="@{Application.play(aGame.id)}">jouer</a></li>
-                #{set join:false/}
+                    #{set join:false/}
+                    #{if aGame.nbPlayerMissing == 0}
+                        <li>Game <a href="@{Application.play(aGame.id)}">jouer</a></li>
+                    #{/if}
+                    #{else}
+                        <li>en attente des autres joueurs</li>
+                    #{/else}
                 #{/if}
             #{/list}
             #{if join}
-            <li>Game <a href="@{Application.joinGame(aGame.id)}">rejoindre</a></li>
+                #{if aGame.nbPlayerMissing == 0}
+                    <li>Game complet</li>
+                #{/if}
+                #{else}
+                <li>Game <a href="@{Application.joinGame(aGame.id)}">rejoindre</a></li>
+                #{/else}
             #{/if}
         #{/else}
     #{/list}      

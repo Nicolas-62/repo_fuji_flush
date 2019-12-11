@@ -1,6 +1,7 @@
 package services;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import models.Card;
@@ -10,28 +11,46 @@ import models.User;
 
 public class GameService {
 	/**
-	 * Créé un nouveau jeu
+	 * Crée un nouveau jeu, son deck et ses mains
 	 */
 	public static void addGame(Game game) {
-		game.save();
+		// création du deck
+    	game.deck = CardService.findAll();
+        Collections.shuffle(game.deck);
+        
+        // création des mains des joueurs à partir du deck créé
+        List<Hand> hands = new ArrayList<Hand>();
+        for(int j = 0; j < game.nbPlayerMissing-1; j++) {
+        	hands.add(new Hand());
+        }
+        for (int i = 0; i < 6; i++) {
+            for (Hand hand : hands) {
+                GameService.draw(game.deck, hand);
+            }
+        }
+        game.save();
 	}
 	public static List<Game> getAll() {
 		return Game.findAll();
 	}
 	/**
-	 * 
-	 * @param game
-	 * @param player
+	 * Associe une main du jeu avec un joueur
+	 * @param game : jeu
+	 * @param player : joueur
 	 */
-	public static void joinGame(Game game, User player) {
-        Hand handPlayer = new Hand();
-        handPlayer.player = player;
-        handPlayer.cards = new ArrayList<Card>();
-        handPlayer.game = game;
-        GameService.draw(game.deck, handPlayer);		
-        game.hands.add(handPlayer);
+	public static void joinGame(Game game, User player) {      
+        for(Hand hand : game.hands) {
+        	System.out.println("handplayer : "+hand.player);
+        	if(hand.player == null) {
+        		hand.player = player;
+        		System.out.println("main joueur : "+hand.player);
+        		break;
+        	}
+        }
+        game.nbPlayerMissing--;
         game.save();
 	}
+	
 	/**
 	 * Met à jour le currentPlayer de la partie en cours
 	 * @param game : partie en cours

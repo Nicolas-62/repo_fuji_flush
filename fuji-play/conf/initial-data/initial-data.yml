@@ -18,6 +18,8 @@ User(anakin_skywalker):
 
 Game(g1):
   currentPlayer: han_solo
+  author: han_solo
+  nbPlayerMissing: 1
 
 Hand(h1_han):
   game: g1
@@ -26,3 +28,6 @@ Hand(h1_han):
 Hand(h1_anakin):
   game: g1
   player: anakin_skywalker
+  
+Hand(h1):
+  game: g1
