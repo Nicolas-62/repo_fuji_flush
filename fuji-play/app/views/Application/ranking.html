@@ -1,4 +1,26 @@
 #{extends 'main.html' /}
 #{set title:'Ranking' /}
 
-<h1>Ranking</h1>
+<h1 class="titre">Ranking</h1>
+
+<div class="panel-rank">
+    <table class="list-rank">
+        <thead class="header-table">
+            <td> RANK </td>
+            <td> NICKNAME </td>
+            <td> SCORE </td>
+        </thead>
+
+        <tbody class="body-table">
+            #{list items:listRanking, as:'aUser'}
+            <tr class="${controllers.Security.connectedUser().equals(aUser)? "connected" : "player" }">
+                    <td class="ranka"> ${aUser.equals(null)? "..." : aUser.ranka} </td>
+                    <td class="pseudo"> ${aUser.equals(null)? "..." : aUser.nickName} </td>
+                    <td class="score"> ${aUser.equals(null)? "..." : aUser.score} </td>
+                </tr>
+            #{/list}
+        </tbody>
+    </table>
+</div>
+
+<p class="total-joueur"> Sur un total de ${nbUser} joueurs </p>

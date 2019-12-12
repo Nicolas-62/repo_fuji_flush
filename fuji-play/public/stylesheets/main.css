@@ -13,7 +13,6 @@
 }
 
 
-/* IMAGE DE FOND BODY *******************************************************/
 body
 {
     background-image: url("../images/wallpaper.jpg");
@@ -28,8 +27,38 @@ body
     width: 100%;
 }
 
+.formulaire
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 
-/* NAVIGATION **************************************************************/
+    text-align: center;
+}
+
+.form-saisie
+{
+    width: 400px;
+    margin: auto;
+
+    text-align: center;
+}
+
+.registerbtn
+{
+    width: 420px;
+    height: 50px;
+
+    margin: auto;
+    margin-bottom: 20px;
+
+    background-color: rgba(0, 25, 0, 0.9);
+    border: ridge 2px rgba(0, 255, 0, 0.9);
+    color: #00FF00;
+}
+
+
+/* NAVIGATION **********************************************************************************************************/
 .navigation {
     width: 100%;
     height: 10%;
@@ -44,7 +73,7 @@ body
     padding: 0;
 }
 
-/* ONGLET NAVIGATION ******************************************************/
+
 .navigation-item
 {
     width: 300px;
@@ -64,8 +93,72 @@ body
 }
 
 
-/* ONGLET NAVIGATION SURVOL **********************************************/
 .navigation-item:hover
 {
     background: linear-gradient(0deg, rgba(0,255,0,0.4) 0%, rgba(0,255,31,0.7) 16%, rgba(0,255,150,1) 61%, rgba(0,0,0,0.7) 100%);
+}
+
+
+
+/* RANKING PAGE ********************************************************************************************************/
+.titre
+{
+    text-align: center;
+    text-shadow: 1px 1px 2px black, 0 0 1em #00FF00, 0 0 0.2em cyan;
+    font-size: 40px;
+}
+
+.panel-rank, .register
+{
+    background: rgb(0,0,0);
+    background: linear-gradient(90deg, rgba(0,0,0,.5) 0%, rgba(0,255,0,.4) 40%, rgba(255,255,255,.35) 50%, rgba(0,255,0,.4) 60%, rgba(0,0,0,.5) 100%);
+
+    border: ridge 2px rgba(0, 255, 0, 0.7);
+}
+
+.list-rank
+{
+    width: 100%;
+    color: white;
+}
+
+.header-table
+{
+    text-align: center;
+    color: white;
+    text-shadow: 1px 1px 2px black, 0 0 1em #00FF00, 0 0 0.2em cyan;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 15px;
+}
+
+.body-table
+{
+    text-align: center;
+    color: white;
+    text-shadow: 1px 1px 2px black, 0 0 1em #00FF00, 0 0 0.2em cyan;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 12px;
+}
+
+.pseudo, .score, .rank
+{
+    width: 50%;
+}
+
+
+.connected
+{
+    background-color: #00FF00;
+    color: black;
+}
+
+.player
+{
+    background-color: rgba(0, 75, 0, .7);
+}
+
+.total-joueur
+{
+    text-align: center;
+    color: white;
 }

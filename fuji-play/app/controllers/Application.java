@@ -12,6 +12,11 @@ import play.mvc.With;
 import services.CardService;
 import services.GameService;
 import services.HandService;
+import services.UserService;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @With(Secure.class)
@@ -61,10 +66,17 @@ public class Application extends Controller {
     public static void play(Long gameId) {
     	User player = Security.connectedUser();
         Game game = GameService.getById(gameId);
-        Hand handPlayer = HandService.getByPlayer(player);
         render(game, player, handPlayer);
     }
 
+    public static void ranking()
+    {
+        User user = Security.connectedUser();
+        List<User> listRanking = UserService.getTopRank();
+        Long nbUser = UserService.getNbUser();
+        UserService.calculateRank();
+        render(listRanking, nbUser);
+    }
     /**
      * Met à jour le jeu en fonction de la carte jouée
      * @param id : handPlayer.id, id de la main d'un joueur donné
