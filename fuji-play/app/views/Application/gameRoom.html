@@ -39,10 +39,10 @@
 
                     #{if join}
                         #{if aGame.nbPlayerMissing == 0}
-                            <li>${aGame.hands.size()}/${aGame.hands.size()+aGame.nbPlayerMissing} players<a class="registerbtn" href="#">FULL</a></li>
+                            <li>${aGame.hands.size()}/${aGame.hands.size()+aGame.nbPlayerMissing} players<a class="registerbtn" href="#">Full</a></li>
                         #{/if}
                         #{else}
-                            <li>${aGame.hands.size()}/${aGame.hands.size()+aGame.nbPlayerMissing} players<a class="registerbtn" href="@{Application.joinGame(aGame.id)}">JOIN</a></li>
+                            <li>${aGame.hands.size()}/${aGame.hands.size()+aGame.nbPlayerMissing} players<a class="registerbtn" href="@{Application.joinGame(aGame.id)}">Join</a></li>
                         #{/else}
                     #{/if}
             #{/list}
