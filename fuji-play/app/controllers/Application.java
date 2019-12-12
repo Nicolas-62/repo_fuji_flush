@@ -59,7 +59,7 @@ public class Application extends Controller {
     public static void play(Long gameId) {
     	User player = Security.connectedUser();
         Game game = GameService.getById(gameId);
-        Hand handPlayer = HandService.getByPlayer(player);
+        Hand handPlayer = HandService.getByPlayerAndGame(player, game);
         render(game, player, handPlayer);
     }
 
@@ -87,7 +87,7 @@ public class Application extends Controller {
         if (player.equals(game.currentPlayer)) {
         	
             GameService.playCard(hand, hand.cards.get(index));         
-            Hand currentHandPlayer = HandService.getByPlayer(game.currentPlayer);
+            Hand currentHandPlayer = HandService.getByPlayerAndGame(game.currentPlayer, game);
             GameService.ruleCompareAndDiscard(game, currentHandPlayer);
 
             GameService.nextPlayer(game, hand);

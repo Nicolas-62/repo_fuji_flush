@@ -77,7 +77,7 @@ public class GameService {
      * @param game : partie en cours
      */
     public static void ruleFullTurn(Game game) {
-        Hand handNextPlayer = HandService.getByPlayer(game.currentPlayer);
+        Hand handNextPlayer = HandService.getByPlayerAndGame(game.currentPlayer, game);
         if (handNextPlayer.cardP != null) {
             int cardValue = handNextPlayer.cardP.value;
             for (Hand hand : game.hands) {
