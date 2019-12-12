@@ -23,6 +23,12 @@ header
     text-shadow: 1px 1px 2px black, 0 0 1em #00FF00, 0 0 0.2em cyan;
 }
 
+li
+{
+text-decoration: none;
+list-style-type: none;
+}
+
 .logout
 {
     display: flex;
@@ -59,22 +65,42 @@ header
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 50px;
+    width: 100%;
+    margin-top: 10px;
 }
 
 .games
 {
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    flex-direction: row;
+    align-items: space-between;
+}
+.games p
+{
+font-weight: bold;
+}
+.mygames, .availablegames
+{
+    background: rgb(0,0,0);
+    background: linear-gradient(90deg, rgba(0,0,0,.5) 0%, rgba(0,255,0,.4) 40%, rgba(255,255,255,.35) 50%, rgba(0,255,0,.4) 60%, rgba(0,0,0,.5) 100%);
+    border: ridge 2px rgba(0, 255, 0, 0.7);
+    padding: 50px;
+    width: 800px;
+    height: 500px;
+    font-size: 1.5em;
+    text-align: center;
 }
 
-.newGame
+.mygames li, .availablegames li
 {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    margin-top: 50px;
+   margin: 10px;
+}
+
+.mygames a, .availablegames a
+{
+   margin-left: 30px;
+   text-decoration: none;
+   padding: 3px;
 }
 
 .currentGame
@@ -124,6 +150,11 @@ body
 
     background-color: rgba(0, 25, 0, 0.9);
     border: ridge 2px rgba(0, 255, 0, 0.9);
+    color: #00FF00;
+}
+
+.registerbtn:visited
+{
     color: #00FF00;
 }
 
