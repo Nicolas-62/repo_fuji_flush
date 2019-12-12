@@ -77,6 +77,12 @@ header
     margin-top: 50px;
 }
 
+.currentGame
+{
+    background-color: #333333;
+    color: white;
+}
+
 body
 {
     background-image: url("../images/wallpaper.jpg");
