@@ -10,23 +10,63 @@
 
 #{else}Current Game#{/else}</h1>
 
-<h2>${player.nickName}</h2>
-<ol>
-#{if game.currentPlayer.equals(player)}
-    #{list items:handPlayer.cards, as:'aCard'}
-        <li><a href="@{Application.playCard(handPlayer.id, aCard_index-1)}">${aCard.value}</a></li>
-    #{/list}
-#{/if}
-#{else}
-    #{list items:handPlayer.cards, as:'aCard'}
-        <li>${aCard.value}</li>
-    #{/list}
-#{/else}
-</ol>
 
-#{list items:game.hands, as:'aHand'}
-<h3>${aHand.player.nickName}</h3>
-<p>Nombre de cartes: ${aHand.cards?.size()}</p>
-<p>Carte jouée : ${aHand.cardP?.value}</p>
-#{/list}
+        #{list items:game.hands, as:'aHand'}
+            #{if !aHand.equals(handPlayer)}
+            <div class="otherPlayerCards">
+                #{if game.currentPlayer.equals(aHand.player)}
+                <h3>It's ${aHand.player.nickName}'s turn to play</h3>
+                #{/if}
+                #{else}
+                <h3>${aHand.player.nickName}</h3>
+                #{/else}
+                #{list items:aHand.cards, as:'aCard'}
+                <div class="cards">
+                        <image src="/public/images/png/dosv3.png" width="75" height="125"/>
+                </div>
+                #{/list}
+
+                <div class="cardP">
+                    #{if !aHand.cardP.equals(null)}
+                    <image src="/public/images/png/${aHand.cardP.value}.png" width="75" height="125"/>
+                    #{/if}
+                    #{else}
+                    <image src="/public/images/png/dos.png" width="75" height="125"/>
+                    #{/else}
+                </div>
+            </div>
+            #{/if}
+        #{/list}
+
+
+    <div class="handPlayerCards">
+        <div class="cardP">
+            #{if !handPlayer.cardP.equals(null)}
+            <image src="/public/images/png/${handPlayer.cardP.value}.png" width="75" height="125"/>
+            #{/if}
+            #{else}
+            <image src="/public/images/png/dos.png" width="75" height="125"/>
+            #{/else}
+        </div>
+
+        #{if game.currentPlayer.equals(player)}
+        <h2>${player.nickName} it is your turn to play !!! </h2>
+        #{list items:handPlayer.cards, as:'aCard'}
+        <div class="cards">
+            <a href="@{Application.playCard(handPlayer.id, aCard_index-1)}">
+                <image src="/public/images/png/${aCard.value}.png" width="150" height="250"/>
+            </a>
+        </div>
+        #{/list}
+        #{/if}
+        #{else}
+        <h2>${player.nickName}</h2>
+        #{list items:handPlayer.cards, as:'aCard'}
+        <div class="cards">
+                <image src="/public/images/png/${aCard.value}.png" width="150" height="250"/>
+        </div>
+        #{/list}
+        #{/else}
+    </div>
+
 </div>

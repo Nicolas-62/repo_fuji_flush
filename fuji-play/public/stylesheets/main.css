@@ -105,8 +105,26 @@ font-weight: bold;
 
 .currentGame
 {
+    text-align: center;
     background-color: #333333;
     color: white;
+}
+
+.otherPlayerCards
+{
+display: inline-block;
+align-items: center;
+margin-left: 30px;
+}
+
+.cards
+{
+display: inline-block;
+}
+
+.cards a:hover
+{
+border: ridge 2px rgba(0, 255, 0, 0.7);
 }
 
 body
