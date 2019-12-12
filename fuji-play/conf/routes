@@ -9,7 +9,7 @@ GET     /register                               Home.register
 POST    /register                               Home.createAccount
 
 # Application page
-GET     /saloon                                 Application.saloon
+GET     /gameRoom                               Application.gameRoom
 GET     /ranking                                Application.ranking
 GET     /records                                Application.records
 GET     /play                                   Application.play

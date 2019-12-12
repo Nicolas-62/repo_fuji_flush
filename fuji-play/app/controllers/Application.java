@@ -19,7 +19,7 @@ public class Application extends Controller {
         User player = Security.connectedUser();
         render();
     }
-    public static void saloon() {
+    public static void gameRoom() {
     	User player = Security.connectedUser(); 
     	List<Game> games = GameService.getAll();
     	render(games, player);
@@ -35,7 +35,7 @@ public class Application extends Controller {
     	game.nbPlayerMissing = nbPlayer;
     	GameService.addGame(game);  
     	GameService.joinGame(game, player);
-    	saloon();
+    	gameRoom();
     	
     }
 	/**
@@ -49,7 +49,7 @@ public class Application extends Controller {
     	if(game.nbPlayerMissing == 0) {
     		play(gameId);
     	}else {
-    		saloon();
+    		gameRoom();
     	}
     }
 	/**

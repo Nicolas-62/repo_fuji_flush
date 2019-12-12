@@ -1,17 +1,81 @@
-.bandeau
+header
 {
-    position: relative;
-
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
     height: 10%;
     width: 100%;
+    margin-bottom: 20px;
 
-    text-align: center;
-    text-shadow: 1px 1px 2px black, 0 0 1em #00FF00, 0 0 0.2em cyan;
     background-color: rgba(0,0,0, .2);
-
     font-family: 'Orbitron', sans-serif;
 }
+.bandeau
+{
+    margin-left: 42%;
+    text-shadow: 1px 1px 2px black, 0 0 1em #00FF00, 0 0 0.2em cyan;
+}
 
+.totalPlayers
+{
+    text-align: center;
+    font-size: 2em;
+    text-shadow: 1px 1px 2px black, 0 0 1em #00FF00, 0 0 0.2em cyan;
+}
+
+.logout
+{
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    padding-left: 200px;
+}
+
+.logout li
+{
+    padding-left: 100px;
+    padding-right: 100px;
+    font-size: 1em;
+    color: black;
+    font-weight: bold;
+    list-style-type: none;
+    text-shadow: 1px 1px 2px black, 0 0 1em #00FF00, 0 0 0.2em cyan;
+}
+
+.logout li a, a:visited
+{
+    color: black;
+    font-weight: bold;
+    text-decoration: none;
+    text-shadow: none;
+}
+.logout li a:hover
+{
+    text-shadow: 1px 1px 2px black, 0 0 1em #00FF00, 0 0 0.2em cyan;
+}
+
+.gameRoom
+{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 50px;
+}
+
+.games
+{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.newGame
+{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-top: 50px;
+}
 
 body
 {

@@ -1,13 +1,14 @@
 #{extends 'main.html' /}
 #{set title:'Current Game' /}
-<nav class="navigation">
-        <a href="/rank" class="navigation-item"> CLASSEMENT </a>
-        <a href="/history" class="navigation-item"> HISTORIQUE </a>
-        <a href="@{Application.saloon()}" class="navigation-item">Mon Saloon</a>
-</nav>
-<h1>#{if game.winner}VAINQUEUR ${game.winner.nickName}#{/if}
 
-#{else}Partie en cours#{/else}</h1>
+<nav class="navigation">
+    <a href="@{Application.gameRoom()}" class="navigation-item"> Back to Game Room </a>
+</nav>
+
+<div class="currentGame">
+<h1>#{if game.winner} WINNER ${game.winner.nickName}#{/if}
+
+#{else}Current Game#{/else}</h1>
 
 <h2>${player.nickName}</h2>
 <ol>
@@ -28,3 +29,4 @@
 <p>Nombre de cartes: ${aHand.cards?.size()}</p>
 <p>Carte jouée : ${aHand.cardP?.value}</p>
 #{/list}
+</div>

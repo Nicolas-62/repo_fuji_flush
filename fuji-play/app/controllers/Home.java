@@ -7,14 +7,18 @@ import play.data.validation.Required;
 import play.data.validation.Validation;
 import play.mvc.Controller;
 import services.UserService;
-
-import static controllers.Application.saloon;
+import static controllers.Application.gameRoom;
 
 
 public class Home extends Controller {
 
     public static void index() {
-        render();
+        if (controllers.Security.isConnected()){
+            gameRoom();
+        }
+        else{
+            render();
+        }
     }
 
     public static void register() {
@@ -46,7 +50,6 @@ public class Home extends Controller {
         UserService.addUser(newUser);
 
         System.out.println("Cree !");
-        saloon();
-
+        gameRoom();
     }
 }

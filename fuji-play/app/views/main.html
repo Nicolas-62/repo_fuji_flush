@@ -10,17 +10,15 @@
     </head>
     <body>
         <header>
-            <h1 class="bandeau">
-                FUJI FLUSH SPACE
-*{                <span class="header">}*
-*{                    <ul>}*
-*{                    #{if controllers.Security.isConnected()}}*
-*{                        <li class="connectedUser"> ${controllers.Security.connectedUser().nickName} </li>}*
-*{                        <li> <a class="logout" href="@{Secure.logout()}">Logout</a> </li>}*
-*{                    #{/if}}*
-*{                    </ul>}*
-*{                </span>}*
-            </h1>
+            <div class="bandeau">
+                <h1>FUJI FLUSH SPACE</h1>
+            </div>
+            <ul class="logout">
+                    #{if controllers.Security.isConnected()}
+                        <li> User : ${controllers.Security.connectedUser().nickName} </li>
+                        <li> <a href="@{Secure.logout()}">Logout</a> </li>
+                    #{/if}
+            </ul>
         </header>
 
 
