@@ -1,22 +1,15 @@
 package controllers;
 
-import java.util.Collections;
 import java.util.List;
 
-import models.Card;
 import models.Game;
 import models.Hand;
 import models.User;
 import play.mvc.Controller;
 import play.mvc.With;
-import services.CardService;
 import services.GameService;
 import services.HandService;
 import services.UserService;
-
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.List;
 
 
 @With(Secure.class)
@@ -66,6 +59,7 @@ public class Application extends Controller {
     public static void play(Long gameId) {
     	User player = Security.connectedUser();
         Game game = GameService.getById(gameId);
+        Hand handPlayer = HandService.getByPlayer(player);
         render(game, player, handPlayer);
     }
 
