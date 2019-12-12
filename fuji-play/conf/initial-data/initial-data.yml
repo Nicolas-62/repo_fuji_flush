@@ -6,15 +6,69 @@ User(han_solo):
 
 User(boba_fett):
   email: boba.fett@coaxys.com
-  password: $2a$12$GLzxtV1YSMLGi6ETnlYnPuhCWVStHbduK3XAFvhfJP8BRNZqKQ/x.
+  password: $2a$12$50caQhMkg8.bk7/U3fWVZeg/43qtYd/bauO0n/JHQvoYOLRbICtnW
   nickName: Boba
   score: 67
 
 User(anakin_skywalker):
   email: anakin.skywalker@coaxys.com
-  password: $2a$12$GLzxtV1YSMLGi6ETnlYnPuhCWVStHbduK3XAFvhfJP8BRNZqKQ/x.
+  password: $2a$12$50caQhMkg8.bk7/U3fWVZeg/43qtYd/bauO0n/JHQvoYOLRbICtnW
   nickName: Anakin
   score: 3
+
+User(dark_vador):
+  email: dark.vador@coaxys.com
+  password: $2a$12$50caQhMkg8.bk7/U3fWVZeg/43qtYd/bauO0n/JHQvoYOLRbICtnW
+  nickName: Vador
+  score: 8
+
+User(jango_fett):
+  email: jango.fett@coaxys.com
+  password: $2a$12$50caQhMkg8.bk7/U3fWVZeg/43qtYd/bauO0n/JHQvoYOLRbICtnW
+  nickName: Jango
+  score: 5
+
+User(obi-wan_kenobi):
+  email: obi-wan.kenobi@coaxys.com
+  password: $2a$12$50caQhMkg8.bk7/U3fWVZeg/43qtYd/bauO0n/JHQvoYOLRbICtnW
+  nickName: Obi-Wan
+  score: 9
+
+User(leia_organa):
+  email: leia.organa@coaxys.com
+  password: $2a$12$50caQhMkg8.bk7/U3fWVZeg/43qtYd/bauO0n/JHQvoYOLRbICtnW
+  nickName: Leia
+  score: 37
+
+User(mace_windu):
+  email: mace.windu@coaxys.com
+  password: $2a$12$50caQhMkg8.bk7/U3fWVZeg/43qtYd/bauO0n/JHQvoYOLRbICtnW
+  nickName: Mace
+  score: 2
+
+User(yoda):
+  email: yoda@coaxys.com
+  password: $2a$12$50caQhMkg8.bk7/U3fWVZeg/43qtYd/bauO0n/JHQvoYOLRbICtnW
+  nickName: Yoda
+  score: 45
+
+User(ki-adi-mundi):
+  email: ki-adi-mundi@coaxys.com
+  password: $2a$12$50caQhMkg8.bk7/U3fWVZeg/43qtYd/bauO0n/JHQvoYOLRbICtnW
+  nickName: Ki-Adi-Mundi
+  score: 12
+
+User(nico_skywalker):
+  email: nico.skywalker@coaxys.com
+  password: $2a$12$50caQhMkg8.bk7/U3fWVZeg/43qtYd/bauO0n/JHQvoYOLRbICtnW
+  nickName: Nico
+  score: 13
+
+User(dark_maul):
+  email: dark.maul@coaxys.com
+  password: $2a$12$50caQhMkg8.bk7/U3fWVZeg/43qtYd/bauO0n/JHQvoYOLRbICtnW
+  nickName: Maul
+  score: 1
 
 Game(g1):
   currentPlayer: boba_fett

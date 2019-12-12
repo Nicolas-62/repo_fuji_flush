@@ -38,6 +38,7 @@ public class UserService {
 
         if(!list.contains(Security.connectedUser()))
         {
+            list.add(null);
             list.add(Security.connectedUser());
         }
 

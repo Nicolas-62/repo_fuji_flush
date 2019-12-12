@@ -86,13 +86,13 @@ body
     border: ridge 2px rgba(0, 255, 0, 0.7);
 }
 
-.panel-rank .list-rank
+.list-rank
 {
     width: 100%;
     color: white;
 }
 
-.panel-rank .list-rank .header-table
+.header-table
 {
     text-align: center;
     color: white;
@@ -101,7 +101,7 @@ body
     font-size: 15px;
 }
 
-.panel-rank .list-rank .body-table
+.body-table
 {
     text-align: center;
     color: white;
@@ -110,7 +110,7 @@ body
     font-size: 12px;
 }
 
-.panel-rank .list-rank .body-table .pseudo, .score, .rank
+.pseudo, .score, .rank
 {
     width: 50%;
 }
@@ -124,5 +124,11 @@ body
 
 .player
 {
-    background-color: black;
+    background-color: rgba(0, 75, 0, .7);
+}
+
+.total-joueur
+{
+    text-align: center;
+    color: white;
 }
