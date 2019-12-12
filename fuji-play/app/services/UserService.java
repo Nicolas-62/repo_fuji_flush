@@ -59,4 +59,8 @@ public class UserService {
     {
         return User.count();
     }
+
+    public static boolean existByEmail(String email) {
+        return User.count("email = ?1", email) == 1;
+    }
 }
