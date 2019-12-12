@@ -8,20 +8,20 @@
         <p>Please fill in this form to create an account.</p>
 
         <hr>
-        <label for="nickname"><b>Nickname</b></label>
-        <input type="text" placeholder="Enter nick" name="nickname" required value="${flash.get('nickname')}">
+        <label class="form-titre" for="nickname"><b>Nickname</b></label>
+        <input class="form-saisie" type="text" placeholder="Enter nick" name="nickname" required value="${flash.get('nickname')}">
         <span> #{error 'nickname' /} </span>
 
-        <label for="email"><b>Email</b></label>
-        <input type="text" placeholder="Enter Email" name="email" required  value="${flash.get('email')}">
+        <label class="form-titre" for="email"><b>Email</b></label>
+        <input class="form-saisie" type="text" placeholder="Enter Email" name="email" required  value="${flash.get('email')}">
         <span> #{error 'email' /} </span>
 
-        <label for="password"><b>Password</b></label>
-        <input type="password" placeholder="Enter Password" name="password" required>
+        <label class="form-titre" for="password"><b>Password</b></label>
+        <input class="form-saisie" type="password" placeholder="Enter Password" name="password" required>
         <span> #{error 'password' /} </span>
 
-        <label for="passwordRepeat"><b>Repeat Password</b></label>
-        <input type="password" placeholder="Repeat Password" name="passwordRepeat" required>
+        <label class="form-titre" for="passwordRepeat"><b>Repeat Password</b></label>
+        <input class="form-saisie" type="password" placeholder="Repeat Password" name="passwordRepeat" required>
         <hr>
 
         <button type="submit" class="registerbtn">Register</button>

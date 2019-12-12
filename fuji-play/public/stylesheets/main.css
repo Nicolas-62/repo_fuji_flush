@@ -36,6 +36,27 @@ body
     text-align: center;
 }
 
+.form-saisie
+{
+    width: 400px;
+    margin: auto;
+
+    text-align: center;
+}
+
+.registerbtn
+{
+    width: 420px;
+    height: 50px;
+
+    margin: auto;
+    margin-bottom: 20px;
+
+    background-color: rgba(0, 25, 0, 0.9);
+    border: ridge 2px rgba(0, 255, 0, 0.9);
+    color: #00FF00;
+}
+
 
 /* NAVIGATION **********************************************************************************************************/
 .navigation {
