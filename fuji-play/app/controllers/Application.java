@@ -53,7 +53,6 @@ public class Application extends Controller {
     	}else {
     		saloon();
     	}
-
     }
 	/**
 	 * Le joueur connecté ayant déjà rejoint la partie peut jouer

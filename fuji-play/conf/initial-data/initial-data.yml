@@ -29,5 +29,3 @@ Hand(h1_anakin):
   game: g1
   player: anakin_skywalker
   
-Hand(h1):
-  game: g1

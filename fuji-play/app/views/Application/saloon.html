@@ -7,8 +7,8 @@
     <a href="@{Application.saloon()}" class="navigation-item">Mon Saloon</a>
 </nav>
 <form action="@{Application.addGame()}" method="post">
-    <input list="nbJoueur" name="nbJoueur">
-    <datalist id="nbJoueur">
+    <input list="nbPlayer" name="nbPlayer">
+    <datalist id="nbPlayer">
         <option value="3">
         <option value="4">
         <option value="5">
@@ -31,19 +31,19 @@
                 #{if aHand.player.equals(player)}
                     #{set join:false/}
                     #{if aGame.nbPlayerMissing == 0}
-                        <li>Game <a href="@{Application.play(aGame.id)}">jouer</a></li>
+                        <li>Game : <a href="@{Application.play(aGame.id)}">jouer</a></li>
                     #{/if}
                     #{else}
-                        <li>en attente des autres joueurs</li>
+                        <li>Game : en attente des autres joueurs</li>
                     #{/else}
                 #{/if}
             #{/list}
             #{if join}
                 #{if aGame.nbPlayerMissing == 0}
-                    <li>Game complet</li>
+                    <li>Game : complet</li>
                 #{/if}
                 #{else}
-                <li>Game <a href="@{Application.joinGame(aGame.id)}">rejoindre</a></li>
+                <li>Game : <a href="@{Application.joinGame(aGame.id)}">rejoindre</a></li>
                 #{/else}
             #{/if}
         #{/else}

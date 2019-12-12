@@ -17,18 +17,8 @@ public class GameService {
 		// création du deck
     	game.deck = CardService.findAll();
         Collections.shuffle(game.deck);
-        
-        // création des mains des joueurs à partir du deck créé
-        List<Hand> hands = new ArrayList<Hand>();
-        for(int j = 0; j < game.nbPlayerMissing-1; j++) {
-        	hands.add(new Hand());
-        }
-        for (int i = 0; i < 6; i++) {
-            for (Hand hand : hands) {
-                GameService.draw(game.deck, hand);
-            }
-        }
         game.save();
+
 	}
 	public static List<Game> getAll() {
 		return Game.findAll();
@@ -39,15 +29,18 @@ public class GameService {
 	 * @param player : joueur
 	 */
 	public static void joinGame(Game game, User player) {      
-        for(Hand hand : game.hands) {
-        	System.out.println("handplayer : "+hand.player);
-        	if(hand.player == null) {
-        		hand.player = player;
-        		System.out.println("main joueur : "+hand.player);
-        		break;
-        	}
-        }
+        Hand hand = new Hand();
+        hand.player = player;
+        hand.game = game;
+        game.hands.add(hand);
         game.nbPlayerMissing--;
+        if(game.nbPlayerMissing == 0) {
+            for (int i = 0; i < 6; i++) {
+                for (Hand aHand : game.hands) {
+                    GameService.draw(game.deck, aHand);
+                }
+            }     	
+        }
         game.save();
 	}
 	

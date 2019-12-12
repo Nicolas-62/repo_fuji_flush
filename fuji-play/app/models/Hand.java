@@ -1,5 +1,6 @@
 package models;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -9,6 +10,11 @@ import javax.persistence.OneToOne;
 
 @Entity
 public class Hand extends IdModel{
+	
+	
+	public Hand(){
+		this.cards = new ArrayList<Card>();
+	}
 
     @OneToOne
     public Game game;
@@ -24,6 +30,8 @@ public class Hand extends IdModel{
 
     @OneToOne
     public Card cardP;
+    
+    
 
 
 }

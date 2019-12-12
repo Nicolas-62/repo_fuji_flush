@@ -3,23 +3,30 @@ package models;
 
 import javax.persistence.*;
 
+	
+
 import com.google.gson.annotations.Expose;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 @Entity
 public class Game extends IdModel {
+	
+	public Game(){
+		this.hands = new ArrayList<Hand>();
+	}
 	@OneToOne
 	public User author;
 	
-	public int nbPlayerMissing;
+	public Integer nbPlayerMissing;
 	
 	@Temporal(TemporalType.TIMESTAMP)
 	public Date dateStart;
 
 	
-    @OneToMany(mappedBy = "game")
+    @OneToMany(mappedBy = "game", cascade = CascadeType.ALL)
     public List<Hand> hands;
 
     @OneToOne
