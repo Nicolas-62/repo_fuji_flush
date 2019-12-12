@@ -59,7 +59,7 @@ public class Application extends Controller {
     public static void play(Long gameId) {
     	User player = Security.connectedUser();
         Game game = GameService.getById(gameId);
-        Hand handPlayer = HandService.getByPlayer(player);
+        Hand handPlayer = HandService.getByPlayerAndGame(player, game);
         render(game, player, handPlayer);
     }
 
