@@ -6,7 +6,7 @@
 </nav>
 
 <div class="currentGame">
-    <li><a href="@{Application.leave(game.id)}">Quitter</a></li>
+    <li><a href="@{Application.leave(game.id)}" class="navigation-item">Quitter la partie</a></li>
     <h1>#{if game.winner} WINNER ${game.winner.nickName}#{/if}
 
         #{else}Current Game#{/else}</h1>
