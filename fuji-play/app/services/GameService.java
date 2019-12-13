@@ -64,7 +64,7 @@ public class GameService {
      * @param hand : main du joueur
      * @param card : carte jouée
      */
-    public static void playCard(Hand hand, Card card) {
+    public static void playCard(Hand hand, Card card, Game game) {
         hand.cardP = card;
         hand.cards.remove(card);
         hand.save();
@@ -77,7 +77,7 @@ public class GameService {
      * @param game : partie en cours
      */
     public static void ruleFullTurn(Game game) {
-        Hand handNextPlayer = HandService.getByPlayer(game.currentPlayer);
+        Hand handNextPlayer = HandService.getByPlayerAndGame(game.currentPlayer, game);
         if (handNextPlayer.cardP != null) {
             int cardValue = handNextPlayer.cardP.value;
             for (Hand hand : game.hands) {
@@ -99,6 +99,8 @@ public class GameService {
         Game game = hand.game;
         game.currentPlayer = null;
         game.winner = hand.player;
+        game.winner.score+=3;
+        game.winner.save();
         game.save();
     }
 
@@ -169,5 +171,4 @@ public class GameService {
 	public static Game getById(Long gameId) {
 		return Game.findById(gameId);
 	}
-
 }
