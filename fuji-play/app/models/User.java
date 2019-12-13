@@ -14,4 +14,5 @@ public class User extends IdModel {
     public int score;
 
     public long ranka;
+
 }

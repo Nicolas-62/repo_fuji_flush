@@ -17,6 +17,7 @@
                     #{if controllers.Security.isConnected()}
                         <li> User : ${controllers.Security.connectedUser().nickName} </li>
                         <li> <a href="@{Secure.logout()}">Logout</a> </li>
+
                     #{/if}
             </ul>
         </header>

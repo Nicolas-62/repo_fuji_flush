@@ -56,7 +56,14 @@
                 #{list items:aGame.hands, as:'aHand'}
                 #{if aHand.player.equals(player)}
                     #{if aGame.nbPlayerMissing == 0}
-                    <li >${aGame.hands.size()}/${aGame.hands.size()+aGame.nbPlayerMissing} players<a class="registerbtn" href="@{Application.play(aGame.id)}"> play </a></li>
+                    <li >${aGame.hands.size()}/${aGame.hands.size()+aGame.nbPlayerMissing} players
+                     #{if aHand.abandon}
+                        <span>Vous avez abandonné</span>
+                    #{/if}
+                    #{else}
+                        <a class="registerbtn" href="@{Application.play(aGame.id)}"> play </a>
+                    #{/else}
+                    </li>
                     #{/if}
                     #{else}
                     <li> ${aGame.hands.size()}/${aGame.hands.size()+aGame.nbPlayerMissing} players<a class="registerbtn" href="#"> Waiting </a></li>

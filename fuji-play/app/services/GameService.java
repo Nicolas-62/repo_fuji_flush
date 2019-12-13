@@ -8,6 +8,8 @@ import models.Card;
 import models.Game;
 import models.Hand;
 import models.User;
+import java.util.Vector;
+
 
 public class GameService {
 	/**
@@ -20,10 +22,13 @@ public class GameService {
         game.save();
 
 	}
-	public static List<Game> getAll() {
-		return Game.findAll();
-	}
-	/**
+public static  List<Game>getAll(){
+	   return Game.findAll();
+}
+
+
+
+    /**
 	 * Associe une main du jeu avec un joueur
 	 * @param game : jeu
 	 * @param player : joueur
@@ -50,11 +55,15 @@ public class GameService {
 	 * @param hand : main du joueur qui vient de jouer
 	 */
     public static void nextPlayer(Game game, Hand hand) {
+
+
         int indexOfHand = game.hands.indexOf(hand);
+
         indexOfHand++;
         if (indexOfHand >= game.hands.size()) {
             indexOfHand = 0;
         }
+
         game.currentPlayer = game.hands.get(indexOfHand).player;
         game.save();
     }
@@ -77,14 +86,20 @@ public class GameService {
      * @param game : partie en cours
      */
     public static void ruleFullTurn(Game game) {
+
         Hand handNextPlayer = HandService.getByPlayer(game.currentPlayer);
         if (handNextPlayer.cardP != null) {
+
             int cardValue = handNextPlayer.cardP.value;
             for (Hand hand : game.hands) {
                 if (hand.cardP != null && hand.cardP.value.equals(cardValue)) {
                     discard(game, hand);
                 }
                 if (hand.cards.isEmpty() && hand.cardP == null) {
+                    if (hand.abandon){
+                        nextPlayer(game,hand);
+                        break;
+                    }
                     win(hand);
                     break;
                 }
@@ -101,6 +116,15 @@ public class GameService {
         game.winner = hand.player;
         game.save();
     }
+
+    public static void leave(Game game,User player){
+        Hand hand= HandService.getByPlayerAndGame(player,game);
+        hand.cards.clear();
+        hand.abandon=true;
+        hand.save();
+
+    }
+
 
     /**
      * Compare les valeurs des cartes jouées, prend en compte les associations,

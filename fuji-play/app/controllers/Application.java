@@ -24,9 +24,16 @@ public class Application extends Controller {
     	List<Game> games = GameService.getAll();
     	render(games, player);
     }
+
+    public static void leave(long gameId){
+        Game game=GameService.getById(gameId);
+        User player = Security.connectedUser();
+        GameService.leave(game, player);
+        gameRoom();
+    }
     /**
 	     * Creation d'une partie par un joueur donné puis il rejoint la partie
-     * @param nbJoueur : nombre de joueurs voulu dans la partie
+     * @param nbPlayer : nombre de joueurs voulu dans la partie
      */
     public static void addGame(int nbPlayer) {
     	User player = Security.connectedUser();
@@ -57,9 +64,13 @@ public class Application extends Controller {
 	 * @param gameId : id de la partie
 	 */
     public static void play(Long gameId) {
+
     	User player = Security.connectedUser();
         Game game = GameService.getById(gameId);
         Hand handPlayer = HandService.getByPlayerAndGame(player, game);
+        if(handPlayer.abandon){
+            gameRoom();
+        }
         render(game, player, handPlayer);
     }
 

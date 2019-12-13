@@ -5,7 +5,11 @@
     <a href="@{Application.gameRoom()}" class="navigation-item"> Back to Game Room </a>
 </nav>
 
+
 <div class="currentGame">
+
+    <li><a href="@{Application.leave(game.id)}">Quitter</a></li>
+
 <h1>#{if game.winner} WINNER ${game.winner.nickName}#{/if}
 
 #{else}Current Game#{/else}</h1>
@@ -18,7 +22,7 @@
                 <h3>It's ${aHand.player.nickName}'s turn to play</h3>
                 #{/if}
                 #{else}
-                <h3>${aHand.player.nickName}</h3>
+                <h3>${aHand.player.nickName}</h3>#{if aHand.abandon}<span>Le joueur a abandonné</span>#{/if}
                 #{/else}
                 #{list items:aHand.cards, as:'aCard'}
                 <div class="cards">
@@ -35,6 +39,7 @@
                     #{/else}
                 </div>
             </div>
+
             #{/if}
         #{/list}
 
