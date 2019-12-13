@@ -10,7 +10,6 @@
 
 #{else}Current Game#{/else}</h1>
 
-
         #{list items:game.hands, as:'aHand'}
             #{if !aHand.equals(handPlayer)}
             <div class="otherPlayerCards">
@@ -53,7 +52,7 @@
         <h2>${player.nickName} it is your turn to play !!! </h2>
         #{list items:handPlayer.cards, as:'aCard'}
         <div class="cards">
-            <a href="@{Application.playCard(handPlayer.id, aCard_index-1)}">
+            <a href="@{Application.playCard(handPlayer.id, aCard_index-1, game.id)}">
                 <image src="/public/images/png/${aCard.value}.png" width="150" height="250"/>
             </a>
         </div>
