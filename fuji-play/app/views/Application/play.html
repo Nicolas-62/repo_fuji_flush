@@ -5,12 +5,9 @@
     <a href="@{Application.gameRoom()}" class="navigation-item"> Back to Game Room </a>
 </nav>
 
-
 <div class="currentGame">
-
     <li><a href="@{Application.leave(game.id)}">Quitter</a></li>
-
-<h1>#{if game.winner} WINNER ${game.winner.nickName}#{/if}
+    <h1>#{if game.winner} WINNER ${game.winner.nickName}#{/if}
 
         #{else}Current Game#{/else}</h1>
 
@@ -28,10 +25,10 @@
         <tr>
             <!-- NICKNAME -->
             #{if game.currentPlayer.equals(aHand.player)}
-            <td class="currentPlayer"> ${aHand.player.nickName} </td>
+            <td class="currentPlayer"> ${aHand.player.nickName}#{if aHand.abandon}<span>Le joueur a abandonné</span>#{/if} </td>
             #{/if}
             #{else}
-            <td> ${aHand.player.nickName} </td>#{if aHand.abandon}<span>Le joueur a abandonné</span>#{/if}
+            <td> ${aHand.player.nickName} </td>
             #{/else}
 
             <!-- CARDS -->
@@ -41,16 +38,11 @@
                 #{/list}
             </td>
 
-                <div class="cardP">
-                    #{if !aHand.cardP.equals(null)}
-                    <image src="/public/images/png/${aHand.cardP.value}.png" height="50px"/>
-                    #{/if}
-                    #{else}
-                    <image src="/public/images/png/${aHand.cardP.value}.png" height="50px"/>
-                    #{/else}
-                </div>
-            </div>
-
+            <!-- BOARD -->
+            #{if !aHand.cardP.equals(null)}
+            <td>
+                <image src="/public/images/png/${aHand.cardP.value}.png" height="50px"/>
+            </td>
             #{/if}
             #{else}
             <td>
