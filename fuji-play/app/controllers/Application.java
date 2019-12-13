@@ -1,5 +1,4 @@
 package controllers;
-
 import java.util.List;
 
 import models.Game;
@@ -38,7 +37,7 @@ public class Application extends Controller {
     public static void addGame(int nbPlayer) {
     	User player = Security.connectedUser();
     	Game game = new Game();
-    	game.author = player;
+    	game.currentPlayer = player;
     	game.nbPlayerMissing = nbPlayer;
     	GameService.addGame(game);  
     	GameService.joinGame(game, player);
@@ -87,18 +86,18 @@ public class Application extends Controller {
      * @param id : handPlayer.id, id de la main d'un joueur donné
      * @param index : index de la carte présente dans la main du joueur
      */
-    public static void playCard(Long id, Integer index) {
-    	// on récupère la main du joueur donné
-        Hand hand = HandService.getById(id);
-        // on récupère le jeu associé
-        Game game = hand.game;
-        
+    public static void playCard(Long id, Integer index, Long gameId) {
+
         // on vérifie que la requête vient bien du joueur qui doit jouer
         User player = Security.connectedUser();
+        Game game = GameService.getById(gameId);
+        // on récupère la main du joueur donné
+        Hand hand = HandService.getByPlayerAndGame(player, game);
+
         if (player.equals(game.currentPlayer)) {
         	
-            GameService.playCard(hand, hand.cards.get(index));         
-            Hand currentHandPlayer = HandService.getByPlayer(game.currentPlayer);
+            GameService.playCard(hand, hand.cards.get(index), game);
+            Hand currentHandPlayer = HandService.getByPlayerAndGame(game.currentPlayer, game);
             GameService.ruleCompareAndDiscard(game, currentHandPlayer);
 
             GameService.nextPlayer(game, hand);

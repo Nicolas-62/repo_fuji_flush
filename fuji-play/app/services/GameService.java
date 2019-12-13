@@ -73,7 +73,7 @@ public static  List<Game>getAll(){
      * @param hand : main du joueur
      * @param card : carte jouée
      */
-    public static void playCard(Hand hand, Card card) {
+    public static void playCard(Hand hand, Card card, Game game) {
         hand.cardP = card;
         hand.cards.remove(card);
         hand.save();
@@ -86,8 +86,7 @@ public static  List<Game>getAll(){
      * @param game : partie en cours
      */
     public static void ruleFullTurn(Game game) {
-
-        Hand handNextPlayer = HandService.getByPlayer(game.currentPlayer);
+        Hand handNextPlayer = HandService.getByPlayerAndGame(game.currentPlayer, game);
         if (handNextPlayer.cardP != null) {
 
             int cardValue = handNextPlayer.cardP.value;
@@ -114,6 +113,8 @@ public static  List<Game>getAll(){
         Game game = hand.game;
         game.currentPlayer = null;
         game.winner = hand.player;
+        game.winner.score+=3;
+        game.winner.save();
         game.save();
     }
 
@@ -193,5 +194,4 @@ public static  List<Game>getAll(){
 	public static Game getById(Long gameId) {
 		return Game.findById(gameId);
 	}
-
 }
