@@ -67,12 +67,6 @@ public class Application extends Controller {
     	User player = Security.connectedUser();
         Game game = GameService.getById(gameId);
         Hand handPlayer = HandService.getByPlayerAndGame(player, game);
-<<<<<<< HEAD
-=======
-        if(handPlayer.abandon){
-            gameRoom();
-        }
->>>>>>> 27bc6ae357562e7d51a4d65c6a6ab0d00bde5b34
         render(game, player, handPlayer);
     }
 
@@ -99,11 +93,7 @@ public class Application extends Controller {
 
         if (player.equals(game.currentPlayer)) {
         	
-<<<<<<< HEAD
             GameService.playCard(hand, hand.cards.get(index));         
-=======
-            GameService.playCard(hand, hand.cards.get(index), game);
->>>>>>> 27bc6ae357562e7d51a4d65c6a6ab0d00bde5b34
             Hand currentHandPlayer = HandService.getByPlayerAndGame(game.currentPlayer, game);
             GameService.ruleCompareAndDiscard(game, currentHandPlayer);
 
