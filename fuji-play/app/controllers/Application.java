@@ -1,5 +1,4 @@
 package controllers;
-
 import java.util.List;
 
 import models.Game;
@@ -24,14 +23,21 @@ public class Application extends Controller {
     	List<Game> games = GameService.getAll();
     	render(games, player);
     }
+
+    public static void leave(long gameId){
+        Game game=GameService.getById(gameId);
+        User player = Security.connectedUser();
+        GameService.leave(game, player);
+        gameRoom();
+    }
     /**
 	     * Creation d'une partie par un joueur donné puis il rejoint la partie
-     * @param nbJoueur : nombre de joueurs voulu dans la partie
+     * @param nbPlayer : nombre de joueurs voulu dans la partie
      */
     public static void addGame(int nbPlayer) {
     	User player = Security.connectedUser();
     	Game game = new Game();
-    	game.author = player;
+    	game.currentPlayer = player;
     	game.nbPlayerMissing = nbPlayer;
     	GameService.addGame(game);  
     	GameService.joinGame(game, player);
@@ -57,9 +63,16 @@ public class Application extends Controller {
 	 * @param gameId : id de la partie
 	 */
     public static void play(Long gameId) {
+
     	User player = Security.connectedUser();
         Game game = GameService.getById(gameId);
         Hand handPlayer = HandService.getByPlayerAndGame(player, game);
+<<<<<<< HEAD
+=======
+        if(handPlayer.abandon){
+            gameRoom();
+        }
+>>>>>>> 27bc6ae357562e7d51a4d65c6a6ab0d00bde5b34
         render(game, player, handPlayer);
     }
 
@@ -76,17 +89,21 @@ public class Application extends Controller {
      * @param id : handPlayer.id, id de la main d'un joueur donné
      * @param index : index de la carte présente dans la main du joueur
      */
-    public static void playCard(Long id, Integer index) {
-    	// on récupère la main du joueur donné
-        Hand hand = HandService.getById(id);
-        // on récupère le jeu associé
-        Game game = hand.game;
-        
+    public static void playCard(Long id, Integer index, Long gameId) {
+
         // on vérifie que la requête vient bien du joueur qui doit jouer
         User player = Security.connectedUser();
+        Game game = GameService.getById(gameId);
+        // on récupère la main du joueur donné
+        Hand hand = HandService.getByPlayerAndGame(player, game);
+
         if (player.equals(game.currentPlayer)) {
         	
+<<<<<<< HEAD
             GameService.playCard(hand, hand.cards.get(index));         
+=======
+            GameService.playCard(hand, hand.cards.get(index), game);
+>>>>>>> 27bc6ae357562e7d51a4d65c6a6ab0d00bde5b34
             Hand currentHandPlayer = HandService.getByPlayerAndGame(game.currentPlayer, game);
             GameService.ruleCompareAndDiscard(game, currentHandPlayer);
 

@@ -16,11 +16,49 @@ header
     text-shadow: 1px 1px 2px black, 0 0 1em #00FF00, 0 0 0.2em cyan;
 }
 
+.radio
+{
+display: inline-block;
+margin-bottom: 50px;
+}
+
+.submitbtn
+{
+    width: 200px;
+    height: 50px;
+    margin-left: 20px;;
+
+    background-color: rgba(0, 0, 0, 0.50);
+    border: ridge 2px rgba(0, 255, 0, 0.9);
+    border-radius: 10px;
+    text-shadow: 1px 1px 2px black, 0 0 1em #00FF00, 0 0 0.2em cyan;
+    color: #00FF00;
+}
+.submitbtn:hover
+{
+    background-color: rgba(0, 0, 0, 1);
+
+        text-shadow: 1px 1px 2px black, 0 0 1em #00FF00, 0 0 0.2em cyan;
+        font-weight: bold;
+}
+
+
+.submitbtn:visited
+{
+    color: #00FF00;
+}
+
 .totalPlayers
 {
     text-align: center;
     font-size: 2em;
     text-shadow: 1px 1px 2px black, 0 0 1em #00FF00, 0 0 0.2em cyan;
+}
+
+li
+{
+text-decoration: none;
+list-style-type: none;
 }
 
 .logout
@@ -59,28 +97,72 @@ header
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 50px;
+    width: 100%;
+    margin-top: 10px;
 }
 
 .games
 {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.newGame
-{
+    margin-top: 0;
     display: flex;
     flex-direction: row;
-    align-items: center;
-    margin-top: 50px;
+    align-items: space-between;
+}
+
+.games p
+{
+    margin-top: 0;
+font-size: 1.5em;
+font-weight: bold;
+text-shadow: 1px 1px 2px black, 0 0 1em #00FF00, 0 0 0.2em cyan;
+}
+
+.mygames, .availablegames
+{
+    margin-top: 0;
+    background: rgb(0,0,0);
+    background: linear-gradient(90deg, rgba(0,0,0,.5) 0%, rgba(0,255,0,.4) 40%, rgba(255,255,255,.35) 50%, rgba(0,255,0,.4) 60%, rgba(0,0,0,.5) 100%);
+    border: ridge 2px rgba(0, 255, 0, 0.7);
+    width: 800px;
+    height: 500px;
+    text-align: center;
+    overflow: auto;
+}
+
+.mygames li, .availablegames li
+{
+   margin: 10px;
+}
+
+.mygames a, .availablegames a
+{
+   margin-left: 30px;
+   text-decoration: none;
+   padding: 3px;
 }
 
 .currentGame
 {
+    text-align: center;
     background-color: #333333;
     color: white;
+}
+
+.otherPlayerCards
+{
+display: inline-block;
+align-items: center;
+margin-left: 30px;
+}
+
+.cards
+{
+display: inline-block;
+}
+
+.cards a:hover
+{
+border: ridge 2px rgba(0, 255, 0, 0.7);
 }
 
 body
@@ -124,6 +206,11 @@ body
 
     background-color: rgba(0, 25, 0, 0.9);
     border: ridge 2px rgba(0, 255, 0, 0.9);
+    color: #00FF00;
+}
+
+.registerbtn:visited
+{
     color: #00FF00;
 }
 

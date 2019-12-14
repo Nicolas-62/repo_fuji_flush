@@ -71,15 +71,18 @@ User(dark_maul):
   score: 1
 
 Game(g1):
-  currentPlayer: han_solo
-  author: han_solo
-  nbPlayerMissing: 1
+  currentPlayer: boba_fett
+  author: boba_fett
+  nbPlayerMissing: 0
 
 Hand(h1_han):
   game: g1
-  player: han_solo
+  player: boba_fett
 
 Hand(h1_anakin):
   game: g1
   player: anakin_skywalker
-  
+
+Hand(h1_Ki-Adi-Mundi):
+  game: g1
+  player: ki-adi-mundi

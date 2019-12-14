@@ -38,13 +38,13 @@ public class InitJob extends Job {
         }
         Collections.shuffle(deck);
         
-        // création des mains des joueurs à partir du deck créé
-      /*  List<Hand> hands = Hand.findAll();
+       //création des mains des joueurs à partir du deck créé
+       List<Hand> hands = Hand.findAll();
         for (int i = 0; i < 6; i++) {
             for (Hand hand : hands) {
                 GameService.draw(deck, hand);
             }
-        }*/
+        }
         // on recupère la partie ajoutée en bdd via script
         // on lui ajoute le deck et on sauvegarde le tout (game et game_deck)
         Game game = GameService.getOne();
@@ -53,3 +53,4 @@ public class InitJob extends Job {
     }
 
 }
+

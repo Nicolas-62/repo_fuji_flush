@@ -8,109 +8,85 @@
 </nav>
 
 <div class="gameRoom">
-*{#{if games}
-    #{list items:games, as:'aGame'}
-        #{if aGame.winner != null}
-            <li>Game <a href="#">revoir</a></li>
-        #{/if}
-
-        #{else}
-            #{set join:true/}
-            #{list items:aGame.hands, as:'aHand'}
-
-                #{if aHand.player.equals(player)}
-
-                    #{set join:false/}
-                    #{if aGame.nbPlayerMissing == 0}
-                        <li >Game is full X players<a class="registerbtn" href="@{Application.play(aGame.id)}"> play </a></li>
-                    #{/if}
-
-                    #{else}
-                        <li> Game waiting for new players :  X  / Y </li>
-                    #{/else}
-
-                #{/if}
-            #{/list}
-
-            #{if join}
-
-                #{if aGame.nbPlayerMissing == 0}
-                    <li>Game : complet</li>
-                #{/if}
-
-                #{else}
-                    <li>Game : <a href="@{Application.joinGame(aGame.id)}">rejoindre</a></li>
-                #{/else}
-
-            #{/if}
-
-        #{/else}
-    #{/list}
-#{/if}
-    </ul>}*
     <div class="newGame">
-        <form class="formulaire" action="@{Application.addGame()}" method="post">
 
-            <label class="nbPlayer" for="nbPlayer"><b> How many players ? </b></label>
-            <input list="nbPlayer" name="nbPlayer">
-            <datalist id="nbPlayer">
-                <option value="3">
-                <option value="4">
-                <option value="5">
-                <option value="6">
-                <option value="7">
-                <option value="8">
-            </datalist>
+        <form action="@{Application.addGame()}" method="post">
+                <div class ="radio">
+                    <input type="radio" id="nbPlayer"
+                           name="nbPlayer" value="3" checked>
+                    <label for="nbPlayer">3</label>
 
-            <input type="submit" class="registerbtn" value="New Game">
+                    <input type="radio" id="nbPlayer"
+                           name="nbPlayer" value="4" checked>
+                    <label for="nbPlayer">4</label>
 
+                    <input type="radio" id="nbPlayer"
+                           name="nbPlayer" value="5" checked>
+                    <label for="nbPlayer">5</label>
+
+                    <input type="radio" id="nbPlayer"
+                           name="nbPlayer" value="6" checked>
+                    <label for="nbPlayer">6</label>
+
+                    <input type="radio" id="nbPlayer"
+                           name="nbPlayer" value="7" checked>
+                    <label for="nbPlayer">7</label>
+
+                    <input type="radio" id="nbPlayer"
+                           name="nbPlayer" value="8" checked>
+                    <label for="nbPlayer">8 Players</label>
+                </div>
+            <input type="submit" class="submitbtn" value="New Timeless Game">
         </form>
     </div>
 
-    <div class="availableGames">
+    <div class="games">
+        <div class="availablegames">
+            <p>Available games :</p>
+        #{if games}
             #{list items:games, as:'aGame'}
-            #{if aGame.winner.equals(null)}
-                    #{list items:aGame.hands, as:'aHand'}
-                    #{set join:false/}
-                        #{if !aHand.player.equals(player) && aGame.nbPlayerMissing !=0}
-                                <li> ${aGame.hands.size()} / ${aGame.nbPlayerMissing+aGame.hands.size()} players</li>
-                                #{set join:true/}
+                        #{set join:true/}
+                        #{list items:aGame.hands, as:'aHand'}
+                            #{if aHand.player.equals(player)}
+                               #{set join:false/}
+                            #{/if}
+                        #{/list}
 
+                    #{if join}
+                        #{if aGame.nbPlayerMissing == 0}
+                            <li>${aGame.hands.size()}/${aGame.hands.size()+aGame.nbPlayerMissing} players<a class="registerbtn" href="#">Full</a></li>
                         #{/if}
-                        #{if !aHand.player.equals(player) && aGame.nbPlayerMissing ==0}
-                                <li> ${aGame.hands.size()} / ${aGame.nbPlayerMissing+aGame.hands.size()} players</li>
-                                <li class="registerbtn">Full</li>
-                        #{/if}
-                    #{/list}
-            #{/if}
+                        #{else}
+                            <li>${aGame.hands.size()}/${aGame.hands.size()+aGame.nbPlayerMissing} players<a class="registerbtn" href="@{Application.joinGame(aGame.id)}">Join</a></li>
+                        #{/else}
+                    #{/if}
             #{/list}
-    </div>
-#{if join}
-    #{if aGame.nbPlayerMissing == 0}
-        <li class="registerbtn">Full</li>
-    #{/if}
+        #{/if}
+        </div>
 
-    #{else}
-        <li class="registerbtn"><a href="@{Application.joinGame(aGame.id)}">Join</a></li>
-    #{/else}
-#{/if}
-
-    <div class="myGames">
-            #{list items:games, as:'aGame'}
-                #{if aGame.winner.equals(null)}
-                    #{list items:aGame.hands, as:'aHand'}
-
-                    #{if aHand.player.equals(player) && aGame.nbPlayerMissing ==0}
-                        <li> ${aGame.hands.size()} / ${aGame.nbPlayerMissing+aGame.hands.size()} players</li>
-                        <li class="registerbtn"><a href="@{Application.play(aGame.id)}">Play</a></li>
+            <div class="mygames">
+                <p>My games :</p>
+                #{if games}
+                #{list items:games, as:'aGame'}
+                #{list items:aGame.hands, as:'aHand'}
+                #{if aHand.player.equals(player)}
+                    #{if aGame.nbPlayerMissing == 0}
+                    <li >${aGame.hands.size()}/${aGame.hands.size()+aGame.nbPlayerMissing} players
+                     #{if aHand.abandon}
+                        <span>Vous avez abandonné</span>
                     #{/if}
-                    #{if aHand.player.equals(player) && aGame.nbPlayerMissing !=0}
-                        <li> ${aGame.hands.size()} / ${aGame.nbPlayerMissing+aGame.hands.size()} players</li>
-                        <li class="registerbtn">Waiting for players</li>
+                    #{else}
+                        <a class="registerbtn" href="@{Application.play(aGame.id)}"> play </a>
+                    #{/else}
+                    </li>
                     #{/if}
+                    #{else}
+                    <li> ${aGame.hands.size()}/${aGame.hands.size()+aGame.nbPlayerMissing} players<a class="registerbtn" href="#"> Waiting </a></li>
+                    #{/else}
+                #{/if}
                 #{/list}
-            #{/if}
-        #{/list}
+            #{/list}
+        #{/if}
     </div>
-
+</div>
 </div>
