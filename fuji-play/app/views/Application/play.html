@@ -1,11 +1,6 @@
 #{extends 'main.html' /}
 #{set title:'Current Game' /}
-
-<nav class="navigation">
-    <a href="@{Application.gameRoom()}" class="navigation-item"> Back to Game Room </a>
-</nav>
-
-<div class="currentGame">
+<div id="currentGame">
     <li><a href="@{Application.leave(game.id)}" class="navigation-item">Quitter la partie</a></li>
     <h1>#{if game.winner} WINNER ${game.winner.nickName}#{/if}
 
@@ -67,7 +62,7 @@
             <td class="cards">
                 #{list items:handPlayer.cards, as:'aCard'}
                 #{if game.currentPlayer.equals(player)}
-                <a href="@{Application.playCard(handPlayer.id, aCard_index-1, game.id)}">
+                <a class="playCard" href="@{Application.playCard(handPlayer.id, aCard_index-1, game.id)}">
                     <image src="/public/images/png/${aCard.value}.png" height="50px"/>
                 </a>
                 #{/if}
@@ -94,3 +89,28 @@
         </tbody>
     </table>
 </div>
+
+<script type="text/javascript" charset="${_response_encoding}">
+$(document).ready(function(){
+    // Recharge du plateau dans un interval donnéS
+    var count=0;
+    const refresh = function() {
+        $('#currentGame').load("@{Application.play(game.id)} #currentGame");
+        count++;
+        console.log("refresh : "+count);
+    }
+    // Appel la recharge
+    setInterval(refresh, 5000);
+
+    // appel ajax qd un joueur joue une carte
+    //const playButton = $('body #currentGame playCard');
+    // const playButton = $('#currentGame table tr:nth-child(2) a');
+    $('#currentGame').on('click',  '.playCard', function(e){
+        e.preventDefault();
+        let href = $(this).attr('href');
+        console.log("href : "+href);
+        $('#currentGame').load(href+" #currentGame");
+
+    });
+});
+</script>

@@ -1,3 +1,19 @@
+User(bob):
+  email: bob@g.com
+  password: $2a$12$50caQhMkg8.bk7/U3fWVZeg/43qtYd/bauO0n/JHQvoYOLRbICtnW
+  nickName: bob
+  score: 0
+User(lisa):
+  email: lisa@g.com
+  password: $2a$12$50caQhMkg8.bk7/U3fWVZeg/43qtYd/bauO0n/JHQvoYOLRbICtnW
+  nickName: lisa
+  score: 0
+User(alex):
+  email: alex@g.com
+  password: $2a$12$50caQhMkg8.bk7/U3fWVZeg/43qtYd/bauO0n/JHQvoYOLRbICtnW
+  nickName: alex
+  score: 0
+  
 User(han_solo):
   email: han.solo@coaxys.com
   password: $2a$12$50caQhMkg8.bk7/U3fWVZeg/43qtYd/bauO0n/JHQvoYOLRbICtnW
@@ -75,7 +91,7 @@ Game(g1):
   author: boba_fett
   nbPlayerMissing: 0
 
-Hand(h1_han):
+Hand(h1_boba):
   game: g1
   player: boba_fett
 
@@ -86,3 +102,43 @@ Hand(h1_anakin):
 Hand(h1_Ki-Adi-Mundi):
   game: g1
   player: ki-adi-mundi
+
+Game(g2):
+  currentPlayer: bob
+  author: bob
+  nbPlayerMissing: 0
+  
+Hand(h2_bob):
+  game: g2
+  player: bob
+  
+Hand(h2_lisa):
+  game: g2
+  player: lisa
+  
+Hand(h2_alex):
+  game: g2
+  player: alex
+  
+  
+Game(g3):
+  currentPlayer: bob
+  author: bob
+  nbPlayerMissing: 0 
+  
+Hand(h3_bob):
+  game: g3
+  player: bob
+  
+Hand(h3_lisa):
+  game: g3
+  player: lisa
+  
+Hand(h3_alex):
+  game: g3
+  player: alex
+  
+Hand(h3_boba):
+  game: g3
+  player: boba_fett
+  

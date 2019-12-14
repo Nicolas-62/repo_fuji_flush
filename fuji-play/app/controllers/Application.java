@@ -83,17 +83,18 @@ public class Application extends Controller {
      * @param id : handPlayer.id, id de la main d'un joueur donné
      * @param index : index de la carte présente dans la main du joueur
      */
-    public static void playCard(Long id, Integer index, Long gameId) {
+    public static void playCard(Long handId, Integer index, Long gameId) {
 
         // on vérifie que la requête vient bien du joueur qui doit jouer
         User player = Security.connectedUser();
         Game game = GameService.getById(gameId);
         // on récupère la main du joueur donné
-        Hand hand = HandService.getByPlayerAndGame(player, game);
+        Hand hand = HandService.getById(handId);
+//      Hand hand = HandService.getByPlayerAndGame(player, game);
 
         if (player.equals(game.currentPlayer)) {
         	
-            GameService.playCard(hand, hand.cards.get(index));         
+            GameService.playCard(hand, hand.cards.get(index), game);         
             Hand currentHandPlayer = HandService.getByPlayerAndGame(game.currentPlayer, game);
             GameService.ruleCompareAndDiscard(game, currentHandPlayer);
 

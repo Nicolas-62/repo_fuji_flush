@@ -74,6 +74,7 @@ public static  List<Game>getAll(){
      * @param card : carte jouée
      */
     public static void playCard(Hand hand, Card card, Game game) {
+    	GameService.getById(game.id);
         hand.cardP = card;
         hand.cards.remove(card);
         hand.save();

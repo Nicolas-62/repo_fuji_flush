@@ -1,14 +1,16 @@
 package services;
 
+import java.util.List;
+
 import models.Game;
 import models.Hand;
 import models.User;
 
 public class HandService {
 
-    public static Hand getByPlayerAndGame(User player, Game game) {
-        return Hand.find("player = ?1 and game = ?2", player,game).first();
-    }
+//    public static Hand getByPlayerAndGame(User player, Game game) {
+//        return Hand.find("player = ?1 and game = ?2", player,game).first();
+//    }
 
     public static Hand getById(Long id) {
         return Hand.findById(id);
@@ -16,5 +18,8 @@ public class HandService {
 
     public static Hand getByPlayerAndGame(User player, Game game) {
         return Hand.find("player = ?1 AND game =?2", player, game).first();
+    }
+    public static  List<Hand> getAllByGame(Game game){
+    	return Hand.find("game = ?1", game).fetch();
     }
 }
