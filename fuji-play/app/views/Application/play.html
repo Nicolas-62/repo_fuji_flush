@@ -87,7 +87,7 @@
             <td class="cards">
                 #{list items:handPlayer.cards, as:'aCard'}
                 #{if game.currentPlayer.equals(player)}
-                <a href="@{Application.playCard(handPlayer.id, aCard_index-1, game.id)}">
+                <a class="playCard" href="@{Application.playCard(handPlayer.id, aCard_index-1, game.id)}">
                     <img src="/public/images/png/${aCard.value}.png" class="playerCards"/>
                 </a>
                 #{/if}
@@ -125,7 +125,7 @@ $(document).ready(function(){
         console.log("refresh : "+count);
     }
     // Appel la recharge
-    setInterval(refresh, 5000);
+    setInterval(refresh, 1000);
 
     // appel ajax qd un joueur joue une carte
     //const playButton = $('body #currentGame playCard');

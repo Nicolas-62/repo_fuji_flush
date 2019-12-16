@@ -23,7 +23,10 @@ public class Application extends Controller {
     	List<Game> games = GameService.getAll();
     	render(games, player);
     }
-
+    /**
+     * Un joueur quiite une partie
+     * @param gameId : id de la partie quittée
+     */
     public static void leave(long gameId){
         Game game=GameService.getById(gameId);
         User player = Security.connectedUser();
@@ -31,8 +34,8 @@ public class Application extends Controller {
         gameRoom();
     }
     /**
-	     * Creation d'une partie par un joueur donné puis il rejoint la partie
-     * @param nbPlayer : nombre de joueurs voulu dans la partie
+     * Un joueur crée une partie puis la rejoint.
+     * @param nbPlayer : nombre de joueurs voulus dans la partie
      */
     public static void addGame(int nbPlayer) {
     	User player = Security.connectedUser();
@@ -79,23 +82,25 @@ public class Application extends Controller {
         render(listRanking, nbUser);
     }
     /**
-     * Met à jour le jeu en fonction de la carte jouée
-     * @param id : handPlayer.id, id de la main d'un joueur donné
+     * Un joueur joue une carte, met à jour le jeu en fonction de la carte jouée
+     * @param handId : handPlayer.id, id de la main d'un joueur donné
      * @param index : index de la carte présente dans la main du joueur
+     * @param gameId : id de la partie en cours 
      */
     public static void playCard(Long handId, Integer index, Long gameId) {
 
         // on vérifie que la requête vient bien du joueur qui doit jouer
         User player = Security.connectedUser();
         Game game = GameService.getById(gameId);
-        // on récupère la main du joueur donné
         Hand hand = HandService.getById(handId);
 //      Hand hand = HandService.getByPlayerAndGame(player, game);
 
         if (player.equals(game.currentPlayer)) {
         	
-            GameService.playCard(hand, hand.cards.get(index), game);         
+            GameService.playCard(hand, hand.cards.get(index), game);   
+            
             Hand currentHandPlayer = HandService.getByPlayerAndGame(game.currentPlayer, game);
+            
             GameService.ruleCompareAndDiscard(game, currentHandPlayer);
 
             GameService.nextPlayer(game, hand);

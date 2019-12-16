@@ -20,14 +20,16 @@ public class GameService {
         game.save();
 
 	}
-public static  List<Game>getAll(){
-	   return Game.findAll();
-}
-
-
-
+	/**
+	 * Récupère toute les parties
+	 * @return Une liste de parties
+	 */
+	public static  List<Game>getAll(){
+		   return Game.findAll();
+	}
     /**
-	 * Associe une main du jeu avec un joueur
+	 * Un joueur veut rejoindre une partie, on lui crée une main,
+	 * si tout les joueurs sont présents on rempli les mains
 	 * @param game : jeu
 	 * @param player : joueur
 	 */
@@ -48,24 +50,30 @@ public static  List<Game>getAll(){
 	}
 	
 	/**
-	 * Met à jour le currentPlayer de la partie en cours
+	 * Met à jour le currentPlayer de la partie en cours,
+	 * on récupère la main du prochain joueur, on l'ignore si ce joueur a abandonné
 	 * @param game : partie en cours
 	 * @param hand : main du joueur qui vient de jouer
 	 */
     public static void nextPlayer(Game game, Hand hand) {
-
-
-        int indexOfHand = game.hands.indexOf(hand);
-
-        indexOfHand++;
-        if (indexOfHand >= game.hands.size()) {
-            indexOfHand = 0;
+    	int indexOfHand = game.hands.indexOf(hand);
+        int indexOfNextHand;
+        if (indexOfHand == game.hands.size()-1) {
+            indexOfNextHand=0;
+        }else {
+            indexOfNextHand = indexOfHand+1;
         }
-
-        game.currentPlayer = game.hands.get(indexOfHand).player;
+        Hand nextHand = game.hands.get(indexOfNextHand);
+        if(nextHand.hasLeft) {
+            if(indexOfNextHand == game.hands.size()-1) {
+                nextHand = game.hands.get(0);
+            }else {
+                nextHand = game.hands.get(indexOfNextHand+1);
+            }
+        }
+        game.currentPlayer = nextHand.player;
         game.save();
     }
-
     /**
      * Déplace une carte de la main vers cardP ( cardP = card Player = carte jouée)
      * @param hand : main du joueur
@@ -93,11 +101,7 @@ public static  List<Game>getAll(){
                 if (hand.cardP != null && hand.cardP.value.equals(cardValue)) {
                     discard(game, hand);
                 }
-                if (hand.cards.isEmpty() && hand.cardP == null) {
-                    if (hand.hasLeft ){
-                        nextPlayer(game,hand);
-                        break;
-                    }
+                if (hand.cards.isEmpty() && hand.cardP == null && !hand.hasLeft) {
                     win(hand);
                     break;
                 }
@@ -116,12 +120,19 @@ public static  List<Game>getAll(){
         game.winner.save();
         game.save();
     }
-
+    /**
+     * Un joueur quitte une partie
+     * @param game : partie en cours
+     * @param player : joueur qui veut quitter la partie
+     */
     public static void leave(Game game,User player){
         Hand hand= HandService.getByPlayerAndGame(player,game);
         hand.cards.clear();
         hand.hasLeft =true;
         hand.save();
+        if(game.currentPlayer.equals(player)) {
+        	GameService.nextPlayer(game, hand);
+        }
 
     }
 
@@ -141,13 +152,14 @@ public static  List<Game>getAll(){
                 asso[hand.cardP.value] = asso[hand.cardP.value] + 1;
             }
         }
-
         // Compare les valeurs des associations
         for (Hand hand : game.hands) {
         	
             if (hand.cardP != null && calculAsso(asso, currentHand) > calculAsso(asso, hand)) {
                 discard(game, hand);
-                draw(game.deck, hand);
+                if(!hand.hasLeft) {
+                	draw(game.deck, hand);
+                }
             }
         }
     }
