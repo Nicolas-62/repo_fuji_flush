@@ -1,5 +1,8 @@
 #{extends 'main.html' /}
 #{set title:'Current Game' /}
+<nav class="navigation">
+    <a href="@{Application.gameRoom()}" class="navigation-item"> Back to Game Room </a>
+</nav>
 <div id="currentGame">
     <li><a href="@{Application.leave(game.id)}" class="navigation-item">Quitter la partie</a></li>
     <h1>#{if game.winner} WINNER ${game.winner.nickName}#{/if}
