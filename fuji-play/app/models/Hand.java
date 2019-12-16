@@ -31,7 +31,7 @@ public class Hand extends IdModel{
     @OneToOne
     public Card cardP;
 
-    public boolean abandon=false;
+    public boolean hasLeft =false;
 
 
 }

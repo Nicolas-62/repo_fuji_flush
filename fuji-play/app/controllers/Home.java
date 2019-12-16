@@ -49,7 +49,6 @@ public class Home extends Controller {
         newUser.password = UserService.encodePassword(password);
         UserService.addUser(newUser);
 
-        System.out.println("Cree !");
         gameRoom();
     }
 }

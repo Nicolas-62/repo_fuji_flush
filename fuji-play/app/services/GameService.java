@@ -1,6 +1,5 @@
 package services;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -8,7 +7,6 @@ import models.Card;
 import models.Game;
 import models.Hand;
 import models.User;
-import java.util.Vector;
 
 
 public class GameService {
@@ -96,7 +94,7 @@ public static  List<Game>getAll(){
                     discard(game, hand);
                 }
                 if (hand.cards.isEmpty() && hand.cardP == null) {
-                    if (hand.abandon){
+                    if (hand.hasLeft ){
                         nextPlayer(game,hand);
                         break;
                     }
@@ -122,7 +120,7 @@ public static  List<Game>getAll(){
     public static void leave(Game game,User player){
         Hand hand= HandService.getByPlayerAndGame(player,game);
         hand.cards.clear();
-        hand.abandon=true;
+        hand.hasLeft =true;
         hand.save();
 
     }
