@@ -124,8 +124,9 @@ Hand(h2_alex):
 Game(g3):
   currentPlayer: bob
   author: bob
-  nbPlayerMissing: 0 
-  
+  nbPlayerMissing: 0
+  winner: bob
+
 Hand(h3_bob):
   game: g3
   player: bob

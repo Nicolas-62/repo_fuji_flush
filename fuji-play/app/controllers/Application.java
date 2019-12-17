@@ -33,6 +33,14 @@ public class Application extends Controller {
         GameService.leave(game, player);
         gameRoom();
     }
+    public static void records(){
+        User player = Security.connectedUser();
+
+        List<Game> games =GameService.getAllByPlayer(player);
+        render(games,player);
+
+
+    }
     /**
      * Un joueur crée une partie puis la rejoint.
      * @param nbPlayer : nombre de joueurs voulus dans la partie
