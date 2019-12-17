@@ -40,6 +40,7 @@ public class GameService {
         game.hands.add(hand);
         game.nbPlayerMissing--;
         if(game.nbPlayerMissing == 0) {
+        	Collections.shuffle(game.deck);
             for (int i = 0; i < 6; i++) {
                 for (Hand aHand : game.hands) {
                     GameService.draw(game.deck, aHand);

@@ -90,3 +90,16 @@
     </div>
 </div>
 </div>
+<script type="text/javascript" charset="${_response_encoding}">
+    $(document).ready(function(){
+        // Recharge du plateau dans un interval donnÃ©S
+        var count=0;
+        const refresh = function() {
+            $('.games').load("@{Application.gameRoom()} .games");
+            count++;
+            console.log("refresh : "+count);
+        }
+        // Appel la recharge
+        setInterval(refresh, 1000);
+    });
+    </script>

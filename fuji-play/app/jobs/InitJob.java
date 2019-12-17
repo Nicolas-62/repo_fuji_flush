@@ -6,6 +6,7 @@ import models.Hand;
 import play.jobs.Job;
 import play.jobs.OnApplicationStart;
 import play.test.Fixtures;
+import services.CardService;
 import services.GameService;
 import services.HandService;
 
@@ -21,20 +22,28 @@ public class InitJob extends Job {
 	 */  
     @Override
     public void doJob() throws Exception {
-        Fixtures.deleteAllModels();
-        Fixtures.loadModels("initial-data/initial-data.yml");
+    	
+    	Fixtures.deleteAllModels();
+    	Fixtures.loadModels("initial-data/initial-data.yml");
+    	// cc
+        List<Card> cards = new ArrayList<Card>();
+        int[] repartition = {16, 12, 9, 8, 6, 6, 5, 4, 4, 4, 3, 3, 3, 2, 1, 1, 1, 1, 1};
+        for (int i = 2; i < 21; i++) {
+            for (int j = 0; j < repartition[i - 2]; j++) {
+                Card card = new Card();
+                card.value = i;
+//                deck.add(card);
+                card.save();
+                cards.add(card);
+            }
+        }    	
         List<Game> games = GameService.getAll();
         for(Game game : games) {
             //création du deck et des cartes qu'il contient puis mélange
             List<Card> deck = new ArrayList<>();
-            int[] repartition = {16, 12, 9, 8, 6, 6, 5, 4, 4, 4, 3, 3, 3, 2, 1, 1, 1, 1, 1};
-            for (int i = 2; i < 21; i++) {
-                for (int j = 0; j < repartition[i - 2]; j++) {
-                    Card card = new Card();
-                    card.value = i;
-                    deck.add(card);
-                    card.save();
-                }
+//            List<Card> cards = CardService.findAll();
+            for (Card aCard : cards) {
+            	deck.add(aCard);
             }
             Collections.shuffle(deck);  
             //création des mains des joueurs à partir du deck créé

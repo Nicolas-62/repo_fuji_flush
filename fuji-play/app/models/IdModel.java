@@ -16,9 +16,9 @@ import javax.persistence.MappedSuperclass;
 public class IdModel extends GenericModel {
 
     @Id
-//    @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
-//    @GenericGenerator(name = "native", strategy = "native")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
+    @GenericGenerator(name = "native", strategy = "native")
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long id;
 
     public Long getId() {
