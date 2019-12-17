@@ -126,7 +126,7 @@ public class GameService {
     public static void win(Hand hand) {
         Game game = hand.game;
         game.currentPlayer = null;
-        game.winners.add(hand.player);
+        game.winners.add(hand);
         hand.player.score=hand.player.score+3;
         game.isFinished=true;
         game.save();
@@ -134,7 +134,7 @@ public class GameService {
 
     public static void leaveWin(Hand hand) {
         Game game = hand.game;
-        game.winners.add(hand.player);
+        game.winners.add(hand);
         hand.player.score=hand.player.score+1;
         hand.save();
     }

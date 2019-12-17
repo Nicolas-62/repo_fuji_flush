@@ -6,6 +6,7 @@ import models.Hand;
 import models.User;
 import play.mvc.Controller;
 import play.mvc.With;
+import play.Logger;
 import services.GameService;
 import services.HandService;
 import services.UserService;
@@ -13,9 +14,11 @@ import services.UserService;
 
 @With(Secure.class)
 public class Application extends Controller {
+	public static final Level VERBOSE = Level.forName("VERBOSE", 550);
 
     public static void index() {
         User player = Security.connectedUser();
+        Logger.info("%-10s get index", player.nickName);
         render();
     }
     public static void gameRoom() {
@@ -50,7 +53,8 @@ public class Application extends Controller {
     	Game game = new Game();
     	game.currentPlayer = player;
     	game.nbPlayerMissing = nbPlayer;
-    	GameService.addGame(game);  
+    	GameService.addGame(game); 
+    	Logger.info("%s create game id : %d", player.nickName, game.id);
     	GameService.joinGame(game, player);
     	gameRoom();
     	
@@ -63,6 +67,7 @@ public class Application extends Controller {
     	User player = Security.connectedUser();
     	Game game = GameService.getById(gameId);
     	GameService.joinGame(game, player);
+       	Logger.info("%s join game id : %d", player.nickName, game.id);
     	if(game.nbPlayerMissing == 0) {
     		play(gameId);
     	}else {
