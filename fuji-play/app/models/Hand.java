@@ -33,5 +33,7 @@ public class Hand extends IdModel{
 
     public boolean hasLeft =false;
 
+    public boolean hasWon =false;
+
 
 }

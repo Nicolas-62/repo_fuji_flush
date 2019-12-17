@@ -41,7 +41,7 @@ public class Game extends IdModel {
     public List<Card> discard;
 
     @OneToMany(cascade = CascadeType.ALL)
-    public List<User> winners;
+    public List<Hand> winners;
 
     public Boolean isFinished = false;
 }
