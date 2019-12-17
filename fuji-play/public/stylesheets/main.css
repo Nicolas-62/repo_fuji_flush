@@ -4,6 +4,20 @@ html
     height: 100%;
 }
 
+body
+{
+    background-image: url("../images/wallpaper2.png");
+    background-repeat: no-repeat;
+
+    background-size: cover;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+
+    height:100%;
+    width: 100%;
+}
+
 header
 {
     display: flex;
@@ -16,23 +30,31 @@ header
     background-color: rgba(0,0,0, .2);
     font-family: 'Orbitron', sans-serif;
 }
+
 .bandeau
 {
     margin-left: 42%;
-    text-shadow: 1px 1px 2px black, 0 0 1em #00FF00, 0 0 0.2em cyan;
+    text-shadow: 1px 1px 2px black, 0 0 1em #00AAFF, 0 0 0.2em cyan;
+}
+
+h3
+{
+    color: white;
+    text-shadow: 1px 1px 2px black, 0 0 1em #00AAFF, 0 0 0.2em cyan;
+    font-size: 25px;
 }
 
 .totalPlayers
 {
     text-align: center;
     font-size: 2em;
-    text-shadow: 1px 1px 2px black, 0 0 1em #00FF00, 0 0 0.2em cyan;
+    text-shadow: 1px 1px 2px black, 0 0 1em #00AAFF, 0 0 0.2em cyan;
 }
 
 li
 {
-text-decoration: none;
-list-style-type: none;
+    text-decoration: none;
+    list-style-type: none;
 }
 
 .logout
@@ -48,22 +70,23 @@ list-style-type: none;
     padding-left: 100px;
     padding-right: 100px;
     font-size: 1em;
-    color: black;
+    color: white;
     font-weight: bold;
     list-style-type: none;
-    text-shadow: 1px 1px 2px black, 0 0 1em #00FF00, 0 0 0.2em cyan;
+    text-shadow: 1px 1px 2px black, 0 0 1em midnightblue, 0 0 0.2em cyan;
 }
 
 .logout li a, a:visited
 {
-    color: black;
+    color: white;
     font-weight: bold;
     text-decoration: none;
     text-shadow: none;
 }
+
 .logout li a:hover
 {
-    text-shadow: 1px 1px 2px black, 0 0 1em #00FF00, 0 0 0.2em cyan;
+    text-shadow: 1px 1px 2px black, 0 0 1em midnightblue, 0 0 0.2em cyan;
 }
 
 .gameRoom
@@ -77,8 +100,9 @@ list-style-type: none;
 
 .radio
 {
-display: inline-block;
-margin-bottom: 50px;
+    display: inline-block;
+    margin-bottom: 50px;
+    color: white;
 }
 
 .submitbtn
@@ -86,21 +110,21 @@ margin-bottom: 50px;
     width: 200px;
     height: 50px;
     margin-left: 20px;;
-
+    cursor: pointer;
     background-color: rgba(0, 0, 0, 0.50);
-    border: ridge 2px rgba(0, 255, 0, 0.9);
+    border: ridge 2px rgba(0, 200, 255, 0.9);
     border-radius: 10px;
     text-shadow: 1px 1px 2px black, 0 0 1em #00FF00, 0 0 0.2em cyan;
     color: #00FF00;
 }
+
 .submitbtn:hover
 {
     background-color: rgba(0, 0, 0, 1);
 
-        text-shadow: 1px 1px 2px black, 0 0 1em #00FF00, 0 0 0.2em cyan;
-        font-weight: bold;
+    text-shadow: 1px 1px 2px black, 0 0 1em #00FF00, 0 0 0.2em cyan;
+    font-weight: bold;
 }
-
 
 .submitbtn:visited
 {
@@ -116,13 +140,13 @@ margin-bottom: 50px;
 }
 .games p
 {
-font-weight: bold;
+    font-weight: bold;
 }
+
 .mygames, .availablegames
 {
-    background: rgb(0,0,0);
-    background: linear-gradient(90deg, rgba(0,0,0,.5) 0%, rgba(0,255,0,.4) 40%, rgba(255,255,255,.35) 50%, rgba(0,255,0,.4) 60%, rgba(0,0,0,.5) 100%);
-    border: ridge 2px rgba(0, 255, 0, 0.7);
+    background: rgba(0,0,15,.7);
+    border: ridge 2px rgba(0, 200, 255, 0.7);
     padding: 50px;
     width: 800px;
     height: 500px;
@@ -132,14 +156,14 @@ font-weight: bold;
 
 .mygames li, .availablegames li
 {
-   margin: 10px;
+    margin: 10px;
 }
 
 .mygames a, .availablegames a
 {
-   margin-left: 30px;
-   text-decoration: none;
-   padding: 3px;
+    margin-left: 30px;
+    text-decoration: none;
+    padding: 3px;
 }
 
 
@@ -148,7 +172,7 @@ font-weight: bold;
 #currentGame
 {
     text-align: center;
-    background-color: #333333;
+    background-color: rgba(0, 0, 50, 0.3);
     color: white;
 
     width: 99%;
@@ -181,7 +205,7 @@ font-weight: bold;
 /* LIGNE JOUEUR COURANT ***************************************/
 .currentPlayer
 {
-    background-color: rgba(0, 255, 0, 0.7);
+    background-color: rgba(0, 200, 255, 0.7);
     height: 100px;
 }
 
@@ -223,7 +247,7 @@ font-weight: bold;
 .leavebtn:hover
 {
     background-color: rgba(0, 0, 0, 1);
-        font-weight: bold;
+    font-weight: bold;
 }
 
 
@@ -234,22 +258,10 @@ font-weight: bold;
 }
 .cards img:hover
 {
-    border: ridge 2px rgba(255, 255, 255, 1);
+    border: ridge 2px rgba(0, 255, 255, 1);
 }
 
-body
-{
-    background-image: url("../images/wallpaper.jpg");
-    background-repeat: no-repeat;
 
-    background-size: cover;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-
-    height:100%;
-    width: 100%;
-}
 
 .formulaire
 {
@@ -268,23 +280,7 @@ body
     text-align: center;
 }
 
-.registerbtn
-{
-    width: 420px;
-    height: 50px;
 
-    margin: auto;
-    margin-bottom: 20px;
-
-    background-color: rgba(0, 25, 0, 0.9);
-    border: ridge 2px rgba(0, 255, 0, 0.9);
-    color: #00FF00;
-}
-
-.registerbtn:visited
-{
-    color: #00FF00;
-}
 
 
 /* NAVIGATION **********************************************************************************************************/
@@ -311,12 +307,11 @@ body
     color: black;
     text-decoration: none;
     text-align: center;
-    text-shadow: 1px 1px 2px black, 0 0 1em #00FF00, 0 0 0.2em cyan;
+    text-shadow: 1px 1px 2px black, 0 0 1em #00DDFF, 0 0 0.2em cyan;
     font-family: 'Orbitron', sans-serif;
     font-size: 27px;
 
-    background: rgb(0,255,0);
-    background: linear-gradient(0deg, rgba(0,255,0,0.1) 0%, rgba(0,255,31,0.4) 16%, rgba(0,255,150,1) 61%, rgba(0,0,0,0.4) 100%);
+    background: linear-gradient(0deg, rgba(0,0,0,0.1) 0%, rgba(0,200,255,1) 61%, rgba(0,0,0,0.4) 100%);
 
     border-radius: 10%;
 }
@@ -324,7 +319,7 @@ body
 
 .navigation-item:hover
 {
-    background: linear-gradient(0deg, rgba(0,255,0,0.4) 0%, rgba(0,255,31,0.7) 16%, rgba(0,255,150,1) 61%, rgba(0,0,0,0.7) 100%);
+    background: linear-gradient(0deg, rgba(0,200,255,0.3) 0%, rgba(0,200,255,1) 61%, rgba(0,200,255,0.7) 100%);
 }
 
 
@@ -333,61 +328,111 @@ body
 .titre
 {
     text-align: center;
-    text-shadow: 1px 1px 2px black, 0 0 1em #00FF00, 0 0 0.2em cyan;
+    text-shadow: 1px 1px 2px black, 0 0 1em #00AAFF, 0 0 0.2em cyan;
     font-size: 40px;
 }
 
 .panel-rank, .register
 {
     background: rgb(0,0,0);
-    background: linear-gradient(90deg, rgba(0,0,0,.5) 0%, rgba(0,255,0,.4) 40%, rgba(255,255,255,.35) 50%, rgba(0,255,0,.4) 60%, rgba(0,0,0,.5) 100%);
+    background: linear-gradient(90deg, rgba(0,0,0,.5) 0%, rgba(0,200, 255, .4) 40%, rgba(255,255,255,.35) 50%, rgba(0,200, 255,.4) 60%, rgba(0,0,0,.5) 100%);
 
-    border: ridge 2px rgba(0, 255, 0, 0.7);
+    border: ridge 2px rgba(0, 200, 255, 0.7);
 }
 
-.list-rank
+
+
+
+/* TABLEAU *************************************************************************************************************/
+.tableau
 {
     width: 100%;
     color: white;
+}
+
+.ligne-tableau
+{
+    height: 30px;
+    font-size: 25px;
+}
+
+.ligne-tableau:hover
+{
+    background-color: rgba(0, 230, 255, 0.3);
 }
 
 .header-table
 {
     text-align: center;
     color: white;
-    text-shadow: 1px 1px 2px black, 0 0 1em #00FF00, 0 0 0.2em cyan;
+    text-shadow: 1px 1px 2px black, 0 0 1em #00AAFF, 0 0 0.2em cyan;
     font-family: 'Orbitron', sans-serif;
     font-size: 15px;
+
+    height: 20px;
 }
 
 .body-table
 {
     text-align: center;
     color: white;
-    text-shadow: 1px 1px 2px black, 0 0 1em #00FF00, 0 0 0.2em cyan;
+    text-shadow: 1px 1px 2px black, 0 0 1em #00AAFF, 0 0 0.2em cyan;
     font-family: 'Orbitron', sans-serif;
-    font-size: 12px;
+    font-size: 15px;
 }
 
+
+/* GAME ROOM PAGE */
+.table-id, .table-numberOfPlayers, .table-join
+{
+    width: 33%;
+    font-size: 15px;
+}
+
+/* RANKING PAGE */
 .pseudo, .score, .rank
 {
     width: 50%;
 }
 
-
 .connected
 {
-    background-color: #00FF00;
+    height: 35px;
+    background-color: #00CCFF;
     color: black;
 }
 
 .player
 {
-    background-color: rgba(0, 75, 0, .7);
+    height: 30px;
+    background-color: rgba(0, 0, 75, .7);
 }
 
 .total-joueur
 {
     text-align: center;
     color: white;
+}
+
+
+
+/* BOUTON **************************************************************************************************************/
+.registerbtn
+{
+    width: 420px;
+    height: 50px;
+
+    margin: auto;
+    margin-bottom: 20px;
+
+    cursor: pointer;
+
+    background-color: rgba(0, 0, 25, 0.9);
+    border: ridge 2px rgba(0, 230, 255, 0.9);
+    color: #00CCFF;
+}
+
+.registerbtn:visited
+{
+    color: #00CCFF;
 }

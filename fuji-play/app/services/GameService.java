@@ -1,5 +1,6 @@
 package services;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -109,6 +110,7 @@ public class GameService {
             }
         }
     }
+
     /**
      * Sauvegarde la partie avec son vainqueur.
      * @param hand : la main du joueur qui a gagné
@@ -116,25 +118,59 @@ public class GameService {
     public static void win(Hand hand) {
         Game game = hand.game;
         game.currentPlayer = null;
-        game.winner = hand.player;
-        game.winner.score+=3;
-        game.winner.save();
+        game.winners.add(hand.player);
+        hand.player.score=hand.player.score+3;
+        game.isFinished=true;
         game.save();
     }
+
+    public static void leaveWin(Hand hand) {
+        Game game = hand.game;
+        game.currentPlayer = null;
+        game.winners.add(hand.player);
+        hand.player.score=hand.player.score+1;
+        game.isFinished=true;
+        game.save();
+    }
+
+
     /**
      * Un joueur quitte une partie
      * @param game : partie en cours
      * @param player : joueur qui veut quitter la partie
      */
     public static void leave(Game game,User player){
-        Hand hand= HandService.getByPlayerAndGame(player,game);
-        hand.cards.clear();
-        hand.hasLeft =true;
+        player.score=player.score-3;
+        player.save();
+        Hand hand = HandService.getByPlayerAndGame(player, game);
+        hand.hasLeft = true;
         hand.save();
-        if(game.currentPlayer.equals(player)) {
-        	GameService.nextPlayer(game, hand);
+        List<Hand> remainingHands = new ArrayList();
+
+        for (Hand iter : game.hands){
+            if (iter.hasLeft == false && !iter.player.equals(player)) {
+                    remainingHands.add(iter);
+            }
         }
 
+        System.out.println(remainingHands.size());
+
+        if (remainingHands.size()==2){
+            for (Hand iter : remainingHands){
+                leaveWin(iter);
+            }
+
+        }
+
+        else {
+            hand.cards.clear();
+            hand.save();
+            if (game.currentPlayer.equals(player)) {
+                GameService.nextPlayer(game, hand);
+            }
+        }
+
+        System.out.println(game.winners.size());
     }
 
 

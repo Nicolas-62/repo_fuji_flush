@@ -6,9 +6,9 @@
 </nav>
 
 <div id="currentGame">
-    <h1>#{if game.winner} WINNER ${game.winner.nickName}#{/if}
+    #{if !game.isFinished}
 
-        #{else}Current Game#{/else}</h1>
+        <h3>Current Game</h3>
 
 
     <button class="leavebtn"><a href="@{Application.leave(game.id)}">Quit game</a></button>
@@ -114,6 +114,11 @@
         </tbody>
     </table>
 </div>
+#{/if}
+
+#{else}
+<h1> ${game.winners.nickName} WON THE GAME, CONGRATULATIONS</h1>
+#{/else}
 
 <script type="text/javascript" charset="${_response_encoding}">
 $(document).ready(function(){

@@ -40,6 +40,8 @@ public class Game extends IdModel {
     @JoinTable(name = "Game_Discard")
     public List<Card> discard;
 
-    @OneToOne
-    public User winner;
+    @OneToMany(cascade = CascadeType.ALL)
+    public List<User> winners;
+
+    public Boolean isFinished = false;
 }

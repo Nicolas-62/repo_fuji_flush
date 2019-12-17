@@ -11,85 +11,110 @@
     <div class="newGame">
 
         <form action="@{Application.addGame()}" method="post">
-                <div class ="radio">
-                    <input type="radio"
-                           name="nbPlayer" value="3" checked>
-                    <label>3</label>
+            <div class ="radio">
+                <input type="radio"
+                       name="nbPlayer" value="3" checked>
+                <label>3</label>
 
-                    <input type="radio"
-                           name="nbPlayer" value="4" checked>
-                    <label>4</label>
+                <input type="radio"
+                       name="nbPlayer" value="4" checked>
+                <label>4</label>
 
-                    <input type="radio"
-                           name="nbPlayer" value="5" checked>
-                    <label>5</label>
+                <input type="radio"
+                       name="nbPlayer" value="5" checked>
+                <label>5</label>
 
-                    <input type="radio"
-                           name="nbPlayer" value="6" checked>
-                    <label>6</label>
+                <input type="radio"
+                       name="nbPlayer" value="6" checked>
+                <label>6</label>
 
-                    <input type="radio"
-                           name="nbPlayer" value="7" checked>
-                    <label>7</label>
+                <input type="radio"
+                       name="nbPlayer" value="7" checked>
+                <label>7</label>
 
-                    <input type="radio"
-                           name="nbPlayer" value="8" checked>
-                    <label>8 Players</label>
-                </div>
+                <input type="radio"
+                       name="nbPlayer" value="8" checked>
+                <label>8 Players</label>
+            </div>
             <input type="submit" class="submitbtn" value="New Timeless Game">
         </form>
     </div>
 
     <div class="games">
         <div class="availablegames">
-            <p>Available games :</p>
-        #{if games}
-            #{list items:games, as:'aGame'}
+            <h3>Available games</h3>
+
+            <table class="tableau">
+                <thead class="header-table">
+                <td class="table-id"> ID </td>
+                <td class="table-numberOfPlayers"> Number </td>
+                <td class="table-join"> State </td>
+                </thead>
+
+                <tbody class="body-table">
+                #{if games}
+                    #{list items:games, as:'aGame'}
                         #{set join:true/}
                         #{list items:aGame.hands, as:'aHand'}
                             #{if aHand.player.equals(player)}
-                               #{set join:false/}
+                                #{set join:false/}
                             #{/if}
                         #{/list}
 
-                    #{if join}
-                        #{if aGame.nbPlayerMissing == 0}
-                            <li>${aGame.hands.size()}/${aGame.hands.size()+aGame.nbPlayerMissing} players<a class="registerbtn" href="#">Full</a></li>
+                        #{if join}
+                            #{if aGame.nbPlayerMissing != 0}
+                            <tr class="ligne-tableau">
+                                <td class="table-id"> ${aGame.id} </td>
+                                <td class="table-numberOfPlayers"> ${aGame.hands.size()}/${aGame.hands.size()+aGame.nbPlayerMissing} </td>
+                                <td class="table-join"> <a class="registerbtn" href="@{Application.joinGame(aGame.id)}"> Join </a> </td>
+                            </tr>
+                            #{/if}
                         #{/if}
-                        #{else}
-                            <li>${aGame.hands.size()}/${aGame.hands.size()+aGame.nbPlayerMissing} players<a class="registerbtn" href="@{Application.joinGame(aGame.id)}">Join</a></li>
-                        #{/else}
-                    #{/if}
-            #{/list}
-        #{/if}
+                    #{/list}
+                #{/if}
+                </tbody>
+            </table>
         </div>
 
-            <div class="mygames">
-                <p>My games :</p>
+        <div class="mygames">
+            <h3>My games</h3>
+            <table class="tableau">
+                <thead class="header-table">
+                <td class="table-id"> ID </td>
+                <td class="table-numberOfPlayers"> Number </td>
+                <td class="table-join"> State </td>
+                </thead>
+
+                <tbody class="body-table">
                 #{if games}
-                #{list items:games, as:'aGame'}
-                #{list items:aGame.hands, as:'aHand'}
-                #{if aHand.player.equals(player)}
-                    #{if aGame.nbPlayerMissing == 0}
-                    <li >${aGame.hands.size()}/${aGame.hands.size()+aGame.nbPlayerMissing} players
-                     #{if aHand.hasLeft}
-                        <span>You have quit the Game</span>
-                    #{/if}
-                    #{else}
-                        <a class="registerbtn" href="@{Application.play(aGame.id)}"> play </a>
-                    #{/else}
-                    </li>
-                    #{/if}
-                    #{else}
-                    <li> ${aGame.hands.size()}/${aGame.hands.size()+aGame.nbPlayerMissing} players<a class="registerbtn" href="#"> Waiting </a></li>
-                    #{/else}
+                    #{list items:games, as:'aGame'}
+                        #{list items:aGame.hands, as:'aHand'}
+                            #{if aHand.player.equals(player)}                                                                   *{ Si le joueur est dans cette partie }*
+                            <tr class="ligne-tableau">
+                                <td class="table-id"> ${aGame.id} </td>
+                                <td class="table-numberOfPlayers"> ${aGame.hands.size()}/${aGame.hands.size()+aGame.nbPlayerMissing} </td>
+                                #{if aGame.nbPlayerMissing == 0}                                                            *{ Si la partie est pleine = Abandon ou PLAY}*
+                                    #{if aHand.hasLeft}
+                                        <td class="table-join"> You have quit the Game </td>
+                                    #{/if}
+                                    #{else}
+                                        <td class="table-join"> <a class="registerbtn" href="@{Application.play(aGame.id)}"> play </a> </td>
+                                    #{/else}
+                                #{/if}
+                                #{else}                                                                                     *{ Sinon en attente de joueur avant lancement }*
+                                    <td class="table-join"> Waiting </td>
+                                #{/else}
+                            </tr>
+                            #{/if}
+                        #{/list}
+                    #{/list}
                 #{/if}
-                #{/list}
-            #{/list}
-        #{/if}
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
-</div>
+
 <script type="text/javascript" charset="${_response_encoding}">
     $(document).ready(function(){
         // Recharge du plateau dans un interval donnÃ©S
@@ -102,4 +127,4 @@
         // Appel la recharge
         setInterval(refresh, 1000);
     });
-    </script>
+</script>
