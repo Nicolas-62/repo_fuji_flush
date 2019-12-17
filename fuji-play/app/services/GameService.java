@@ -21,6 +21,14 @@ public class GameService {
         game.save();
 
 	}
+	public static List<Game>getAllByPlayer(User player ){
+
+	    return  Game.find(" select g from Game g" +
+                " join Hand h on g.id=h.game.id" +
+                " join User u on u.id=h.player.id " +
+                " where h.player.id=?1 and g.winner!=?2" ,player.id, null).fetch();
+
+    }
 	/**
 	 * Récupère toute les parties
 	 * @return Une liste de parties
