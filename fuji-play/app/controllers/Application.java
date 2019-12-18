@@ -1,9 +1,12 @@
 package controllers;
 import java.util.List;
 
+import org.apache.log4j.Level;
+
 import models.Game;
 import models.Hand;
 import models.User;
+import play.Logger;
 import play.mvc.Controller;
 import play.mvc.With;
 import play.Logger;
@@ -23,14 +26,14 @@ public class Application extends Controller {
     }
     public static void gameRoom() {
     	User player = Security.connectedUser(); 
-    	List<Game> games = GameService.getAll();
+    	List<Game> games = GameService.getAll();// findAll()
     	render(games, player);
     }
     /**
      * Un joueur quiite une partie
      * @param gameId : id de la partie quittée
      */
-    public static void leave(long gameId){
+    public static void leave(long gameId){ // UUID sur gameId
         Game game=GameService.getById(gameId);
         User player = Security.connectedUser();
         GameService.leave(game, player);
@@ -63,7 +66,7 @@ public class Application extends Controller {
 	 * Le joueur connecté rejoint la partie
 	 * @param gameId : id de la partie
 	 */
-    public static void joinGame(Long gameId) {
+    public static void joinGame(Long gameId) { // UUID
     	User player = Security.connectedUser();
     	Game game = GameService.getById(gameId);
     	GameService.joinGame(game, player);
@@ -79,9 +82,10 @@ public class Application extends Controller {
 	 * @param gameId : id de la partie
 	 */
     public static void play(Long gameId) {
-
+    	
     	User player = Security.connectedUser();
         Game game = GameService.getById(gameId);
+        notFoundIfNull(game);
         Hand handPlayer = HandService.getByPlayerAndGame(player, game);
         render(game, player, handPlayer);
     }
