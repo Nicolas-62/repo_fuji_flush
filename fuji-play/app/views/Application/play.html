@@ -48,15 +48,15 @@
             </td>
 
             <!-- BOARD -->
-            #{if !aHand.cardP.equals(null)}
-            <td class="column-board">
-                <img src="/public/images/png/${aHand.cardP.value}.png" class="playerCards"/>
-            </td>
+            #{if aHand.cardP.equals(null)}
+                <td>
+                    <img src="/public/images/png/dos.png" class="playerCards"/>
+                </td>
             #{/if}
             #{else}
-            <td>
-                <img src="/public/images/png/dos.png" class="playerCards"/>
-            </td>
+                <td class="column-board">
+                    <img src="/public/images/png/${aHand.cardP.value}.png" class="playerCards"/>
+                </td>
             #{/else}
         </tr>
         #{/if}

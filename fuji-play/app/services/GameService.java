@@ -21,7 +21,7 @@ public class GameService {
         game.save();
 
 	}
-	public static List<Game>getAllByPlayer(User player ){
+	public static List<Game> findAllByPlayer(User player ){
 
 	    return  Game.find(" select g from Game g" +
                 " join Hand h on g.id=h.game.id" +
@@ -33,7 +33,7 @@ public class GameService {
 	 * Récupère toute les parties
 	 * @return Une liste de parties
 	 */
-	public static  List<Game>getAll(){
+	public static  List<Game> findAll(){
 		   return Game.findAll();
 	}
     /**
@@ -161,21 +161,29 @@ public class GameService {
             }
         }
 
-        System.out.println(remainingHands.size());
-
         if (remainingHands.size()==2){
+
             for (Hand iter : remainingHands){
                 leaveWin(iter);
                 hand.save();
             }
+
             game.currentPlayer = null;
             game.isFinished=true;
             game.save();
         }
 
         else {
+            // quand un joueur leave, ses cartes sont ajoutée à la défausse
+            for (Card card : hand.cards) {
+                game.discard.add(card);
+            }
+            game.save();
+
+            // on vide ensuite sa main
             hand.cards.clear();
             hand.save();
+
             if (game.currentPlayer.equals(player)) {
                 GameService.nextPlayer(game, hand);
             }
@@ -203,7 +211,13 @@ public class GameService {
         	
             if (hand.cardP != null && calculAsso(asso, currentHand) > calculAsso(asso, hand)) {
                 discard(game, hand);
+                // si le joueur n'a pas abandonné la game
                 if(!hand.hasLeft) {
+                    // si le deck est vide, la défausse devient la pioche et on la mélange avant de piocher
+                    if (game.deck.size()==0){
+                        game.deck = game.discard;
+                        Collections.shuffle(game.deck);
+                    }
                 	draw(game.deck, hand);
                 }
             }

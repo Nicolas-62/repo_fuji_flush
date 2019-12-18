@@ -20,7 +20,7 @@ public class Application extends Controller {
     }
     public static void gameRoom() {
     	User player = Security.connectedUser(); 
-    	List<Game> games = GameService.getAll();
+    	List<Game> games = GameService.findAll();
     	render(games, player);
     }
     /**
@@ -36,7 +36,7 @@ public class Application extends Controller {
     public static void records(){
         User player = Security.connectedUser();
 
-        List<Game> games =GameService.getAllByPlayer(player);
+        List<Game> games =GameService.findAllByPlayer(player);
         render(games,player);
 
 
@@ -83,12 +83,12 @@ public class Application extends Controller {
 
     public static void ranking()
     {
-        User user = Security.connectedUser();
         List<User> listRanking = UserService.getTopRank();
         Long nbUser = UserService.getNbUser();
         UserService.calculateRank();
         render(listRanking, nbUser);
     }
+
     /**
      * Un joueur joue une carte, met à jour le jeu en fonction de la carte jouée
      * @param handId : handPlayer.id, id de la main d'un joueur donné
@@ -101,23 +101,17 @@ public class Application extends Controller {
         User player = Security.connectedUser();
         Game game = GameService.getById(gameId);
         Hand hand = HandService.getById(handId);
-//      Hand hand = HandService.getByPlayerAndGame(player, game);
 
-        if (player.equals(game.currentPlayer)) {
-        	
-            GameService.playCard(hand, hand.cards.get(index), game);   
-            
-            Hand currentHandPlayer = HandService.getByPlayerAndGame(game.currentPlayer, game);
-            
-            GameService.ruleCompareAndDiscard(game, currentHandPlayer);
-
-            GameService.nextPlayer(game, hand);
-
-            GameService.ruleFullTurn(game);
-
-            play(game.id);
-        } else {
+        if (!player.equals(game.currentPlayer)) {
             forbidden();
+        } else {
+            GameService.playCard(hand, hand.cards.get(index), game);
+            Hand currentHandPlayer = HandService.getByPlayerAndGame(game.currentPlayer, game);
+            GameService.ruleCompareAndDiscard(game, currentHandPlayer);
+            GameService.nextPlayer(game, hand);
+            GameService.ruleFullTurn(game);
+            play(game.id);
         }
     }
+
 }

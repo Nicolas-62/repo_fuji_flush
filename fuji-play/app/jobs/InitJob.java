@@ -6,7 +6,6 @@ import models.Hand;
 import play.jobs.Job;
 import play.jobs.OnApplicationStart;
 import play.test.Fixtures;
-import services.CardService;
 import services.GameService;
 import services.HandService;
 
@@ -37,7 +36,7 @@ public class InitJob extends Job {
                 cards.add(card);
             }
         }    	
-        List<Game> games = GameService.getAll();
+        List<Game> games = GameService.findAll();
         for(Game game : games) {
             //création du deck et des cartes qu'il contient puis mélange
             List<Card> deck = new ArrayList<>();
