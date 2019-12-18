@@ -22,8 +22,8 @@ public class Game extends IdModel {
 	
 	public Integer nbPlayerMissing;
 	
-	@Temporal(TemporalType.TIMESTAMP)
-	public Date dateStart;
+	//@Temporal(TemporalType.TIMESTAMP)
+	//public Date dateStart;
 
 	
     @OneToMany(mappedBy = "game", cascade = CascadeType.ALL)

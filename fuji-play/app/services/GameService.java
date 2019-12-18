@@ -126,7 +126,8 @@ public class GameService {
     public static void win(Hand hand) {
         Game game = hand.game;
         game.currentPlayer = null;
-        game.winners.add(hand.player);
+        hand.hasWon=true;
+        game.winners.add(hand);
         hand.player.score=hand.player.score+3;
         game.isFinished=true;
         game.save();
@@ -134,9 +135,10 @@ public class GameService {
 
     public static void leaveWin(Hand hand) {
         Game game = hand.game;
-        game.winners.add(hand.player);
+        hand.hasWon=true;
+        game.winners.add(hand);
         hand.player.score=hand.player.score+1;
-        hand.save();
+        hand.player.save();
     }
 
 
@@ -164,6 +166,7 @@ public class GameService {
         if (remainingHands.size()==2){
             for (Hand iter : remainingHands){
                 leaveWin(iter);
+                hand.save();
             }
             game.currentPlayer = null;
             game.isFinished=true;
@@ -177,8 +180,6 @@ public class GameService {
                 GameService.nextPlayer(game, hand);
             }
         }
-
-        System.out.println(game.winners.size());
     }
 
 
