@@ -1,15 +1,16 @@
 package controllers;
 import java.util.List;
 
-import org.apache.log4j.Level;
+import org.apache.log4j.MDC;
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import models.Game;
 import models.Hand;
 import models.User;
-import play.Logger;
 import play.mvc.Controller;
 import play.mvc.With;
-import play.Logger;
 import services.GameService;
 import services.HandService;
 import services.UserService;
@@ -17,16 +18,17 @@ import services.UserService;
 
 @With(Secure.class)
 public class Application extends Controller {
-	public static final Level VERBOSE = Level.forName("VERBOSE", 550);
+	
+	final static  Level GAME = Level.forName("GAME", 550);
 
+	final static Logger logger = LogManager.getLogger();
     public static void index() {
         User player = Security.connectedUser();
-        Logger.info("%-10s get index", player.nickName);
         render();
     }
     public static void gameRoom() {
     	User player = Security.connectedUser(); 
-    	List<Game> games = GameService.getAll();// findAll()
+    	List<Game> games = GameService.findAll();// findAll()
     	render(games, player);
     }
     /**
@@ -57,8 +59,10 @@ public class Application extends Controller {
     	game.currentPlayer = player;
     	game.nbPlayerMissing = nbPlayer;
     	GameService.addGame(game); 
-    	Logger.info("%s create game id : %d", player.nickName, game.id);
+    	logger.log(GAME, String.format("%-10s created game", player.nickName));
+    	//Logger.info("%s create game id : %d", player.nickName, game.id);
     	GameService.joinGame(game, player);
+    	logger.log(GAME, String.format("%-10s joined game", player.nickName));
     	gameRoom();
     	
     }
@@ -70,7 +74,8 @@ public class Application extends Controller {
     	User player = Security.connectedUser();
     	Game game = GameService.getById(gameId);
     	GameService.joinGame(game, player);
-       	Logger.info("%s join game id : %d", player.nickName, game.id);
+    	logger.log(GAME, String.format("%-10s joined game", player.nickName));
+       	//Logger.info("%s join game id : %d", player.nickName, game.id);
     	if(game.nbPlayerMissing == 0) {
     		play(gameId);
     	}else {
@@ -86,6 +91,7 @@ public class Application extends Controller {
     	User player = Security.connectedUser();
         Game game = GameService.getById(gameId);
         notFoundIfNull(game);
+        logger.log(GAME, "game started !");
         Hand handPlayer = HandService.getByPlayerAndGame(player, game);
         render(game, player, handPlayer);
     }
@@ -119,6 +125,7 @@ public class Application extends Controller {
             GameService.ruleCompareAndDiscard(game, currentHandPlayer);
             GameService.nextPlayer(game, hand);
             GameService.ruleFullTurn(game);
+            logger.log(GAME, String.format("%-10s play %-2d", player.nickName, hand.cards.get(index)));
             play(game.id);
         }
     }

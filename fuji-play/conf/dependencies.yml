@@ -7,5 +7,7 @@ require:
     - org.mindrot -> jbcrypt 0.4
     - com.google.guava -> guava 27.1-jre:
             transitive: false
-    - org.apache.logging -> log4j-api 2.12.1
+    - org.apache.logging.log4j -> log4j-api 2.8.1
+    - org.apache.logging.log4j -> log4j-core 2.8.1
+
                       
