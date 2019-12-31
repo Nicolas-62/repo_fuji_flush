@@ -8,6 +8,7 @@ import play.jobs.OnApplicationStart;
 import play.test.Fixtures;
 import services.GameService;
 import services.HandService;
+import services.UserService;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -44,17 +45,23 @@ public class InitJob extends Job {
             for (Card aCard : cards) {
             	deck.add(aCard);
             }
-            Collections.shuffle(deck);  
-            //création des mains des joueurs à partir du deck créé
-            List<Hand> hands = HandService.getAllByGame(game);
-             for (int i = 0; i < 6; i++) {
-                 for (Hand hand : hands) {
-                     GameService.draw(deck, hand);
-                 }
-             }
+            Collections.shuffle(deck); 
+        	// on le fait pas pour la partie 2 et 4 cf test unitaire
+        	if(game != games.get(1) && game != games.get(3)) {
+        		//création des mains des joueurs à partir du deck créé
+        		List<Hand> hands = HandService.getAllByGame(game);
+        		for (int i = 0; i < 6; i++) {
+        			for (Hand hand : hands) {
+        				GameService.draw(deck, hand);
+        			}
+        		}     
+        	}
              game.deck = deck;
              game.save();
         }
+        Game lastGameFinished = games.get(2);
+        lastGameFinished.winners.add(HandService.getByPlayerAndGame(UserService.getByEmail("bob@g.com"), games.get(2)));
+        lastGameFinished.save();
     }
 
 }

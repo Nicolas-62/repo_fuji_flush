@@ -1,4 +1,5 @@
 package controllers;
+
 import java.util.List;
 
 import org.apache.log4j.MDC;
@@ -15,119 +16,118 @@ import services.GameService;
 import services.HandService;
 import services.UserService;
 
-
 @With(Secure.class)
 public class Application extends Controller {
-	
-	final static  Level GAME = Level.forName("GAME", 550);
 
+	final static Level GAME = Level.forName("GAME", 550);
 	final static Logger logger = LogManager.getLogger();
-    public static void index() {
-        User player = Security.connectedUser();
-        render();
-    }
-    public static void gameRoom() {
-    	User player = Security.connectedUser(); 
-    	List<Game> games = GameService.findAll();// findAll()
-    	render(games, player);
-    }
-    /**
-     * Un joueur quiite une partie
-     * @param gameId : id de la partie quittée
-     */
-    public static void leave(long gameId){ // UUID sur gameId
-        Game game=GameService.getById(gameId);
-        User player = Security.connectedUser();
-        GameService.leave(game, player);
-        gameRoom();
-    }
-    public static void records(){
-        User player = Security.connectedUser();
 
-        List<Game> games =GameService.findAllByPlayer(player);
-        render(games,player);
+	public static void gameRoom() {
+		User player = Security.connectedUser();
+		List<Game> games = GameService.findAll();
+		render(games, player);
+	}
 
+	/**
+	 * Un joueur quitte une partie
+	 * 
+	 * @param uuid : id de la partie quittée
+	 */
+	public static void leave(String uuid) {
+		Game game = GameService.getByUUID(uuid);
+		User player = Security.connectedUser();
+		GameService.leave(game, player);
+		gameRoom();
+	}
 
-    }
-    /**
-     * Un joueur crée une partie puis la rejoint.
-     * @param nbPlayer : nombre de joueurs voulus dans la partie
-     */
-    public static void addGame(int nbPlayer) {
-    	User player = Security.connectedUser();
-    	Game game = new Game();
-    	game.currentPlayer = player;
-    	game.nbPlayerMissing = nbPlayer;
-    	GameService.addGame(game); 
-    	logger.log(GAME, String.format("%-10s created game", player.nickName));
-    	//Logger.info("%s create game id : %d", player.nickName, game.id);
-    	GameService.joinGame(game, player);
-    	logger.log(GAME, String.format("%-10s joined game", player.nickName));
-    	gameRoom();
-    	
-    }
+	public static void records() {
+		User player = Security.connectedUser();
+		List<Game> games = GameService.findGamesFinishedWherePlayerWas(player);
+		render(games, player);
+	}
+
+	/**
+	 * Un joueur crée une partie puis la rejoint.
+	 * 
+	 * @param nbPlayer : nombre de joueurs voulus dans la partie
+	 */
+	public static void addGame(int nbPlayer) {
+		User player = Security.connectedUser();
+		Game game = GameService.addGame(player, nbPlayer);
+		logger.log(GAME, String.format("%-10s created game", player.nickName));
+		// Logger.info("%s create game id : %d", player.nickName, game.id);
+		
+		GameService.joinGame(game, player);
+		logger.log(GAME, String.format("%-10s joined game", player.nickName));
+		gameRoom();
+
+	}
+
 	/**
 	 * Le joueur connecté rejoint la partie
-	 * @param gameId : id de la partie
+	 * 
+	 * @param uuid : id de la partie
 	 */
-    public static void joinGame(Long gameId) { // UUID
-    	User player = Security.connectedUser();
-    	Game game = GameService.getById(gameId);
-    	GameService.joinGame(game, player);
-    	logger.log(GAME, String.format("%-10s joined game", player.nickName));
-       	//Logger.info("%s join game id : %d", player.nickName, game.id);
-    	if(game.nbPlayerMissing == 0) {
-    		play(gameId);
-    	}else {
-    		gameRoom();
-    	}
-    }
+	public static void joinGame(String uuid) {
+		User player = Security.connectedUser();
+		Game game = GameService.getByUUID(uuid);
+		GameService.joinGame(game, player);
+		logger.log(GAME, String.format("%-10s joined game", player.nickName));
+		// Logger.info("%s join game id : %d", player.nickName, game.id);
+		if (game.nbPlayerMissing == 0) {
+			play(uuid);
+		} else {
+			gameRoom();
+		}
+	}
+
 	/**
 	 * Le joueur connecté ayant déjà rejoint la partie peut jouer
-	 * @param gameId : id de la partie
+	 * 
+	 * @param uuid : id de la partie
 	 */
-    public static void play(Long gameId) {
-    	
-    	User player = Security.connectedUser();
-        Game game = GameService.getById(gameId);
-        notFoundIfNull(game);
-        logger.log(GAME, "game started !");
-        Hand handPlayer = HandService.getByPlayerAndGame(player, game);
-        render(game, player, handPlayer);
-    }
+	public static void play(String uuid) {
 
-    public static void ranking()
-    {
-        List<User> listRanking = UserService.getTopRank();
-        Long nbUser = UserService.getNbUser();
-        UserService.calculateRank();
-        render(listRanking, nbUser);
-    }
+		User player = Security.connectedUser();
+		Game game = GameService.getByUUID(uuid);
+		notFoundIfNull(game);
+		logger.log(GAME, "game started !");
+		Hand handPlayer = HandService.getByPlayerAndGame(player, game);
+		render(game, player, handPlayer);
+	}
 
-    /**
-     * Un joueur joue une carte, met à jour le jeu en fonction de la carte jouée
-     * @param handId : handPlayer.id, id de la main d'un joueur donné
-     * @param index : index de la carte présente dans la main du joueur
-     * @param gameId : id de la partie en cours 
-     */
-    public static void playCard(Long handId, Integer index, Long gameId) {
+	public static void ranking() {
+		List<User> listRanking = UserService.getTopRank();
+		Long nbUser = UserService.getNbUser();
+		UserService.calculateRank();
+		render(listRanking, nbUser);
+	}
 
-        // on vérifie que la requête vient bien du joueur qui doit jouer
-        User player = Security.connectedUser();
-        Game game = GameService.getById(gameId);
-        Hand hand = HandService.getById(handId);
+	/**
+	 * Un joueur joue une carte, met à jour le jeu en fonction de la carte jouée
+	 * 
+	 * @param handId : handPlayer.id, id de la main d'un joueur donné
+	 * @param index  : index de la carte présente dans la main du joueur
+	 * @param uuid : id de la partie en cours
+	 */
+	public static void playCard(Long handId, Integer index, String uuid) {
 
-        if (!player.equals(game.currentPlayer)) {
-            forbidden();
-        } else {
-            GameService.playCard(hand, hand.cards.get(index), game);
-            Hand currentHandPlayer = HandService.getByPlayerAndGame(game.currentPlayer, game);
-            GameService.ruleCompareAndDiscard(game, currentHandPlayer);
-            GameService.nextPlayer(game, hand);
-            GameService.ruleFullTurn(game);
-            logger.log(GAME, String.format("%-10s play %-2d", player.nickName, hand.cards.get(index)));
-            play(game.id);
-        }
-    }
+		// on vérifie que la requête vient bien du joueur qui doit jouer
+		User player = Security.connectedUser();
+		Game game = GameService.getByUUID(uuid);
+		Hand hand = HandService.getById(handId);
+
+		if (!player.equals(game.currentPlayer)) {
+			forbidden();
+		} else {
+			logger.log(GAME, String.format("%-15s play %d", player.nickName, hand.cards.get(index).value));
+			GameService.playCard(hand, hand.cards.get(index));
+			Hand currentHandPlayer = HandService.getByPlayerAndGame(game.currentPlayer, game);
+			GameService.ruleCompareAndDiscard(game, currentHandPlayer);
+			GameService.nextPlayer(game, hand);
+			GameService.ruleFullTurn(game);
+			play(game.uuid);
+		}
+	}
 
 }

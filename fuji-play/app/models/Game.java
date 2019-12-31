@@ -17,6 +17,10 @@ public class Game extends IdModel {
 	public Game(){
 		this.hands = new ArrayList<Hand>();
 	}
+	
+    @Column(length = 40)
+    public String uuid;
+    
 	@OneToOne
 	public User author;
 	

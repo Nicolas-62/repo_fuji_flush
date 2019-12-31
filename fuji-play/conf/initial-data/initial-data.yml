@@ -85,8 +85,10 @@ User(dark_maul):
   password: $2a$12$50caQhMkg8.bk7/U3fWVZeg/43qtYd/bauO0n/JHQvoYOLRbICtnW
   nickName: Maul
   score: 1
-
+  
+# partie 1 : où le joueur courant est défini et un joueur a quitté la partie
 Game(g1):
+  uuid: 97976caa-ee88-48c3-9223-2e823ba8d7b9
   currentPlayer: boba_fett
   author: boba_fett
   nbPlayerMissing: 0
@@ -98,19 +100,22 @@ Hand(h1_boba):
 Hand(h1_anakin):
   game: g1
   player: anakin_skywalker
+  hasLeft: true
 
 Hand(h1_Ki-Adi-Mundi):
   game: g1
   player: ki-adi-mundi
-
-Game(g2):
-  currentPlayer: bob
-  author: bob
-  nbPlayerMissing: 0
   
-Hand(h2_bob):
-  game: g2
-  player: bob
+Hand(h1_dark_maul):
+  game: g1
+  player: dark_maul
+ 
+# partie 2 : où il manque un joueur
+Game(g2):
+  uuid: 60684f30-9e7d-4bdd-8824-054d6ff73d57
+  currentPlayer: lisa
+  author: lisa
+  nbPlayerMissing: 1
   
 Hand(h2_lisa):
   game: g2
@@ -120,16 +125,18 @@ Hand(h2_alex):
   game: g2
   player: alex
   
-  
+# Partie 3 : terminée
 Game(g3):
+  uuid: ccc1e1c8-22f1-4b83-a1fa-b6339ac80252
   currentPlayer: bob
   author: bob
   nbPlayerMissing: 0
-  winner: bob
+  isFinished: true
 
 Hand(h3_bob):
   game: g3
   player: bob
+  hasWon: true
   
 Hand(h3_lisa):
   game: g3
@@ -143,3 +150,36 @@ Hand(h3_boba):
   game: g3
   player: boba_fett
   
+# Partie 4 : où il manque des joueurs 
+Game(g4):
+  uuid: db1725af-2fd4-4f9f-bf3f-83f0d1165ecd
+  currentPlayer: lisa
+  author: lisa
+  nbPlayerMissing: 3
+  
+Hand(h4_lisa):
+  game: g4
+  player: lisa
+  
+# partie 5 : où le joueur courant est défini
+Game(g5):
+  uuid: 6bfbb28e-556d-4cc7-aeed-5d65bf046bc2
+  currentPlayer: boba_fett
+  author: boba_fett
+  nbPlayerMissing: 0
+
+Hand(h5_boba):
+  game: g5
+  player: boba_fett
+
+Hand(h5_anakin):
+  game: g5
+  player: anakin_skywalker
+
+Hand(h5_Ki-Adi-Mundi):
+  game: g5
+  player: ki-adi-mundi
+  
+Hand(h5_dark_maul):
+  game: g5
+  player: dark_maul  
