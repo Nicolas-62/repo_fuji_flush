@@ -18,6 +18,7 @@ GET		/game/join								Application.joinGame
 POST 	/game/add								Application.addGame
 GET     /game/leave                             Application.leave
 
+WS      /websocket/GameRoom/socket              WebSocket.GameSocket.join  
 
 # Ignore favicon requests
 GET     /favicon.ico                            404

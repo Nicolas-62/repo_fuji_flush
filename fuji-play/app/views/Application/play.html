@@ -27,11 +27,11 @@
         #{if !aHand.equals(handPlayer)}
         #{if game.currentPlayer.equals(aHand.player)}
         <!-- JOUEUR COURANT -->
-        <tr class="currentPlayer">
+        <tr class="currentPlayer" data-playerid="${aHand.player.id}">
             #{/if}
             #{else}
             <!-- JOUEUR NON COURANT -->
-        <tr class="otherPlayer">
+        <tr class="otherPlayer" data-playerid="${aHand.player.id}">
             #{/else}
 
             <!-- NICKNAME -->
@@ -65,11 +65,11 @@
         #{else}
         #{if game.currentPlayer.equals(player)}
         <!-- JOUEUR COURANT -->
-        <tr class="currentPlayer" height="80">
+        <tr class="currentPlayer" height="80" data-playerid="${aHand.player.id}">
             #{/if}
             #{else}
             <!-- JOUEUR NON COURANT -->
-        <tr class="otherPlayer">
+        <tr class="otherPlayer" data-playerid="${aHand.player.id}">
             #{/else}
 
             <!-- NICKNAME -->
@@ -87,7 +87,7 @@
             <td class="cards">
                 #{list items:handPlayer.cards, as:'aCard'}
                 #{if game.currentPlayer.equals(player)}
-                <a class="playCard" href="@{Application.playCard(handPlayer.id, aCard_index-1, game.uuid)}">
+                <a class="playCard" href="@{Application.playCard(handPlayer.id, aCard_index-1, game.uuid)}" data-index="${aCard_index-1}">
                     <img src="/public/images/png/${aCard.value}.png" class="playerCards"/>
                 </a>
                 #{/if}
@@ -98,16 +98,17 @@
             </td>
 
             <!-- BOARD -->
-            #{if !handPlayer.cardP.equals(null)}
-            <td>
-                <img src="/public/images/png/${handPlayer.cardP.value}.png" class="playerCards"/>
-            </td>
+            #{if aHand.cardP.equals(null)}
+                <td>
+                    <img src="/public/images/png/dos.png" class="playerCards"/>
+                </td>
             #{/if}
             #{else}
-            <td>
-                <img src="/public/images/png/dos.png" class="playerCards"/>
-            </td>
+                <td class="column-board">
+                    <img src="/public/images/png/${handPlayer.cardP.value}.png" class="playerCards"/>
+                </td>
             #{/else}
+
         </tr>
         #{/else}
         #{/list}
@@ -122,25 +123,66 @@
 
 <script type="text/javascript" charset="${_response_encoding}">
 $(document).ready(function(){
-    // Recharge du plateau dans un interval donnÃ©S
-    var count=0;
-    const refresh = function() {
-        $('#currentGame').load("@{Application.play(game.uuid)} #currentGame");
-        count++;
-        console.log("refresh : "+count);
-    }
-    // Appel la recharge
-    setInterval(refresh, 3000);
-
-    // appel ajax qd un joueur joue une carte
-    //const playButton = $('body #currentGame playCard');
-    // const playButton = $('#currentGame table tr:nth-child(2) a');
+    // Create a socket
+    var WS = window['MozWebSocket'] ? MozWebSocket : WebSocket;
+    var socket = new WS('@@{WebSocket.GameSocket.join(game.uuid, handPlayer.id, player.nickName)}');
+    const connectedPlayerId = "${player.id}";
+    console.log("connectedPlayerId "+connectedPlayerId);
     $('#currentGame').on('click',  '.playCard', function(e){
         e.preventDefault();
-        let href = $(this).attr('href');
-        console.log("href : "+href);
-        $('#currentGame').load(href+" #currentGame");
+        let cardIndex = $(this).attr('data-index');
+        console.log("index : "+cardIndex);
+        socket.send(cardIndex);
 
     });
+
+    socket.onmessage = function(event) {
+        console.log(event.data);
+        const game = JSON.parse(event.data);
+        const hands = Object.values(game.hands);
+
+        console.log("game : " + game.currentPlayerId);
+        console.log("game : " + game.hands);
+        var i =0;
+        if(!game.isFinished){
+            $('tbody').find('tr').each(function(){
+                let $this=$(this);
+                hands.forEach(hand => {
+                    console.log("data-playerid "+$this.attr('data-playerid').value);
+                    console.log("hand-playerId "+hand.playerId);
+                    if($this.attr('data-playerid').value == hand.playerId){
+                        i++;
+                        console.log("tr player found "+i);
+                        if(game.currentPlayer == playerId){
+                            $this.removeClass("otherPlayer");
+                            $this.addClass("currentPlayer");
+                        }else{
+                            $this.removeClass("currentPlayer");
+                            $this.addClass("otherPlayer");                    
+                        }
+                        if(hand.hasLeft){
+                            $this.find('.column-nickname').append(`<span>Left the game</span`);
+                        }
+                        if(hand.playerId == connectedPlayerId){
+                            console.log("connectedPlayer found");
+                            const cards = Object.values(hand.cards);
+                            $this.find('.playCard').each(cards, function(card){
+                                $(this).find('imag').attr("src", "/public/images/png/"+card.value+".png");
+                            });
+                        }
+                        if(hand.carP != "null"){
+                             $this.find('.column-board img').attr("src", "/public/images/png/"+hand.cardP+".png");
+                        }
+                        else{
+                            $this.find('.column-board img').attr("src", "/public/images/png/dos.png");
+                        }
+                            
+                    }
+                });
+            });
+        }
+    }
+
+
 });
 </script>
