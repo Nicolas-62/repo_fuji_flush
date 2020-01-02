@@ -1,7 +1,7 @@
 
 import java.util.List;
 
-import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import jobs.InitJob;
@@ -14,16 +14,16 @@ import play.test.FunctionalTest;
 
 public class ApplicationTest extends FunctionalTest {
 
-//	@Before
-//	public void beforeDeJunit() {
-//		InitJob job = new InitJob();
-//		try {
-//			job.doJob();
-//		} catch (Exception e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//	}
+	@BeforeClass
+	public void beforeDeJunit() {
+		InitJob job = new InitJob();
+		try {
+			job.doJob();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	@Test
 	public void testThatIndexPageWorks() {
 		Response response = GET("/");

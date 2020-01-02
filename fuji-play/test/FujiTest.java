@@ -1,6 +1,6 @@
 import java.util.List;
 
-import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import jobs.InitJob;
@@ -20,16 +20,16 @@ public class FujiTest extends UnitTest{
 	public String USER_EMAIL="bob@g.com";
 	public String USER_NiCKNAME="bob";
 	
-//	@Before
-//	public void beforeDeJunit() {
-//		InitJob job = new InitJob();
-//		try {
-//			job.doJob();
-//		} catch (Exception e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//	}
+	@BeforeClass
+	public void beforeDeJunit() {
+		InitJob job = new InitJob();
+		try {
+			job.doJob();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	/**
 	 * test de CardService
 	 */
