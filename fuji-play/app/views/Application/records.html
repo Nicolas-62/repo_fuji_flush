@@ -1,10 +1,10 @@
 #{extends 'main.html' /}
 #{set title:'Records' /}
 
-<h1>The Records</h1>
+<h1>Records</h1>
 <h2>${player.nickName}</h2>
 <ul>
     #{list items:games, as:'aGame' }
-    <li>id : ${aGame.id} | author: ${aGame.author.nickName} | winner: ${aGame.winner.nickName}</li>
+    <li>id : ${aGame.id} | author: ${aGame.author.nickName} | winners: ${aGame.winners.player.nickName}</li>
     #{/list}
 </ul>

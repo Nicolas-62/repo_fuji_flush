@@ -66,7 +66,7 @@
                             <tr class="ligne-tableau">
                                 <td class="table-id"> ${aGame.id} </td>
                                 <td class="table-numberOfPlayers"> ${aGame.hands.size()}/${aGame.hands.size()+aGame.nbPlayerMissing} </td>
-                                <td class="table-join"> <a class="registerbtn" href="@{Application.joinGame(aGame.id)}"> Join </a> </td>
+                                <td class="table-join"> <a class="registerbtn" href="@{Application.joinGame(aGame.uuid)}"> Join </a> </td>
                             </tr>
                             #{/if}
                         #{/if}
@@ -98,7 +98,7 @@
                                         <td class="table-join"> You have quit the Game </td>
                                     #{/if}
                                     #{else}
-                                        <td class="table-join"> <a class="registerbtn" href="@{Application.play(aGame.id)}"> play </a> </td>
+                                        <td class="table-join"> <a class="registerbtn" href="@{Application.play(aGame.uuid)}"> play </a> </td>
                                     #{/else}
                                 #{/if}
                                 #{else}                                                                                     *{ Sinon en attente de joueur avant lancement }*
@@ -118,11 +118,8 @@
 <script type="text/javascript" charset="${_response_encoding}">
     $(document).ready(function(){
         // Recharge du plateau dans un interval donnÃ©S
-        var count=0;
         const refresh = function() {
             $('.games').load("@{Application.gameRoom()} .games");
-            count++;
-            console.log("refresh : "+count);
         }
         // Appel la recharge
         setInterval(refresh, 1000);

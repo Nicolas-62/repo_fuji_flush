@@ -11,7 +11,7 @@
         <h3>Current Game</h3>
 
 
-    <button class="leavebtn"><a href="@{Application.leave(game.id)}">Quit game</a></button>
+    <button class="leavebtn"><a href="@{Application.leave(game.uuid)}">Quit game</a></button>
 
 
     <table class="table-game">
@@ -87,7 +87,7 @@
             <td class="cards">
                 #{list items:handPlayer.cards, as:'aCard'}
                 #{if game.currentPlayer.equals(player)}
-                <a class="playCard" href="@{Application.playCard(handPlayer.id, aCard_index-1, game.id)}">
+                <a class="playCard" href="@{Application.playCard(handPlayer.id, aCard_index-1, game.uuid)}">
                     <img src="/public/images/png/${aCard.value}.png" class="playerCards"/>
                 </a>
                 #{/if}
@@ -123,11 +123,8 @@
 <script type="text/javascript" charset="${_response_encoding}">
 $(document).ready(function(){
     // Recharge du plateau dans un interval donnÃ©S
-    var count=0;
     const refresh = function() {
-        $('#currentGame').load("@{Application.play(game.id)} #currentGame");
-        count++;
-        console.log("refresh : "+count);
+        $('#currentGame').load("@{Application.play(game.uuid)} #currentGame");
     }
     // Appel la recharge
     setInterval(refresh, 1000);

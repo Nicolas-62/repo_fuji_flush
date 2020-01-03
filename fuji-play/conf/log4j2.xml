@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+	<CustomLevels>
+    	<CustomLevel name="GAME" intLevel="550" />
+	</CustomLevels>
+   <!-- <Properties>
+        <Property name="filename">${date:yyyy-MM-dd HH:mm:ss}</Property>
+        <property name="pattern">%d{yyyy-MM-dd HH:mm:ss.SSS} | %-5.5p | %-10.10t | %-20.20C:%-5.5L | %msg%n</property>
+    </Properties>	 -->
+    <Appenders>
+		<File 
+		name="gameLogger" 
+        createOnDemand="true">
+			<fileName>logs/game-${date:yyyy_MM_dd_HH_mm_ss_SSS}.log</fileName>
+			<LevelRangeFilter minLevel="GAME" maxLevel="GAME" onMatch="ACCEPT" onMismatch="DENY"/>
+			<PatternLayout>
+				<Pattern>%-5p %m%n</Pattern>
+<!-- 				<Pattern>${pattern}</Pattern> -->
+			</PatternLayout>	
+		</File>
+
+        <Console name="console" target="SYSTEM_OUT">
+        	<LevelRangeFilter minLevel="GAME" maxLevel="GAME" onMatch="ACCEPT" onMismatch="DENY"/>
+<!--             <PatternLayout   pattern="[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n" /> -->
+    		<PatternLayout>
+				<Pattern>[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n</Pattern>
+<!-- 				<Pattern>${pattern}</Pattern> -->
+			</PatternLayout>
+        </Console>
+    </Appenders>
+    <Loggers>
+		<Logger name="controllers" level="GAME" additivity="true">
+            <appender-ref ref="gameLogger" level="GAME" />
+        </Logger>
+        <Root level="GAME">
+            <appender-ref ref="console" />
+        </Root>
+    </Loggers>
+</Configuration>

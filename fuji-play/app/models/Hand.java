@@ -2,7 +2,6 @@ package models;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
@@ -10,7 +9,6 @@ import javax.persistence.OneToOne;
 
 @Entity
 public class Hand extends IdModel{
-	
 	
 	public Hand(){
 		this.cards = new ArrayList<Card>();
