@@ -27,11 +27,11 @@
         #{if !aHand.equals(handPlayer)}
             #{if game.currentPlayer.equals(aHand.player)}
             <!-- JOUEUR COURANT -->
-            <tr class="currentPlayer" data-playerid="${aHand.player.id}">
+            <tr class="currentPlayer" data-player-id="${aHand.player.id}">
             #{/if}
             #{else}
             <!-- JOUEUR NON COURANT -->
-            <tr class="otherPlayer" data-playerid="${aHand.player.id}">
+            <tr class="otherPlayer" data-player-id="${aHand.player.id}">
             #{/else}
                 <!-- NICKNAME -->
                 <td class="column-nickname">
@@ -40,7 +40,7 @@
                 <!-- CARDS -->
                 <td class="column-cards">
                     #{list items:aHand.cards, as:'aCard'}
-                    <a href="#" data-index="${aCard_index-1}">
+                    <a href="#" data-card-index="${aCard_index-1}">
                         <img src="/public/images/png/dosv3.png" class="playerCards"/>
                     </a>
                     #{/list}
@@ -61,52 +61,52 @@
 
             <!-- CONNECTED PLAYER -->
             #{else}
-            #{if game.currentPlayer.equals(player)}
-            <!-- JOUEUR COURANT -->
-            <tr class="currentPlayer" height="80" data-playerid="${aHand.player.id}">
+                #{if game.currentPlayer.equals(player)}
+                <!-- JOUEUR COURANT -->
+                <tr class="currentPlayer" height="80" data-player-id="${aHand.player.id}">
                 #{/if}
                 #{else}
                 <!-- JOUEUR NON COURANT -->
-            <tr class="otherPlayer" data-playerid="${aHand.player.id}">
+                <tr class="otherPlayer" data-player-id="${aHand.player.id}">
                 #{/else}
-                <!-- NICKNAME -->
-                #{if game.currentPlayer.equals(player)}
-                <td class="column-nickname">
-                    ${player.nickName}
-                </td>
-                #{/if}
-                #{else}
-                <td class="column-nickname"> 
-                    ${player.nickName}
-                </td>
-                #{/else}
-                <!-- CARDS -->
-                <td class="cards">
-                    #{list items:handPlayer.cards, as:'aCard'}
+                    <!-- NICKNAME -->
                     #{if game.currentPlayer.equals(player)}
-                    <a class="playCard" href="@{Application.playCard(handPlayer.id, aCard_index-1, game.uuid)}" data-index="${aCard_index-1}">
-                        <img src="/public/images/png/${aCard.value}.png" class="playerCards"/>
-                    </a>
+                    <td class="column-nickname">
+                        ${player.nickName}
+                    </td>
                     #{/if}
                     #{else}
-                    <a href="#" data-index="${aCard_index-1}">
-                        <img src="/public/images/png/${aCard.value}.png" class="playerCards"/>
-                    </a>
+                    <td class="column-nickname"> 
+                        ${player.nickName}
+                    </td>
                     #{/else}
-                    #{/list}
-                </td>
-                <!-- BOARD -->
-                #{if aHand.cardP.equals(null)}
-                <td class="column-board">
-                    <img src="/public/images/png/dos.png" class="playerCards"/>
-                </td>
-                #{/if}
-                #{else}
-                <td class="column-board">
-                    <img src="/public/images/png/${handPlayer.cardP.value}.png" class="playerCards"/>
-                </td>
-                #{/else}
-            </tr>
+                    <!-- CARDS -->
+                    <td class="cards">
+                        #{list items:handPlayer.cards, as:'aCard'}
+                        #{if game.currentPlayer.equals(player)}
+                        <a class="playCard" href="@{Application.playCard(handPlayer.id, aCard_index-1, game.uuid)}" data-card-index="${aCard_index-1}">
+                            <img src="/public/images/png/${aCard.value}.png" class="playerCards"/>
+                        </a>
+                        #{/if}
+                        #{else}
+                        <a href="#" data-card-index="${aCard_index-1}">
+                            <img src="/public/images/png/${aCard.value}.png" class="playerCards"/>
+                        </a>
+                        #{/else}
+                        #{/list}
+                    </td>
+                    <!-- BOARD -->
+                    #{if aHand.cardP.equals(null)}
+                    <td class="column-board">
+                        <img src="/public/images/png/dos.png" class="playerCards"/>
+                    </td>
+                    #{/if}
+                    #{else}
+                    <td class="column-board">
+                        <img src="/public/images/png/${handPlayer.cardP.value}.png" class="playerCards"/>
+                    </td>
+                    #{/else}
+                </tr>
             #{/else}
         #{/list}
         </tbody>
@@ -121,16 +121,26 @@
 <script type="text/javascript" charset="${_response_encoding}">
 $(document).ready(function(){
     // Create a socket
-    var WS = window['MozWebSocket'] ? MozWebSocket : WebSocket;
-    var socket = new WS('@@{WebSocket.GameSocket.join(game.uuid, handPlayer.id, player.nickName)}');
-    const connectedPlayerId = "${player.id}";
-    console.log("connectedPlayerId "+connectedPlayerId);
+    const WS = window['MozWebSocket'] ? MozWebSocket : WebSocket;
+    const socket = new WS('@@{WebSocket.GameSocket.join(game.uuid, handPlayer.id, player.nickName)}');
+    // id du joueur connecté
+    var connectedPlayerId = "${player.id}";
+    // données récupérées
+    var game;
+    var hands;
+    var cards;
+    // balises manipulées
+    var $tr;
+    var $a;
+    var $img;
+    // carte jouée
+    var cardPlayedIndex;
 
+    // fonction qui permet de jouer une carte envoyée au WS
     $('#currentGame').on('click',  '.playCard', function(e){
         e.preventDefault();
-        let cardIndex = $(this).attr('data-index');
-        console.log("indexCarteJouee : "+cardIndex);
-        socket.send(cardIndex);
+        cardPlayedIndex = $(this).attr('data-card-index');
+        socket.send(cardPlayedIndex);
         // on enlève la classe qui permet de jouer une carte
         $('.cards a').each(function(){
             $(this).removeClass('playCard');
@@ -139,13 +149,13 @@ $(document).ready(function(){
     });
 
     socket.onmessage = function(event) {
+        // affichage des données reçu
         console.log(event.data);
-        const game = JSON.parse(event.data);
-        const hands = Object.values(game.hands);
-
+        game = JSON.parse(event.data);
+        hands = Object.values(game.hands);
         if(!game.isFinished){
             // pour chaque ligne de la table (pour chaque joueur)
-            // shema : tr class="current/otherPlayer" data-playerid="#"
+            // shema : tr class="current/otherPlayer" data-player-id="#"
             //          ->
             //           td class="column-nickname /cards / column-board"
             //              -> class="cards"
@@ -153,8 +163,8 @@ $(document).ready(function(){
             //                  ->
             //                     img src="dosV3/cardValue.png"
             $('tbody').find('tr').each(function(){
-                let $tr=$(this);
-                if($tr.attr('data-playerid') == game.currentPlayerId){
+                $tr=$(this);
+                if($tr.attr('data-player-id') == game.currentPlayerId){
                     $tr.attr('class', 'currentPlayer');
                 }else{
                     $tr.attr('class', 'otherPlayer')                   
@@ -162,34 +172,38 @@ $(document).ready(function(){
                 // on parcour les mains
                 hands.forEach(hand => {
                     // on cherche la main qui match avec la ligne (le joueur)
-                    if($tr.attr('data-playerid') == hand.playerId){
+                    if($tr.attr('data-player-id') == hand.playerId){
                         if(hand.hasLeft){
                             $tr.find('.column-nickname span').empty();
                             $tr.find('.column-nickname').append(`<span>Left the game</span`);
+                            $tr.find('.cards a').each(function(index, a){
+                                $(a).css('display', 'none');
+                            });
                         }
                         // on récupère les cartes de la main
-                        const cards = Object.values(hand.cards);
+                        cards = Object.values(hand.cards);
                         // on parcours les liens associés à chaque carte : cards -> a -> img de la carte
                         $tr.find('.cards a').each(function(index, a){
+                            $a = $(a);
                             // si pour le lien donné on a une carte à afficher on l'affiche
                             if(typeof(cards[index]) != "undefined"){
-                                $(a).css('display', 'inline');
+                                $a.css('display', 'inline');
                                 // on recupère l'image
-                                const img = $(a).find('img');
+                                $img = $a.find('img');
                                 // si c'est la joueur courant on va afficher la valeur de la carte
                                 if(hand.playerId == connectedPlayerId){
                                     if(game.currentPlayerId == connectedPlayerId ){
                                         // si c'est à lui de joueur on active la classe du lien qui permet de jouer la carte
-                                        $(a).attr('class', 'playCard')
+                                        $a.attr('class', 'playCard')
                                     }
-                                    $(img).attr("src", "/public/images/png/"+cards[index]['value']+".png");
+                                    $img.attr("src", "/public/images/png/"+cards[index]['value']+".png");
                                 }
                                 else{
-                                    $(img).attr("src", "/public/images/png/dosV3.png");
+                                    $img.attr("src", "/public/images/png/dosV3.png");
                                 }
                             }
                             else{
-                                $(a).css('display', 'none');
+                                $a.css('display', 'none');
                             }
                         });
                         // on met à jour la carte jouée
@@ -198,11 +212,14 @@ $(document).ready(function(){
                         }
                         else{
                             $tr.find('.column-board img').attr("src", "/public/images/png/"+hand.cardP+".png");
-                        }
-                            
+                        }                           
                     }
                 });
             });
+        }
+        // game not finished
+        else{
+
         }
     }
 });

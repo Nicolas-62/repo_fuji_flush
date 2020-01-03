@@ -14,7 +14,7 @@ public class GameRoom {
     
     // ~~~~~~~~~ Let's chat! 
     
-    final ArchivedEventStream<JsonObject> gameEvents = new ArchivedEventStream<JsonObject>(10);
+    final ArchivedEventStream<JsonObject> gameEvents = new ArchivedEventStream<JsonObject>(1);
     
     /**
      * For WebSocket, when a user join the room we return a continuous event stream
