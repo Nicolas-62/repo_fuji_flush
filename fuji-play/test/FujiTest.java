@@ -21,7 +21,7 @@ public class FujiTest extends UnitTest{
 	public String USER_NiCKNAME="bob";
 	
 	@BeforeClass
-	public void beforeDeJunit() {
+	public static void beforeDeJunit() {
 		InitJob job = new InitJob();
 		try {
 			job.doJob();
@@ -31,31 +31,8 @@ public class FujiTest extends UnitTest{
 		}
 	}
 	/**
-	 * test de CardService
-	 */
-	@Test
-	public void findAllCards() {
-		List<Card> cards = CardService.findAll();
-		assertEquals(90, cards.size());
-	}
-	/**
 	 * test de GameService
 	 */
-	@Test
-	public void findAllGames() {
-		List<Game> games = GameService.findAll();
-		assertEquals(NB_GAMES, games.size());
-	}
-	@Test
-	public void findByUUID() {
-		
-	}
-	@Test
-	public void findGamesFinishedWherePlayerWas() {
-		User user = UserService.getByEmail(USER_EMAIL);
-		List<Game> games = GameService.findGamesFinishedWherePlayerWas(user);		
-		assertEquals(1, games.size());
-	}
 	@Test
 	public void addGame() {
 		User user = UserService.getByEmail(USER_EMAIL);
@@ -66,19 +43,17 @@ public class FujiTest extends UnitTest{
 		assertEquals(90, gameCreated.deck.size());
 	}
 	@Test
-	public void joinGame() {
-		// partie 4 manque des joueurs
-		Game game = GameService.findAll().get(3);
-		User user = UserService.getByEmail(USER_EMAIL);
-		GameService.joinGame(game, user);
-		Game gameSaved = Game.findById(game.id);
-		assertNotNull(gameSaved);
-		assertNotNull(gameSaved.hands);
-		assertEquals(user, gameSaved.hands.get(1).player);
+	public void nextPlayer() {
+		// test sur partie 1, joueur courant : boba_fett, joueur suivant a quitté la partie.
+		Game game = GameService.findAll().get(0);
+		Hand firstHand = game.hands.get(0);
+		assertEquals(game.currentPlayer, firstHand.player);	
+		GameService.nextPlayer(game, firstHand);
+		assertEquals(game.currentPlayer, game.hands.get(2).player);		
 	}
 	@Test
 	public void lastPlayerJoinGame() {
-		// partie 2 manque un joueur
+		// test sur partie, 2 manque un joueur
 		Game game = GameService.findAll().get(1);
 		User user = UserService.getByEmail(USER_EMAIL);
 		GameService.joinGame(game, user);
@@ -87,25 +62,27 @@ public class FujiTest extends UnitTest{
 		assertEquals(0, gameSaved.nbPlayerMissing.intValue());
 		assertEquals(6, gameSaved.hands.get(0).cards.size());
 	}	
-	
-	@Test
-	public void nextPlayer() {
-		// partie 1, joueur courant : boba_fett, joueur suivant a quitté la partie.
-		Game game = GameService.findAll().get(0);
-		Hand firstHand = game.hands.get(0);
-		assertEquals(game.currentPlayer, firstHand.player);	
-		GameService.nextPlayer(game, firstHand);
-		assertEquals(game.currentPlayer, game.hands.get(2).player);		
-	}
 	@Test
 	public void playCard() {
-		Game game = GameService.findAll().get(0);
+		Game game = GameService.findAll().get(2);
 		Hand aHand = game.hands.get(0);
 		Card aCard = aHand.cards.get(0);
 		GameService.playCard(aHand, aCard);
 		assertEquals(aHand.cardP, aCard);
 		
 	}
+	@Test
+	public void joinGame() {
+		// test sur partie 4, manque des joueurs
+		Game game = GameService.findAll().get(3);
+		User user = UserService.getByEmail(USER_EMAIL);
+		GameService.joinGame(game, user);
+		Game gameSaved = Game.findById(game.id);
+		assertNotNull(gameSaved);
+		assertNotNull(gameSaved.hands);
+		assertEquals(user, gameSaved.hands.get(1).player);
+	}
+	
 	@Test
 	public void ruleFullTurn() {
 		Game game = GameService.getOne();
@@ -123,6 +100,7 @@ public class FujiTest extends UnitTest{
 	}
 	@Test
 	public void leaveGame() {		
+		// test sur partie 5
 		Game game = GameService.findAll().get(4);
 		User userLeave = game.currentPlayer;
 		GameService.leave(game, userLeave);
@@ -134,17 +112,6 @@ public class FujiTest extends UnitTest{
 		User userLeave = game.currentPlayer;
 		GameService.leave(game, userLeave);
 		assertEquals(2, game.winners.size());
-	}
-	/**
-	 * test de UserService
-	 */
-	@Test
-	public void getByEmail() {
-		String email = USER_EMAIL;
-		User user = UserService.getByEmail(email);
-		assertNotNull(user);;
-		assertEquals(0, user.score);
-		assertEquals(USER_NiCKNAME, user.nickName);
 	}
 	
 }

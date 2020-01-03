@@ -15,7 +15,7 @@ import play.test.FunctionalTest;
 public class ApplicationTest extends FunctionalTest {
 
 	@BeforeClass
-	public void beforeDeJunit() {
+	public static void beforeDeJunit() {
 		InitJob job = new InitJob();
 		try {
 			job.doJob();
