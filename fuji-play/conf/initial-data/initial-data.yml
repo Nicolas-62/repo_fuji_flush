@@ -97,6 +97,10 @@ Hand(h1_boba):
   game: g1
   player: boba_fett
 
+Hand(h1_dark_maul):
+  game: g1
+  player: dark_maul
+  
 Hand(h1_anakin):
   game: g1
   player: anakin_skywalker
@@ -106,9 +110,6 @@ Hand(h1_Ki-Adi-Mundi):
   game: g1
   player: ki-adi-mundi
   
-Hand(h1_dark_maul):
-  game: g1
-  player: dark_maul
  
 # partie 2 : où il manque un joueur
 Game(g2):
