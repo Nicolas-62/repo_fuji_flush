@@ -19,7 +19,7 @@ public class HandService {
     public static Hand getByPlayerAndGame(User player, Game game) {
         return Hand.find("player = ?1 AND game =?2", player, game).first();
     }
-    public static  List<Hand> getAllByGame(Game game){
+    public static  List<Hand> FindAllByGame(Game game){
     	return Hand.find("game = ?1", game).fetch();
     }
 }

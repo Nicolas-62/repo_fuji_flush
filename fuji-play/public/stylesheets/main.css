@@ -115,13 +115,12 @@ li
     border: ridge 2px rgba(0, 200, 255, 0.9);
     border-radius: 10px;
     text-shadow: 1px 1px 2px black, 0 0 1em #00FF00, 0 0 0.2em cyan;
-    color: #00FF00;
+    color: cyan;
 }
 
 .submitbtn:hover
 {
     background-color: rgba(0, 0, 0, 1);
-
     text-shadow: 1px 1px 2px black, 0 0 1em #00FF00, 0 0 0.2em cyan;
     font-weight: bold;
 }
@@ -413,6 +412,62 @@ li
     text-align: center;
     color: white;
 }
+
+/* RECORDS PAGE */
+
+.panel-records
+{
+    width: 95%;
+    margin: auto;
+    background: rgb(0,0,0);
+    background: linear-gradient(90deg, rgba(0,0,0,.5) 0%, rgba(0,200, 255, .4) 40%, rgba(255,255,255,.35) 50%, rgba(0,200, 255,.4) 60%, rgba(0,0,0,.5) 100%);
+    border: ridge 2px rgba(0, 200, 255, 0.7);
+}
+
+.list-records
+{
+    width: 100%;
+    color: white;
+}
+
+.gameid
+{
+    width: 10%;
+}
+
+.nbPlayers
+{
+    width: 20%;
+}
+
+.author
+{
+    width: 30%;
+}
+
+.winners
+{
+    width: 60%;
+}
+
+.gainedscore
+{
+    width: 20%;
+}
+
+
+.winner
+{
+    height: 30px;
+    background-color: rgba(0,153,51,0.2);
+}
+
+.looser
+{
+    height: 30px;
+    background-color: rgba(255,0,0,0.2);
+}
+
 
 
 

@@ -89,7 +89,7 @@
                 #{if games}
                     #{list items:games, as:'aGame'}
                         #{list items:aGame.hands, as:'aHand'}
-                            #{if aHand.player.equals(player)}                                                                   *{ Si le joueur est dans cette partie }*
+                            #{if aHand.player.equals(player) && aGame.isFinished.equals(false)}                                                                   *{ Si le joueur est dans cette partie }*
                             <tr class="ligne-tableau">
                                 <td class="table-id"> ${aGame.id} </td>
                                 <td class="table-numberOfPlayers"> ${aGame.hands.size()}/${aGame.hands.size()+aGame.nbPlayerMissing} </td>

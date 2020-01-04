@@ -2,13 +2,14 @@ package models;
 
 
 import javax.persistence.*;
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 public class Game extends IdModel {
-	
-	public Game(){
+
+    public Game(){
 		this.hands = new ArrayList<Hand>();
 	}
 
@@ -19,7 +20,6 @@ public class Game extends IdModel {
 	public User author;
 	
 	public Integer nbPlayerMissing;
-	
 
     @OneToMany(mappedBy = "game", cascade = CascadeType.ALL)
     public List<Hand> hands;

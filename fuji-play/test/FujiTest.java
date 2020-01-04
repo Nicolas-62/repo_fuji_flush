@@ -53,7 +53,7 @@ public class FujiTest extends UnitTest{
 	@Test
 	public void findGamesFinishedWherePlayerWas() {
 		User user = UserService.getByEmail(USER_EMAIL);
-		List<Game> games = GameService.findGamesFinishedWherePlayerWas(user);		
+		List<Game> games = GameService.findFinishedGamesByPlayer(user);
 		assertEquals(1, games.size());
 	}
 	@Test

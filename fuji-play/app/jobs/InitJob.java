@@ -49,7 +49,7 @@ public class InitJob extends Job {
         	// on le fait pas pour la partie 2 et 4 cf test unitaire
         	if(game != games.get(1) && game != games.get(3)) {
         		//création des mains des joueurs à partir du deck créé
-        		List<Hand> hands = HandService.getAllByGame(game);
+        		List<Hand> hands = HandService.FindAllByGame(game);
         		for (int i = 0; i < 6; i++) {
         			for (Hand hand : hands) {
         				GameService.draw(deck, hand);

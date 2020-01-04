@@ -2,6 +2,7 @@ package services;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 import models.Card;
@@ -35,12 +36,10 @@ public class GameService {
 	 * @param player
 	 * @return
 	 */
-	public static List<Game> findGamesFinishedWherePlayerWas(User player) {
-
+	public static List<Game> findFinishedGamesByPlayer(User player) {
 		return Game.find(" select g from Game g" + " join Hand h on g.id=h.game.id"
 				+ " join User u on u.id=h.player.id " + " where h.player.id=?1 and g.winners.size!=?2", player.id, 0)
 				.fetch();
-
 	}
 
 	/**
@@ -57,7 +56,6 @@ public class GameService {
 		Collections.shuffle(game.deck);
 		game.save();
 		return game;
-
 	}
 
 	/**
@@ -73,7 +71,8 @@ public class GameService {
 		hand.game = game;
 		game.hands.add(hand);
 		game.nbPlayerMissing--;
-		if (game.nbPlayerMissing == 0) {
+				// On distribue 6 cartes si moins de 7 joueurs
+		if (game.nbPlayerMissing == 0 && game.hands.size()<=6) {
 			Collections.shuffle(game.deck);
 			for (int i = 0; i < 6; i++) {
 				for (Hand aHand : game.hands) {
@@ -81,6 +80,16 @@ public class GameService {
 				}
 			}
 		}
+				// On distribue 5 cartes si 7 ou 8 joueurs
+		if (game.nbPlayerMissing == 0 && game.hands.size()>6) {
+			Collections.shuffle(game.deck);
+			for (int i = 0; i < 5; i++) {
+				for (Hand aHand : game.hands) {
+					GameService.draw(game.deck, aHand);
+				}
+			}
+		}
+				// On save la game
 		game.save();
 	}
 	
@@ -137,6 +146,8 @@ public class GameService {
 			int cardValue = handNextPlayer.cardP.value;
 			for (Hand hand : game.hands) {
 				if (hand.cardP != null && hand.cardP.value.equals(cardValue)) {
+					// GameEvent qui gère la défausse
+					GameEventService.addGameEvent(game, hand.player.nickName+" discarded card "+ hand.cardP.value);
 					discard(game, hand);
 				}
 				if (hand.cards.isEmpty() && hand.cardP == null && !hand.hasLeft) {
@@ -156,12 +167,18 @@ public class GameService {
 		Game game = hand.game;
 		game.currentPlayer = null;
 		hand.hasWon = true;
-		game.winners.add(hand);
 		hand.player.score = hand.player.score + 3;
+		hand.player.save();
+		game.winners.add(hand);
 		game.isFinished = true;
 		game.save();
 	}
 
+	/**
+	 * Un joueur quitte une partie et il reste moins de 3 joueurs
+	 *
+	 * @param hand   : main du joueur restant qui va gagner la partie par abandon
+	 */
 	public static void leaveWin(Hand hand) {
 		Game game = hand.game;
 		hand.hasWon = true;
@@ -205,6 +222,8 @@ public class GameService {
 		else {
 			// quand un joueur leave, ses cartes sont ajoutée à la défausse
 			for (Card card : hand.cards) {
+				// GameEvent qui gère la défausse
+				GameEventService.addGameEvent(game, hand.player.nickName+" discarded card "+ card.value);
 				game.discard.add(card);
 			}
 			game.save();
@@ -239,7 +258,10 @@ public class GameService {
 		for (Hand hand : game.hands) {
 
 			if (hand.cardP != null && calculAsso(asso, currentHand) > calculAsso(asso, hand)) {
+				// GameEvent qui gère la défausse
+				GameEventService.addGameEvent(game, hand.player.nickName+" discarded card "+ hand.cardP.value);
 				discard(game, hand);
+
 				// si le joueur n'a pas abandonné la game
 				if (!hand.hasLeft) {
 					// si le deck est vide, la défausse devient la pioche et on la mélange avant de
@@ -249,6 +271,9 @@ public class GameService {
 						Collections.shuffle(game.deck);
 					}
 					draw(game.deck, hand);
+
+					// GameEvent qui gère la pioche
+					GameEventService.addGameEvent(game, hand.player.nickName+" draw card ");
 				}
 			}
 		}
@@ -298,9 +323,5 @@ public class GameService {
 		hand.cardP = null;
 		game.save();
 		hand.save();
-	}
-
-	public static Game getById(Long gameId) {
-		return Game.findById(gameId);
 	}
 }

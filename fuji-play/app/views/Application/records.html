@@ -1,10 +1,32 @@
 #{extends 'main.html' /}
 #{set title:'Records' /}
 
-<h1>Records</h1>
-<h2>${player.nickName}</h2>
-<ul>
-    #{list items:games, as:'aGame' }
-    <li>id : ${aGame.id} | author: ${aGame.author.nickName} | winners: ${aGame.winners.player.nickName}</li>
-    #{/list}
-</ul>
+<nav class="navigation">
+    <a href="@{Application.gameRoom()}" class="navigation-item"> Back to Game Room </a>
+</nav>
+
+<h1 class="titre">Records</h1>
+
+<div class="panel-records">
+    <table class="list-records">
+        <thead class="header-table">
+        <td> GAME ID </td>
+        <td> NUMBER OF PLAYERS </td>
+        <td> AUTHOR </td>
+        <td> WINNERS </td>
+        </thead>
+
+        <tbody class="body-table">
+        #{list items:games, as:'aGame' }
+        <tr class="${controllers.Security.connectedUser().equals(aGame.winners)? "winner" : "looser"}">
+        <td class="gameid"> <a href="@{Application.history(aGame.uuid)}">${aGame.id}</a> </td>
+        <td class="nbPlayers"> ${aGame.hands.size()} </td>
+        <td class="author"> ${aGame.author.nickName} </td>
+        <td class="winners"> ${aGame.winners.player.nickName} </td>
+        </tr>
+
+        #{/list}
+        </tbody>
+    </table>
+</div>
+
