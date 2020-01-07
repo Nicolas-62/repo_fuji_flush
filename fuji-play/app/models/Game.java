@@ -7,14 +7,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class Game extends IdModel {
+public class Game extends UUIDModel {
 
     public Game(){
 		this.hands = new ArrayList<Hand>();
 	}
-
-    @Column(length = 40)
-    public String uuid;
 
 	@OneToOne
 	public User author;

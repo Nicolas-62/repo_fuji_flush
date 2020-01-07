@@ -8,7 +8,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 
 @Entity
-public class Hand extends IdModel{
+public class Hand extends UUIDModel{
 	
 	public Hand(){
 		this.cards = new ArrayList<Card>();

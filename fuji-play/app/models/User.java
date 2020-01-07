@@ -3,7 +3,7 @@ package models;
 import javax.persistence.Entity;
 
 @Entity
-public class User extends IdModel {
+public class User extends UUIDModel {
 
     public String email;
 

@@ -18,7 +18,7 @@
 
         <tbody class="body-table">
         #{list items:games, as:'aGame' }
-        <tr class="${controllers.Security.connectedUser().equals(aGame.winners)? "winner" : "looser"}">
+        <tr class="${player.equals(aGame.winners.player)? "winner" : "looser"}">
         <td class="gameid"> <a href="@{Application.history(aGame.uuid)}">${aGame.id}</a> </td>
         <td class="nbPlayers"> ${aGame.hands.size()} </td>
         <td class="author"> ${aGame.author.nickName} </td>
