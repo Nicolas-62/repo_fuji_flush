@@ -72,35 +72,25 @@ public class GameService {
 		hand.game = game;
 		game.hands.add(hand);
 		game.nbPlayerMissing--;
-		// si tout les joueurs sont présents
-		if(game.nbPlayerMissing == 0) {
-			// mélange du deck
+		// On distribue 6 cartes si moins de 7 joueurs
+		if (game.nbPlayerMissing == 0 && game.hands.size()<=6) {
 			Collections.shuffle(game.deck);
-			// choix aléatoire du premier joueur
-			List<User> players = new ArrayList<User>();
-			for(Hand aHand : game.hands) {
-				players.add(aHand.player);				
-			}
-			Random rand = new Random();
-			game.currentPlayer = players.get(rand.nextInt(game.hands.size()));
-			// On distribue 6 cartes si moins de 7 joueurs
-			if (game.hands.size()<=6) {
-				for (int i = 0; i < 6; i++) {
-					for (Hand aHand : game.hands) {
-						GameService.draw(game.deck, aHand);
-					}
-				}
-			}
-			// On distribue 5 cartes si 7 ou 8 joueurs
-			else {
-				for (int i = 0; i < 5; i++) {
-					for (Hand aHand : game.hands) {
-						GameService.draw(game.deck, aHand);
-					}
+			for (int i = 0; i < 6; i++) {
+				for (Hand aHand : game.hands) {
+					GameService.draw(game.deck, aHand);
 				}
 			}
 		}
-				// On save la game
+		// On distribue 5 cartes si 7 ou 8 joueurs
+		if (game.nbPlayerMissing == 0 && game.hands.size()>6) {
+			Collections.shuffle(game.deck);
+			for (int i = 0; i < 5; i++) {
+				for (Hand aHand : game.hands) {
+					GameService.draw(game.deck, aHand);
+				}
+			}
+		}
+		// On save la game
 		game.save();
 	}
 	
