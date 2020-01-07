@@ -133,7 +133,7 @@
 #{/if}
 
 #{else}
-<h1> ${game.winners.player.nickName} WON THE GAME, CONGRATULATIONS</h1>
+<img src="${handPlayer.hasWon? "/public/images/victory.png":"/public/images/defeat.png"}" class="resultImage">
 #{/else}
 
 

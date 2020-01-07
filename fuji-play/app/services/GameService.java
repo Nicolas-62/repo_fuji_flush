@@ -266,10 +266,11 @@ public class GameService {
 
 				// si le joueur n'a pas abandonné la game
 				if (!hand.hasLeft) {
-					// si le deck est vide, la défausse devient la pioche et on la mélange avant de
+					// si le deck est vide, la défausse devient la pioche, on vide l'ancienne défausse et on mélange la pioche avant de
 					// piocher
 					if (game.deck.size() == 0) {
 						game.deck = game.discard;
+						game.discard.clear();
 						Collections.shuffle(game.deck);
 					}
 					draw(game.deck, hand);
