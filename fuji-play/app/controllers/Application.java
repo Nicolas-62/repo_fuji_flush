@@ -7,16 +7,15 @@ import models.Game;
 import models.GameEvent;
 import models.Hand;
 import models.User;
-import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.Level;
 import play.mvc.Controller;
 import play.mvc.With;
 import services.GameEventService;
 import services.GameService;
 import services.HandService;
 import services.UserService;
-
 
 @With(Secure.class)
 public class Application extends Controller {
@@ -66,6 +65,12 @@ public class Application extends Controller {
 			}
 		}
 		return false;
+	}
+	public static void ruleOfGame(){
+		User player = Security.connectedUser();
+		render();
+
+
 	}
 
 	public static void history(String uuid) {

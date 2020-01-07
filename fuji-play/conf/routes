@@ -12,6 +12,7 @@ POST    /register                               Home.createAccount
 GET     /gameRoom                               Application.gameRoom
 GET     /ranking                                Application.ranking
 GET     /records                                Application.records
+GET     /ruleOfGame                             Application.ruleOfGame
 GET     /history                                Application.history
 GET     /play                                   Application.play
 GET     /card/play                              Application.playCard
