@@ -26,7 +26,7 @@ public class GameService {
 	 * @param uuid
 	 * @return
 	 */
-	public static Game getByUUID(String uuid) {
+	public static Game findByUUID(String uuid) {
 		return Game.find("uuid = ?1", uuid).first();
 	}
 

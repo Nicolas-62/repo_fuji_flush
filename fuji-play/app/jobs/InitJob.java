@@ -46,11 +46,13 @@ public class InitJob extends Job {
             	deck.add(aCard);
             }
             Collections.shuffle(deck);
-        	// on le fait pas pour la partie 2 et 4 cf test unitaire
-        	if(game != games.get(1) && game != games.get(3)) {
+        	// on le fait pas pour les parties où il  manque des joueurs
+        	if(game.nbPlayerMissing == 0) {
         		//création des mains des joueurs à partir du deck créé
         		List<Hand> hands = HandService.FindAllByGame(game);
-        		for (int i = 0; i < 6; i++) {
+        		int nbJoueur = hands.size();
+        		int nbCarte = (nbJoueur > 6) ? 5 : 6;
+        		for (int i = 0; i < nbCarte; i++) {
         			for (Hand hand : hands) {
         				GameService.draw(deck, hand);
         			}

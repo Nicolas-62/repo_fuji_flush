@@ -36,7 +36,7 @@ public class Application extends Controller {
 	 * @param uuid : id de la partie quittée
 	 */
 	public static void leave(String uuid) {
-		Game game = GameService.getByUUID(uuid);
+		Game game = GameService.findByUUID(uuid);
 		User player = Security.connectedUser();
 		GameService.leave(game, player);
 				// Game Event pour quitter une partie
@@ -70,7 +70,7 @@ public class Application extends Controller {
 
 	public static void history(String uuid) {
 		User player = Security.connectedUser();
-		Game game = GameService.getByUUID(uuid);
+		Game game = GameService.findByUUID(uuid);
 		notFoundIfNull(game);
 		List<GameEvent> gameEvents = GameEventService.findAllByGame(game);
 		render(player, gameEvents);
@@ -104,7 +104,7 @@ public class Application extends Controller {
 	 */
 	public static void joinGame(String uuid) {
 		User player = Security.connectedUser();
-		Game game = GameService.getByUUID(uuid);
+		Game game = GameService.findByUUID(uuid);
 		GameService.joinGame(game, player);
 
 		// GameEvent qui gère le fait de rejoindre une partie
@@ -126,7 +126,7 @@ public class Application extends Controller {
 	 */
 	public static void play(String uuid) {
 		User player = Security.connectedUser();
-		Game game = GameService.getByUUID(uuid);
+		Game game = GameService.findByUUID(uuid);
 		notFoundIfNull(game);
 		Hand handPlayer = HandService.getByPlayerAndGame(player, game);
         List<GameEvent> gameEvents = GameEventService.findAllByGame(game);
@@ -145,13 +145,13 @@ public class Application extends Controller {
 	 *
 	 * @param handId : handPlayer.id, id de la main d'un joueur donné
 	 * @param index  : index de la carte présente dans la main du joueur
-	 * @param GameUuid : id de la partie en cours
+	 * @param uuid : id de la partie en cours
 	 */
-	public static void playCard(Long handId, Integer index, String GameUuid) {
+	public static void playCard(Long handId, Integer index, String uuid) {
 
 		// on vérifie que la requête vient bien du joueur qui doit jouer
 		User player = Security.connectedUser();
-		Game game = GameService.getByUUID(GameUuid);
+		Game game = GameService.findByUUID(uuid);
 		Hand hand = HandService.getById(handId);
 
 		if (!player.equals(game.currentPlayer)) {

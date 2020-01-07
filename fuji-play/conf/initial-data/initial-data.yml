@@ -97,14 +97,15 @@ Hand(h1_boba):
   game: g1
   player: boba_fett
 
-Hand(h1_dark_maul):
-  game: g1
-  player: dark_maul
-
 Hand(h1_anakin):
   game: g1
   player: anakin_skywalker
   hasLeft: true
+  
+Hand(h1_dark_maul):
+  game: g1
+  player: dark_maul
+
 
 Hand(h1_Ki-Adi-Mundi):
   game: g1
@@ -184,3 +185,52 @@ Hand(h5_Ki-Adi-Mundi):
 Hand(h5_dark_maul):
   game: g5
   player: dark_maul
+
+# partie 6 : 
+Game(g6):
+  uuid: i8u76caa-ee88-48c3-9223-2e803ba8d4c5
+  currentPlayer: boba_fett
+  author: boba_fett
+  nbPlayerMissing: 0
+
+Hand(h6_boba):
+  game: g6
+  player: boba_fett
+
+Hand(h6_dark_maul):
+  game: g6
+  player: dark_maul
+
+Hand(h6_anakin):
+  game: g6
+  player: anakin_skywalker
+  hasLeft: true
+
+Hand(h6_Ki-Adi-Mundi):
+  game: g6
+  player: ki-adi-mundi
+
+# partie 7 :
+Game(g7):
+  uuid: 3b3f62ea-134a-4f85-b41d-cd3b1a958c4f
+  currentPlayer: boba_fett
+  author: boba_fett
+  nbPlayerMissing: 0
+
+Hand(h7_boba):
+  game: g7
+  player: boba_fett
+
+Hand(h7_anakin):
+  game: g7
+  player: anakin_skywalker
+  hasLeft: true
+  
+Hand(h7_dark_maul):
+  game: g7
+  player: dark_maul
+
+
+Hand(h7_Ki-Adi-Mundi):
+  game: g7
+  player: ki-adi-mundi  
