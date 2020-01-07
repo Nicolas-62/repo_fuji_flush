@@ -18,14 +18,17 @@
 
         <tbody class="body-table">
         #{list items:games, as:'aGame' }
-        <tr class="${player.equals(aGame.winners.player)? "winner" : "looser"}">
-        <td class="gameid"> <a href="@{Application.history(aGame.uuid)}">${aGame.id}</a> </td>
-        <td class="nbPlayers"> ${aGame.hands.size()} </td>
-        <td class="author"> ${aGame.author.nickName} </td>
-        <td class="winners"> ${aGame.winners.player.nickName} </td>
-        </tr>
 
+        <tr class="${gameResults.get(aGame)? "winner" : "looser"}">
+
+            <td class="gameid"> <a href="@{Application.history(aGame.uuid)}">${aGame.id}</a> </td>
+            <td class="nbPlayers"> ${aGame.hands.size()} </td>
+            <td class="author"> ${aGame.author.nickName} </td>
+            <td class="winners"> ${aGame.winners.player.nickName} </td>
+
+        </tr>
         #{/list}
+
         </tbody>
     </table>
 </div>

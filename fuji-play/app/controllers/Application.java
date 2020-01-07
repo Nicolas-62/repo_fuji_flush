@@ -1,5 +1,6 @@
 package controllers;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import models.Game;
@@ -46,7 +47,25 @@ public class Application extends Controller {
 	public static void records() {
 		User player = Security.connectedUser();
 		List<Game> games = GameService.findFinishedGamesByPlayer(player);
-		render(games, player);
+
+		HashMap <Game, Boolean> gameResults = new HashMap<Game, Boolean>();
+		for(int i = 0; i < games.size(); i++)
+		{
+			gameResults.put(games.get(i), isAWinner(games.get(i), player));
+		}
+		render(games, player, gameResults);
+	}
+
+	public static boolean isAWinner(Game game, User user)
+	{
+		for(Hand main : game.winners)
+		{
+			if(main.player.equals(user))
+			{
+				return true;
+			}
+		}
+		return false;
 	}
 
 	public static void history(String uuid) {
