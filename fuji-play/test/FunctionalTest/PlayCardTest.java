@@ -13,14 +13,14 @@ public class PlayCardTest extends FunctionalTest {
 		Response response = POST("/login?username=boba.fett@coaxys.com&password=test");
 		response = GET("/gameRoom");
 		assertIsOk(response);
-		// partie 1
-		response = GET("/play?uuid=97976caa-ee88-48c3-9223-2e823ba8d7b9");
+		// partie 9
+		response = GET("/play?uuid=794b2d71-64a2-4a10-94f0-0f1a69a637f5");
 		assertNotNull(renderArgs("handPlayer"));
 		Hand hand = (Hand) renderArgs("handPlayer");
+		
 		Card card = hand.cards.get(0);
-		System.out.println("/card/play?handId="+hand.id+"&index=0&uuid=97976caa-ee88-48c3-9223-2e823ba8d7b9");
-		response = GET("/card/play?handId="+hand.id+"&index=0&uuid=97976caa-ee88-48c3-9223-2e823ba8d7b9");
-		response = GET("/play?uuid=97976caa-ee88-48c3-9223-2e823ba8d7b9");
+		response = GET("/card/play?handId="+hand.id+"&index=0&uuid=794b2d71-64a2-4a10-94f0-0f1a69a637f5");
+		response = GET("/play?uuid=794b2d71-64a2-4a10-94f0-0f1a69a637f5");
 		assertIsOk(response);
 		hand = (Hand) renderArgs("handPlayer");
 		assertEquals(card, hand.cardP);

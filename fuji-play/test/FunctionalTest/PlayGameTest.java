@@ -14,8 +14,8 @@ public class PlayGameTest extends FunctionalTest{
 		Response response = POST("/login?username=boba.fett@coaxys.com&password=test");
 		response = GET("/gameRoom");
 		assertIsOk(response);
-		// partie 5
-		response = GET("/play?uuid=6bfbb28e-556d-4cc7-aeed-5d65bf046bc2");
+		// partie 8
+		response = GET("/play?uuid=db65c27f-b58c-4946-879d-3c58dc7b23ff");
 		assertNotNull(renderArgs("player"));
 		User boba = (User) renderArgs("player");
 		assertNotNull(renderArgs("game"));

@@ -17,15 +17,15 @@ import services.UserService;
 
 public class ModifTest extends UnitTest{
 	
-	public static int NB_GAMES=7;
+	public static int NB_GAMES=9;
 	public static String USER_EMAIL="bob@g.com";
 	public static String USER_NiCKNAME="bob";
 	
 	@BeforeClass
 	public static void beforeDeJunit() {
 		InitJob job = new InitJob();
-		NB_GAMES=7;
-		AccessTest.NB_GAMES=7;
+		NB_GAMES=9;
+		AccessTest.NB_GAMES=9;
 		try {
 			job.doJob();
 		} catch (Exception e) {

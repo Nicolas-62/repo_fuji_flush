@@ -2,8 +2,10 @@ package models;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 
@@ -23,7 +25,7 @@ public class Hand extends UUIDModel{
     /**
      * ManyToMany et pas OneToMany sinon contrainte d'unicité sur les carte
      */
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     public List<Card> cards;
 
     @OneToOne

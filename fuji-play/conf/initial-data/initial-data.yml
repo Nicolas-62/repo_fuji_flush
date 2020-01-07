@@ -234,3 +234,53 @@ Hand(h7_dark_maul):
 Hand(h7_Ki-Adi-Mundi):
   game: g7
   player: ki-adi-mundi  
+
+# partie 8 :
+Game(g8):
+  uuid: db65c27f-b58c-4946-879d-3c58dc7b23ff
+  currentPlayer: boba_fett
+  author: boba_fett
+  nbPlayerMissing: 0
+
+Hand(h8_boba):
+  game: g8
+  player: boba_fett
+
+Hand(h8_anakin):
+  game: g8
+  player: anakin_skywalker
+  hasLeft: true
+  
+Hand(h8_dark_maul):
+  game: g8
+  player: dark_maul
+
+
+Hand(h8_Ki-Adi-Mundi):
+  game: g8
+  player: ki-adi-mundi  
+
+# partie 9 :
+Game(g9):
+  uuid: 794b2d71-64a2-4a10-94f0-0f1a69a637f5
+  currentPlayer: boba_fett
+  author: boba_fett
+  nbPlayerMissing: 0
+
+Hand(h9_boba):
+  game: g9
+  player: boba_fett
+
+Hand(h9_anakin):
+  game: g9
+  player: anakin_skywalker
+  hasLeft: true
+  
+Hand(h9_dark_maul):
+  game: g9
+  player: dark_maul
+
+
+Hand(h9_Ki-Adi-Mundi):
+  game: g9
+  player: ki-adi-mundi  
