@@ -1,9 +1,6 @@
 #{extends 'main.html' /}
 #{set title:'Game Room' /}
 
-<div class="gameRoom">
-    <div class="newGame">
-
 <div class="panel-gameRoom">
     <div class="panel-newGame">
         <form action="@{Application.addGame()}" method="post">
@@ -115,7 +112,7 @@
     $(document).ready(function(){
         // Recharge du plateau dans un interval donnÃ©S
         const refresh = function() {
-            $('.games').load("@{Application.gameRoom()} .games");
+            $('.panel-games').load("@{Application.gameRoom()} .panel-games");
         }
         // Appel la recharge
         setInterval(refresh, 1000);

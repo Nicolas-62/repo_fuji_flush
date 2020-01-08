@@ -1,15 +1,13 @@
 #{extends 'main.html' /}
 #{set title:'Current Game' /}
 
-<div class="containerGame">
+<div id="containerGame">
     <div id="currentGame">
         #{if !game.isFinished}
 
         <h3>Current Game</h3>
 
-
     <button class="leavebtn"><a href="@{Application.leave(game.uuid)}">Quit game</a></button>
-
 
     <table class="table-game">
         <thead>
@@ -151,15 +149,15 @@
 $(document).ready(function(){
     // Recharge du plateau dans un interval donnÃ©S
     const refresh = function() {
-        $('#currentGame').load("@{Application.play(game.uuid)} #currentGame");
+        $('#containerGame').load("@{Application.play(game.uuid)} #containerGame");
     }
     // Appel la recharge
     setInterval(refresh, 1000);
 
     // appel ajax qd un joueur joue une carte
-    //const playButton = $('body #currentGame playCard');
-    // const playButton = $('#currentGame table tr:nth-child(2) a');
-    $('#currentGame').on('click',  '.playCard', function(e){
+    //const playButton = $('body #containerGame playCard');
+    // const playButton = $('#containerGame table tr:nth-child(2) a');
+    $('#containerGame').on('click',  '.playCard', function(e){
         e.preventDefault();
         let href = $(this).attr('href');
         console.log("href : "+href);
