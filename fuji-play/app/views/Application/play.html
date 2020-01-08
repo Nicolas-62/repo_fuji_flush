@@ -7,104 +7,104 @@
 
         <h3>Current Game</h3>
 
-    <button class="leavebtn"><a href="@{Application.leave(game.uuid)}">Quit game</a></button>
+        <button class="leavebtn"><a href="@{Application.leave(game.uuid)}">Quit game</a></button>
 
-    <table class="table-game">
-        <thead>
-        <td> NICKNAME </td>
-        <td> CARDS </td>
-        <td> BOARD </td>
-        </thead>
+        <table class="table-game">
+            <thead>
+                <td> NICKNAME </td>
+                <td> CARDS </td>
+                <td> BOARD </td>
+            </thead>
 
-        <tbody>
-        #{list items:game.hands, as:'aHand'}
-        <!-- OTHER PLAYER -->
-        #{if !aHand.equals(handPlayer)}
-        #{if game.currentPlayer.equals(aHand.player)}
-        <!-- JOUEUR COURANT -->
-        <tr class="currentPlayer">
-            #{/if}
-            #{else}
-            <!-- JOUEUR NON COURANT -->
-        <tr class="otherPlayer">
-            #{/else}
-
-            <!-- NICKNAME -->
-            <td class="column-nickname">
-                ${aHand.player.nickName}
-                #{if aHand.hasLeft}<span>Left the game</span>#{/if}
-            </td>
-
-            <!-- CARDS -->
-            <td class="column-cards">
-                #{list items:aHand.cards, as:'aCard'}
-                <img src="/public/images/png/dosv3.png" class="playerCards"/>
-                #{/list}
-            </td>
-
-            <!-- BOARD -->
-            #{if aHand.cardP.equals(null)}
-                <td>
-                    <img src="/public/images/png/dos.png" class="playerCards"/>
-                </td>
-            #{/if}
-            #{else}
-                <td class="column-board">
-                    <img src="/public/images/png/${aHand.cardP.value}.png" class="playerCards"/>
-                </td>
-            #{/else}
-        </tr>
-        #{/if}
-
-        <!-- CONNECTED PLAYER -->
-        #{else}
-        #{if game.currentPlayer.equals(player)}
-        <!-- JOUEUR COURANT -->
-        <tr class="currentPlayer" height="80">
-            #{/if}
-            #{else}
-            <!-- JOUEUR NON COURANT -->
-        <tr class="otherPlayer">
-            #{/else}
-
-            <!-- NICKNAME -->
-            #{if game.currentPlayer.equals(player)}
-            <td class="column-nickname">
-                ${player.nickName}
-                #{if aHand.hasLeft}<span>Left the game</span>#{/if}
-            </td>
-            #{/if}
-            #{else}
-            <td class="column-nickname"> ${player.nickName} </td>
-            #{/else}
-
-                <!-- CARDS -->
-                <td class="cards">
-                    #{list items:handPlayer.cards, as:'aCard'}
-                    #{if game.currentPlayer.equals(player)}
-                    <a class="playCard" href="@{Application.playCard(handPlayer.id, aCard_index-1, game.uuid)}">
-                        <img src="/public/images/png/${aCard.value}.png" class="playerCards"/>
-                    </a>
+            <tbody>
+            #{list items:game.hands, as:'aHand'}
+                <!-- OTHER PLAYER -->
+                #{if !aHand.equals(handPlayer)}
+                    #{if game.currentPlayer.equals(aHand.player)}
+                        <!-- JOUEUR COURANT -->
+                        <tr class="currentPlayer">
                     #{/if}
                     #{else}
-                    <img src="/public/images/png/${aCard.value}.png" class="playerCards"/>
+                        <!-- JOUEUR NON COURANT -->
+                        <tr class="otherPlayer">
                     #{/else}
-                    #{/list}
-                </td>
 
-                <!-- BOARD -->
-                #{if !handPlayer.cardP.equals(null)}
-                <td>
-                    <img src="/public/images/png/${handPlayer.cardP.value}.png" class="playerCards"/>
-                </td>
+                    <!-- NICKNAME -->
+                    <td class="column-nickname">
+                        ${aHand.player.nickName}
+                        #{if aHand.hasLeft}<span>Left the game</span>#{/if}
+                    </td>
+
+                    <!-- CARDS -->
+                    <td class="column-cards">
+                        #{list items:aHand.cards, as:'aCard'}
+                        <img src="/public/images/png/dosv3.png" class="playerCards"/>
+                        #{/list}
+                    </td>
+
+                    <!-- BOARD -->
+                    #{if aHand.cardP.equals(null)}
+                        <td>
+                            <img src="/public/images/png/dos.png" class="playerCards"/>
+                        </td>
+                    #{/if}
+                    #{else}
+                        <td class="column-board">
+                            <img src="/public/images/png/${aHand.cardP.value}.png" class="playerCards"/>
+                        </td>
+                    #{/else}
+                    </tr>
                 #{/if}
+
+                <!-- CONNECTED PLAYER -->
                 #{else}
-                <td>
-                    <img src="/public/images/png/dos.png" class="playerCards"/>
-                </td>
+                    #{if game.currentPlayer.equals(player)}
+                        <!-- JOUEUR COURANT -->
+                        <tr class="currentPlayer" height="80">
+                    #{/if}
+                    #{else}
+                        <!-- JOUEUR NON COURANT -->
+                        <tr class="otherPlayer">
+                    #{/else}
+
+                    <!-- NICKNAME -->
+                    #{if game.currentPlayer.equals(player)}
+                        <td class="column-nickname">
+                            ${player.nickName}
+                            #{if aHand.hasLeft}<span>Left the game</span>#{/if}
+                        </td>
+                    #{/if}
+                    #{else}
+                        <td class="column-nickname"> ${player.nickName} </td>
+                    #{/else}
+
+                    <!-- CARDS -->
+                    <td class="cards">
+                        #{list items:handPlayer.cards, as:'aCard'}
+                            #{if game.currentPlayer.equals(player)}
+                                <a class="playCard" href="@{Application.playCard(handPlayer.id, aCard_index-1, game.uuid)}">
+                                    <img src="/public/images/png/${aCard.value}.png" class="playerCards"/>
+                                </a>
+                            #{/if}
+                            #{else}
+                                <img src="/public/images/png/${aCard.value}.png" class="playerCards"/>
+                            #{/else}
+                        #{/list}
+                    </td>
+
+                    <!-- BOARD -->
+                    #{if !handPlayer.cardP.equals(null)}
+                        <td>
+                            <img src="/public/images/png/${handPlayer.cardP.value}.png" class="playerCards"/>
+                        </td>
+                    #{/if}
+                    #{else}
+                        <td>
+                            <img src="/public/images/png/dos.png" class="playerCards"/>
+                        </td>
+                    #{/else}
+                    </tr>
                 #{/else}
-            </tr>
-            #{/else}
             #{/list}
             </tbody>
         </table>

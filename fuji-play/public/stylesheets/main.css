@@ -224,6 +224,10 @@ li
 /* CONTAINER **************************************************/
 #containerGame
 {
+    position: relative;
+    z-index: 3;
+
+    height: 100%;
     width: 100%;
 
     display: flex;
@@ -237,7 +241,7 @@ li
     background-color: rgba(0, 0, 50, 0.3);
     color: white;
 
-    width: 100%;
+    width: 75%;
     height: 100%;
     margin-top: 10px;
 }
@@ -249,6 +253,9 @@ li
     margin-top: 10px;
 
     text-align: center;
+
+    overflow-y: scroll;
+    overflow-x: hidden;
 }
 
 /* TABLEAU ****************************************************/
@@ -277,13 +284,13 @@ li
 .currentPlayer
 {
     background-color: rgba(0, 200, 255, 0.7);
-    height: 100px;
+    height: 80px;
 }
 
 /* LIGNE JOUEUR ATTENTE ***************************************/
 .otherPlayer
 {
-    height: 100px;
+    height: 80px;
 }
 
 
@@ -607,6 +614,18 @@ li
     animation-iteration-count: infinite;
 }
 
+.animate2
+{
+    position: absolute;
+    z-index: 2;
+    top: 50%;
+
+    animation-duration: 10s;
+    animation-name: tie-move;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}
+
 
 /* ANIMATIONS **************************************************************************************************************/
 
@@ -617,6 +636,29 @@ li
     }
     to
     {
+        left: -50%;
+    }
+}
+
+@keyframes tie-move {
+    0%
+    {
+        top: 100%;
+        left: 100%;
+    }
+    15%
+    {
+        top: 100%;
+        left: 100%;
+    }
+    45%
+    {
+        top: 70%;
+        left: 50%;
+    }
+    100%
+    {
+        top: 50%;
         left: -50%;
     }
 }
