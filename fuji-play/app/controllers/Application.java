@@ -7,6 +7,7 @@ import models.Game;
 import models.GameEvent;
 import models.Hand;
 import models.User;
+import org.apache.commons.lang.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.Level;
@@ -43,7 +44,12 @@ public class Application extends Controller {
 		gameRoom();
 	}
 
-	public static void records() {
+	/**
+	 * Voir toutes ses parties terminées ainsi que le détail des logs quand on clique sur l'oeil
+	 *
+	 * @param selectedRecordUuid : uuid de la partie sélectionnée
+	 */
+	public static void records(String selectedRecordUuid) {
 		User player = Security.connectedUser();
 		List<Game> games = GameService.findFinishedGamesByPlayer(player);
 
@@ -68,15 +74,15 @@ public class Application extends Controller {
 			gameLeaveWinners.put(games.get(i), HandService.getByPlayerAndGame(player, games.get(i)).hasLeaveWon);
 		}
 
-		render(games, player, gameResults, gameLeavers, gameLeaveWinners);
-	}
+		Game game = null;
+		List<GameEvent> gameEvents = new ArrayList<>();
+		if(StringUtils.isNotBlank(selectedRecordUuid)) {
+			game = GameService.findByUUID(selectedRecordUuid);
+			notFoundIfNull(game);
+			gameEvents = GameEventService.findAllByGame(game);
+		}
 
-	public static void history(String uuid) {
-		User player = Security.connectedUser();
-		Game game = GameService.findByUUID(uuid);
-		notFoundIfNull(game);
-		List<GameEvent> gameEvents = GameEventService.findAllByGame(game);
-		render(player, gameEvents);
+		render(games, player, game, gameEvents, gameResults, gameLeavers, gameLeaveWinners);
 	}
 
 	/**

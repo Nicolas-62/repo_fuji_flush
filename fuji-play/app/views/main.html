@@ -12,24 +12,20 @@
     <body>
         <header>
             <div class="bandeau">
+                <div class="header-title">
                 <h1>FUJI FLUSH SPACE</h1>
-            </div>
-            <ul class="logout">
+                </div>
+                <div class="header-infos">
             #{if controllers.Security.isConnected()}
-                <li> User : ${controllers.Security.connectedUser().nickName} </li>
-                <li>
-                    <a href="@{Secure.logout()}">Logout</a>
-                </li>
+                <span>User : ${controllers.Security.connectedUser().nickName} </span>
+                <a href="@{Secure.logout()}">Logout</a>
             #{/if}
             #{else}
-                <li>
-                    <a class="navigation-item" href="@{Application.gameRoom()}"> LOGIN </a>
-                </li>
-                <li>
-                    <a class="navigation-item" href="@{Home.register()}"> REGISTER </a>
-                </li>
+                <a href="@{Application.gameRoom()}"> Login </a>
+                <a href="@{Home.register()}"> Register </a>
             #{/else}
-            </ul>
+                </div>
+            </div>
         </header>
 
         <nav class="navigation">
