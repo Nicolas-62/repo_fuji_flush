@@ -132,7 +132,18 @@
 #{/if}
 
 #{else}
-<img src="${handPlayer.hasWon? "/public/images/victory.png":"/public/images/defeat.png"}" class="resultImage">
+
+#{if handPlayer.hasWon}
+<img src="/public/images/victory.png" class="resultImage">
+#{/if}
+#{else}
+#{if handPlayer.hasLeaveWon}
+<img src="/public/images/leavevictory.png" class="resultImage">
+#{/if}
+#{else}
+<img src="/public/images/defeat.png" class="resultImage">
+#{/else}
+#{/else}
 #{/else}
 
 

@@ -47,24 +47,28 @@ public class Application extends Controller {
 		User player = Security.connectedUser();
 		List<Game> games = GameService.findFinishedGamesByPlayer(player);
 
+		// Savoir si un joueur a gagné une partie
 		HashMap <Game, Boolean> gameResults = new HashMap<Game, Boolean>();
 		for(int i = 0; i < games.size(); i++)
 		{
-			gameResults.put(games.get(i), isAWinner(games.get(i), player));
+			gameResults.put(games.get(i), HandService.getByPlayerAndGame(player, games.get(i)).hasWon);
 		}
-		render(games, player, gameResults);
-	}
 
-	public static boolean isAWinner(Game game, User user)
-	{
-		for(Hand main : game.winners)
+		// Savoir si un joueur a quitté une partie
+		HashMap <Game, Boolean> gameLeavers = new HashMap<Game, Boolean>();
+		for(int i = 0; i < games.size(); i++)
 		{
-			if(main.player.equals(user))
-			{
-				return true;
-			}
+			gameLeavers.put(games.get(i), HandService.getByPlayerAndGame(player, games.get(i)).hasLeft);
 		}
-		return false;
+
+		// Savoir si un joueur a gagné une partie car quelqu'un a quitté
+		HashMap <Game, Boolean> gameLeaveWinners = new HashMap<Game, Boolean>();
+		for(int i = 0; i < games.size(); i++)
+		{
+			gameLeaveWinners.put(games.get(i), HandService.getByPlayerAndGame(player, games.get(i)).hasLeaveWon);
+		}
+
+		render(games, player, gameResults, gameLeavers, gameLeaveWinners);
 	}
 
 	public static void history(String uuid) {

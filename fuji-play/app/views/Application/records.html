@@ -10,18 +10,48 @@
         <td> NUMBER OF PLAYERS </td>
         <td> AUTHOR </td>
         <td> WINNERS </td>
+        <td> SCORE </td>
         </thead>
 
         <tbody class="body-table">
         #{list items:games, as:'aGame' }
-
-        <tr class="${gameResults.get(aGame)? "winner" : "looser"}">
+            #{if gameResults.get(aGame)==true}
+            <tr class="winner">
+            #{/if}
+            #{else}
+                #{if gameLeavers.get(aGame)==true}
+                <tr class="leaver">
+                #{/if}
+                #{else}
+                    #{if gameLeaveWinners.get(aGame)==true}
+                    <tr class="leavewinner">
+                    #{/if}
+                    #{else}
+                    <tr class="looser">
+                    #{/else}
+                #{/else}
+            #{/else}
 
             <td class="gameid"> <a href="@{Application.history(aGame.uuid)}">${aGame.id}</a> </td>
             <td class="nbPlayers"> ${aGame.hands.size()} </td>
             <td class="author"> ${aGame.author.nickName} </td>
             <td class="winners"> ${aGame.winners.player.nickName} </td>
-
+            #{if gameResults.get(aGame)==true}
+            <td class="score"> + 3 </td>
+            #{/if}
+            #{else}
+            #{if gameLeavers.get(aGame)==true}
+            <td class="score"> - 3 </td>
+            #{/if}
+            #{else}
+            #{if gameLeaveWinners.get(aGame)==true}
+            <td class="score"> + 1 </td>
+            #{/if}
+            #{else}
+            <td class="score"> 0 </td>
+            #{/else}
+            #{/else}
+            #{/else}
         </tr>
         #{/list}
 

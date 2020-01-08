@@ -169,6 +169,7 @@ public class GameService {
 		game.currentPlayer = null;
 		hand.hasWon = true;
 		hand.save();
+
 		hand.player.score = hand.player.score + 3;
 		hand.player.save();
 		game.winners.add(hand);
@@ -183,7 +184,7 @@ public class GameService {
 	 */
 	public static void leaveWin(Hand hand) {
 		Game game = hand.game;
-		hand.hasWon = true;
+		hand.hasLeaveWon = true;
 		hand.save();
 		game.winners.add(hand);
 		hand.player.score = hand.player.score + 1;
