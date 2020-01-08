@@ -11,6 +11,8 @@ html
 /* BODY - THE BACK OF THE WEBSITE *************************************************************************************/
 body
 {
+    z-index: 1;
+
     background-image: url("../images/wallpaper2.png");
     background-repeat: no-repeat;
 
@@ -90,19 +92,6 @@ h3
 
 
 /* RANKING PAGE *******************************************************************************************************/
-.totalPlayers
-{
-    text-align: center;
-    font-size: 2em;
-    text-shadow: 1px 1px 2px black, 0 0 1em #00AAFF, 0 0 0.2em cyan;
-}
-
-li
-{
-    text-decoration: none;
-    list-style-type: none;
-}
-
 .titre
 {
     text-align: center;
@@ -112,16 +101,40 @@ li
 
 .panel-rank, .register
 {
+    z-index: 4;
+
     background: rgb(0,0,0);
     background: linear-gradient(90deg, rgba(0,0,0,.5) 0%, rgba(0,200, 255, .4) 40%, rgba(255,255,255,.35) 50%, rgba(0,200, 255,.4) 60%, rgba(0,0,0,.5) 100%);
 
     border: ridge 2px rgba(0, 200, 255, 0.7);
 }
 
+.totalPlayers
+{
+    text-align: center;
+    font-size: 2em;
+    text-shadow: 1px 1px 2px black, 0 0 1em #00AAFF, 0 0 0.2em cyan;
+}
+
+
+li
+{
+    text-decoration: none;
+    list-style-type: none;
+}
+
 
 /* GAMEROOM PAGE ******************************************************************************************************/
-.gameRoom
+/* Panel composé du :
+    panel New game pour créer une partie
+    panel Available games pour afficher les parties disponibles
+    panel Mygames pour afficher les parties où je suis présent
+*/
+
+.panel-gameRoom
 {
+    z-index: 3;
+
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -129,7 +142,11 @@ li
     margin-top: 10px;
 }
 
-/* Choix nombre de joueur */
+.panel-newGame
+{
+
+}
+
 .radio
 {
     display: inline-block;
@@ -137,7 +154,6 @@ li
     color: white;
 }
 
-/* Créer partie */
 .submitbtn
 {
     width: 200px;
@@ -163,19 +179,20 @@ li
     color: #00FF00;
 }
 
-/* Les parties diponibles */
-.games
+
+/* Panel GAMES composé des :
+    panel availablegames
+    panel mygames
+*/
+.panel-games
 {
+    z-index: 3;
+
     display: flex;
     flex-direction: row;
     justify-content: space-between;
 }
-.games p
-{
-    font-weight: bold;
-}
 
-/* Les parties dans lesquelles on participe */
 .mygames, .availablegames
 {
     background: rgba(0,0,15,.7);
@@ -307,6 +324,7 @@ li
 {
     border: ridge 2px rgba(0, 255, 0, 0);
 }
+
 .cards img:hover
 {
     border: ridge 2px rgba(0, 255, 255, 1);
@@ -381,19 +399,10 @@ li
     color: white;
 }
 
-.ligne-tableau
-{
-    height: 30px;
-    font-size: 25px;
-}
-
-.ligne-tableau:hover
-{
-    background-color: rgba(0, 230, 255, 0.3);
-}
-
 .header-table
 {
+    z-index: 4;
+
     text-align: center;
     color: white;
     text-shadow: 1px 1px 2px black, 0 0 1em #00AAFF, 0 0 0.2em cyan;
@@ -405,11 +414,24 @@ li
 
 .body-table
 {
+    z-index: 4;
+
     text-align: center;
     color: white;
     text-shadow: 1px 1px 2px black, 0 0 1em #00AAFF, 0 0 0.2em cyan;
     font-family: 'Orbitron', sans-serif;
     font-size: 15px;
+}
+
+.ligne-tableau
+{
+    height: 30px;
+    font-size: 25px;
+}
+
+.ligne-tableau:hover
+{
+    background-color: rgba(0, 230, 255, 0.3);
 }
 
 
@@ -421,13 +443,20 @@ li
 }
 
 /* RANKING PAGE */
-.pseudo, .score, .rank
+.list-rank
 {
+    z-index: 4;
+}
+
+.pseudo, .score
+{
+    z-index: 3;
     width: 50%;
 }
 
 .connected
 {
+    z-index: 3;
     height: 35px;
     background-color: #00CCFF;
     color: black;
@@ -435,6 +464,8 @@ li
 
 .player
 {
+    z-index: 3;
+
     height: 30px;
     background-color: rgba(0, 0, 75, .7);
 }
