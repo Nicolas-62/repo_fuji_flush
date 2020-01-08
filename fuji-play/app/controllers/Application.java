@@ -66,12 +66,6 @@ public class Application extends Controller {
 		}
 		return false;
 	}
-	public static void ruleOfGame(){
-		User player = Security.connectedUser();
-		render();
-
-
-	}
 
 	public static void history(String uuid) {
 		User player = Security.connectedUser();

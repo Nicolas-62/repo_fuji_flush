@@ -524,6 +524,21 @@ li
     color: #00CCFF;
 }
 
+.registerbtn a
+{
+    cursor: pointer;
+    color: #00CCFF;
+    list-style-type: none;
+    text-decoration: none;
+}
+
+.registerbtn a:visited
+{
+    color: #00CCFF;
+    list-style-type: none;
+    text-decoration: none;
+}
+
 
 /* CALL OF ANIMATION **************************************************************************************************/
 .animate
