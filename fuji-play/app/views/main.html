@@ -21,8 +21,23 @@
                     <a href="@{Secure.logout()}">Logout</a>
                 </li>
             #{/if}
+            #{else}
+                <li>
+                    <a class="navigation-item" href="@{Application.gameRoom()}"> LOGIN </a>
+                </li>
+                <li>
+                    <a class="navigation-item" href="@{Home.register()}"> REGISTER </a>
+                </li>
+            #{/else}
             </ul>
         </header>
+
+        <nav class="navigation">
+            <a href="@{Application.ranking()}" class="navigation-item"> Ranking </a>
+            <a href="@{Application.gameRoom()}" class="navigation-item"> Game Room </a>
+            <a href="/records" class="navigation-item"> Records </a>
+            <a href="/ruleOfGame" class="navigation-item"> Game Rules </a>
+        </nav>
 
         <div class="animate">
             <img src="/public/images/xwings.png">

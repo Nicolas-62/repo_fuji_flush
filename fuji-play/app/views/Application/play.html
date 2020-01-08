@@ -1,10 +1,6 @@
 #{extends 'main.html' /}
 #{set title:'Current Game' /}
 
-<nav class="navigation">
-    <a href="@{Application.gameRoom()}" class="navigation-item"> Back to Game Room </a>
-</nav>
-
 <div class="containerGame">
     <div id="currentGame">
         #{if !game.isFinished}
@@ -125,7 +121,7 @@
             <tbody class="body-table">
             #{list items:gameEvents, as:'aGameEvent' }
             <tr>
-                <td class="ranka"> ${aGameEvent.date} </td>
+                <td class="ranka"> ${aGameEvent.date.format()} </td>
                 <td class="pseudo"> ${aGameEvent.message} </td>
             </tr>
             #{/list}
