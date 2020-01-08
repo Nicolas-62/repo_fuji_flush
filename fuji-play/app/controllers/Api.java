@@ -11,6 +11,7 @@ import models.Hand;
 import models.User;
 import models.adaptaters.CardAdapter;
 import models.adaptaters.GameAdapter;
+import models.adaptaters.GameForRoomAdapter;
 import models.adaptaters.HandAdapter;
 import models.adaptaters.PlayerAdapter;
 import play.mvc.Before;
@@ -31,6 +32,6 @@ public class Api extends TrackerController{
     
 	public static void gameRoom() {
 		List<Game> games = GameService.findAll();
-		renderJSON(games, gson);
+		renderJSON(games, new GameForRoomAdapter(), new PlayerAdapter());
 	}    
 }

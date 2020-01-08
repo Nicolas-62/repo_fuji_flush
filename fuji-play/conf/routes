@@ -20,7 +20,8 @@ GET		/game/join								Application.joinGame
 POST 	/game/add								Application.addGame
 GET     /game/leave                             Application.leave
 
-GET     /api/gameRoom                           Api.gameRoom
+GET     /api/games                              Api.gameRoom(format:'json')
+POST    /api/game/add                        	Api.addGame(format:'json')
 
 
 # Ignore favicon requests
