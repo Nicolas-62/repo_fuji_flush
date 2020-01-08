@@ -1,9 +1,14 @@
+/* HTML ***************************************************************************************************************/
 html
 {
     width: 100%;
     height: 100%;
+
+    overflow: hidden;
 }
 
+
+/* BODY - THE BACK OF THE WEBSITE *************************************************************************************/
 body
 {
     background-image: url("../images/wallpaper2.png");
@@ -18,6 +23,8 @@ body
     width: 100%;
 }
 
+
+/* HEADER - TITLE NICKNAME AND LOGOUT *********************************************************************************/
 header
 {
     display: flex;
@@ -31,42 +38,11 @@ header
     font-family: 'Orbitron', sans-serif;
 }
 
-.animate
-{
-    position: absolute;
-    z-index: 2;
-    top: 50%;
-
-    animation-duration: 10s;
-    animation-name: xwings-move;
-    animation-iteration-count: infinite;
-}
-
-
+/* Titre FUJI FLUSH */
 .bandeau
 {
     margin-left: 42%;
     text-shadow: 1px 1px 2px black, 0 0 1em #00AAFF, 0 0 0.2em cyan;
-}
-
-h3
-{
-    color: white;
-    text-shadow: 1px 1px 2px black, 0 0 1em #00AAFF, 0 0 0.2em cyan;
-    font-size: 25px;
-}
-
-.totalPlayers
-{
-    text-align: center;
-    font-size: 2em;
-    text-shadow: 1px 1px 2px black, 0 0 1em #00AAFF, 0 0 0.2em cyan;
-}
-
-li
-{
-    text-decoration: none;
-    list-style-type: none;
 }
 
 .logout
@@ -101,6 +77,49 @@ li
     text-shadow: 1px 1px 2px black, 0 0 1em midnightblue, 0 0 0.2em cyan;
 }
 
+
+
+
+/* WHITE TITLE ********************************************************************************************************/
+h3
+{
+    color: white;
+    text-shadow: 1px 1px 2px black, 0 0 1em #00AAFF, 0 0 0.2em cyan;
+    font-size: 25px;
+}
+
+
+/* RANKING PAGE *******************************************************************************************************/
+.totalPlayers
+{
+    text-align: center;
+    font-size: 2em;
+    text-shadow: 1px 1px 2px black, 0 0 1em #00AAFF, 0 0 0.2em cyan;
+}
+
+li
+{
+    text-decoration: none;
+    list-style-type: none;
+}
+
+.titre
+{
+    text-align: center;
+    text-shadow: 1px 1px 2px black, 0 0 1em #00AAFF, 0 0 0.2em cyan;
+    font-size: 40px;
+}
+
+.panel-rank, .register
+{
+    background: rgb(0,0,0);
+    background: linear-gradient(90deg, rgba(0,0,0,.5) 0%, rgba(0,200, 255, .4) 40%, rgba(255,255,255,.35) 50%, rgba(0,200, 255,.4) 60%, rgba(0,0,0,.5) 100%);
+
+    border: ridge 2px rgba(0, 200, 255, 0.7);
+}
+
+
+/* GAMEROOM PAGE ******************************************************************************************************/
 .gameRoom
 {
     display: flex;
@@ -110,6 +129,7 @@ li
     margin-top: 10px;
 }
 
+/* Choix nombre de joueur */
 .radio
 {
     display: inline-block;
@@ -117,6 +137,7 @@ li
     color: white;
 }
 
+/* Créer partie */
 .submitbtn
 {
     width: 200px;
@@ -142,7 +163,7 @@ li
     color: #00FF00;
 }
 
-
+/* Les parties diponibles */
 .games
 {
     display: flex;
@@ -154,6 +175,7 @@ li
     font-weight: bold;
 }
 
+/* Les parties dans lesquelles on participe */
 .mygames, .availablegames
 {
     background: rgba(0,0,15,.7);
@@ -178,17 +200,35 @@ li
 }
 
 
-/* PLAY ****************************************************************************************************************/
+/* PLAY A GAME ********************************************************************************************************/
 /* CONTAINER **************************************************/
+.containerGame
+{
+    width: 100%;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
 #currentGame
 {
     text-align: center;
     background-color: rgba(0, 0, 50, 0.3);
     color: white;
 
-    width: 99%;
+    width: 100%;
     height: 100%;
     margin-top: 10px;
+}
+
+.gameHistory
+{
+    width: 25%;
+    height: 100%;
+    margin-top: 10px;
+
+    text-align: center;
 }
 
 /* TABLEAU ****************************************************/
@@ -262,7 +302,7 @@ li
 }
 
 
-
+/* CARDS **************************************************************************************************************/
 .cards img
 {
     border: ridge 2px rgba(0, 255, 0, 0);
@@ -273,7 +313,7 @@ li
 }
 
 
-
+/* REGISTER ***********************************************************************************************************/
 .formulaire
 {
     display: flex;
@@ -332,26 +372,6 @@ li
 {
     background: linear-gradient(0deg, rgba(0,200,255,0.3) 0%, rgba(0,200,255,1) 61%, rgba(0,200,255,0.7) 100%);
 }
-
-
-
-/* RANKING PAGE ********************************************************************************************************/
-.titre
-{
-    text-align: center;
-    text-shadow: 1px 1px 2px black, 0 0 1em #00AAFF, 0 0 0.2em cyan;
-    font-size: 40px;
-}
-
-.panel-rank, .register
-{
-    background: rgb(0,0,0);
-    background: linear-gradient(90deg, rgba(0,0,0,.5) 0%, rgba(0,200, 255, .4) 40%, rgba(255,255,255,.35) 50%, rgba(0,200, 255,.4) 60%, rgba(0,0,0,.5) 100%);
-
-    border: ridge 2px rgba(0, 200, 255, 0.7);
-}
-
-
 
 
 /* TABLEAU *************************************************************************************************************/
@@ -503,6 +523,20 @@ li
 {
     color: #00CCFF;
 }
+
+
+/* CALL OF ANIMATION **************************************************************************************************/
+.animate
+{
+    position: absolute;
+    z-index: 2;
+    top: 50%;
+
+    animation-duration: 10s;
+    animation-name: xwings-move;
+    animation-iteration-count: infinite;
+}
+
 
 /* ANIMATIONS **************************************************************************************************************/
 

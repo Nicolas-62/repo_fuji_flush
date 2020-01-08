@@ -15,11 +15,12 @@
                 <h1>FUJI FLUSH SPACE</h1>
             </div>
             <ul class="logout">
-                    #{if controllers.Security.isConnected()}
-                        <li> User : ${controllers.Security.connectedUser().nickName} </li>
-                        <li> <a href="@{Secure.logout()}">Logout</a> </li>
-
-                    #{/if}
+            #{if controllers.Security.isConnected()}
+                <li> User : ${controllers.Security.connectedUser().nickName} </li>
+                <li>
+                    <a href="@{Secure.logout()}">Logout</a>
+                </li>
+            #{/if}
             </ul>
         </header>
 

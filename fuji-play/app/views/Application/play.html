@@ -5,8 +5,9 @@
     <a href="@{Application.gameRoom()}" class="navigation-item"> Back to Game Room </a>
 </nav>
 
-<div id="currentGame">
-    #{if !game.isFinished}
+<div class="containerGame">
+    <div id="currentGame">
+        #{if !game.isFinished}
 
         <h3>Current Game</h3>
 
@@ -83,52 +84,54 @@
             <td class="column-nickname"> ${player.nickName} </td>
             #{/else}
 
-            <!-- CARDS -->
-            <td class="cards">
-                #{list items:handPlayer.cards, as:'aCard'}
-                #{if game.currentPlayer.equals(player)}
-                <a class="playCard" href="@{Application.playCard(handPlayer.id, aCard_index-1, game.uuid)}">
+                <!-- CARDS -->
+                <td class="cards">
+                    #{list items:handPlayer.cards, as:'aCard'}
+                    #{if game.currentPlayer.equals(player)}
+                    <a class="playCard" href="@{Application.playCard(handPlayer.id, aCard_index-1, game.uuid)}">
+                        <img src="/public/images/png/${aCard.value}.png" class="playerCards"/>
+                    </a>
+                    #{/if}
+                    #{else}
                     <img src="/public/images/png/${aCard.value}.png" class="playerCards"/>
-                </a>
+                    #{/else}
+                    #{/list}
+                </td>
+
+                <!-- BOARD -->
+                #{if !handPlayer.cardP.equals(null)}
+                <td>
+                    <img src="/public/images/png/${handPlayer.cardP.value}.png" class="playerCards"/>
+                </td>
                 #{/if}
                 #{else}
-                <img src="/public/images/png/${aCard.value}.png" class="playerCards"/>
+                <td>
+                    <img src="/public/images/png/dos.png" class="playerCards"/>
+                </td>
                 #{/else}
-                #{/list}
-            </td>
-
-            <!-- BOARD -->
-            #{if !handPlayer.cardP.equals(null)}
-            <td>
-                <img src="/public/images/png/${handPlayer.cardP.value}.png" class="playerCards"/>
-            </td>
-            #{/if}
-            #{else}
-            <td>
-                <img src="/public/images/png/dos.png" class="playerCards"/>
-            </td>
+            </tr>
             #{/else}
-        </tr>
-        #{/else}
-        #{/list}
-        </tbody>
-    </table>
+            #{/list}
+            </tbody>
+        </table>
+    </div>
 
-    <table class="list-rank">
-    <thead class="header-table">
-    <td> GAME History </td>
-    </thead>
+    <div class="gameHistory">
+        <table class="list-rank">
+            <thead class="header-table">
+            <h3> GAME History </h3>
+            </thead>
 
-    <tbody class="body-table">
-    #{list items:gameEvents, as:'aGameEvent' }
-    <tr>
-    <td class="ranka"> ${aGameEvent.date} </td>
-    <td class="pseudo"> ${aGameEvent.message} </td>
-    </tr>
-    #{/list}
-    </tbody>
-    </table>
-
+            <tbody class="body-table">
+            #{list items:gameEvents, as:'aGameEvent' }
+            <tr>
+                <td class="ranka"> ${aGameEvent.date} </td>
+                <td class="pseudo"> ${aGameEvent.message} </td>
+            </tr>
+            #{/list}
+            </tbody>
+        </table>
+    </div>
 </div>
 #{/if}
 
