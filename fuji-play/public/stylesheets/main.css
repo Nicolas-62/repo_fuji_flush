@@ -44,15 +44,13 @@ header
 
 .bandeau
 {
-width: 99%;
+    width: 99%;
 }
 
 .header-title
 {
-        text-shadow: 1px 1px 2px black, 0 0 1em #00AAFF, 0 0 0.2em cyan;
-        text-align: center;
-        height: 100%;
-        width: 90%;
+    text-shadow: 1px 1px 2px black, 0 0 1em #00AAFF, 0 0 0.2em cyan;
+    text-align: center;
 }
 
 .header-infos
