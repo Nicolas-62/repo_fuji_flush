@@ -1,85 +1,85 @@
 #{extends 'main.html' /}
 #{set title:'Records' /}
 <div class="container-records">
-<div class="panel-records">
-    <h3 class="titre">Records</h3>
-    <table class="list-records">
+    <div class="panel-records">
+        <h3 class="titre">Records</h3>
+        <table class="list-records">
+            <thead class="header-table">
+            <td> GAME ID </td>
+            <td> NUMBER OF PLAYERS </td>
+            <td> AUTHOR </td>
+            <td> WINNERS </td>
+            <td> CONCLUSION </td>
+            <td> SCORE </td>
+            <td> LOGS </td>
+            </thead>
 
-        <thead class="header-table">
-        <td> GAME ID </td>
-        <td> NUMBER OF PLAYERS </td>
-        <td> AUTHOR </td>
-        <td> WINNERS </td>
-        <td> CONCLUSION </td>
-        <td> SCORE </td>
-        <td> LOGS </td>
-        </thead>
+            <tbody class="body-table-records">
+            #{list items:games, as:'aGame' }
+                #{if game && game.uuid.equals(aGame.uuid)}
+                    <tr class="connected">
+                #{/if}
+                #{elseif gameResults.get(aGame)==true}
+                    <tr class="winner">
+                #{/elseif}
+                #{elseif gameLeavers.get(aGame)==true}
+                    <tr class="leaver">
+                #{/elseif}
+                #{elseif gameLeaveWinners.get(aGame)==true}
+                    <tr class="leavewinner">
+                #{/elseif}
+                #{else}
+                    <tr class="looser">
+                #{/else}
 
-        <tbody class="body-table-records">
-        #{list items:games, as:'aGame' }
-            #{if game && game.uuid.equals(aGame.uuid)}
-                <tr class="connected">
-            #{/if}
-            #{elseif gameResults.get(aGame)==true}
-                <tr class="winner">
-            #{/elseif}
-            #{elseif gameLeavers.get(aGame)==true}
-                <tr class="leaver">
-            #{/elseif}
-            #{elseif gameLeaveWinners.get(aGame)==true}
-                <tr class="leavewinner">
-            #{/elseif}
-            #{else}
-                <tr class="looser">
-            #{/else}
-
-            <td> ${aGame.id} </td>
-            <td> ${aGame.hands.size()} </td>
-            <td> ${aGame.author.nickName} </td>
-            <td> ${aGame.winners.player.nickName} </td>
-
-        #{if gameResults.get(aGame)==true}
-        <td> YOU WON </td>
-        #{/if}
-        #{else}
-        #{if gameLeavers.get(aGame)==true}
-        <td> YOU LEFT </td>
-        #{/if}
-        #{else}
-        #{if gameLeaveWinners.get(aGame)==true}
-        <td> YOU WON BY LEAVE </td>
-        #{/if}
-        #{else}
-        <td> YOU LOST </td>
-        #{/else}
-        #{/else}
-        #{/else}
+                <td> ${aGame.id} </td>
+                <td> ${aGame.hands.size()} </td>
+                <td> ${aGame.author.nickName} </td>
+                <td> ${aGame.winners.player.nickName} </td>
 
             #{if gameResults.get(aGame)==true}
-            <td> + 3 </td>
+            <td> YOU WON </td>
             #{/if}
             #{else}
             #{if gameLeavers.get(aGame)==true}
-            <td> - 3 </td>
+            <td> YOU LEFT </td>
             #{/if}
             #{else}
             #{if gameLeaveWinners.get(aGame)==true}
-            <td> + 1 </td>
+            <td> YOU WON BY LEAVE </td>
             #{/if}
             #{else}
-            <td> 0 </td>
+            <td> YOU LOST </td>
             #{/else}
             #{/else}
             #{/else}
 
-        <td><a href="@{Application.records(aGame.uuid)}"><img src="/public/images/eye.png" class="imgrecords"/></a></td>
+                #{if gameResults.get(aGame)==true}
+                <td> + 3 </td>
+                #{/if}
+                #{else}
+                #{if gameLeavers.get(aGame)==true}
+                <td> - 3 </td>
+                #{/if}
+                #{else}
+                #{if gameLeaveWinners.get(aGame)==true}
+                <td> + 1 </td>
+                #{/if}
+                #{else}
+                <td> 0 </td>
+                #{/else}
+                #{/else}
+                #{/else}
 
-        </tr>
-        #{/list}
+            <td><a href="@{Application.records(aGame.uuid)}"><img src="/public/images/eye.png" class="imgrecords"/></a></td>
 
-        </tbody>
-    </table>
-</div>
+            </tr>
+            #{/list}
+
+            </tbody>
+        </table>
+    </div>
+
     #{if game}
     <div class="panel-history">
         <h3 class="titre"> History</h3>

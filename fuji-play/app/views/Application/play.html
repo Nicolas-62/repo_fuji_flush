@@ -108,8 +108,8 @@
         </table>
     </div>
 
-    <div class="gameHistory">
-        <div class="table-area">
+    <div id="gameHistory">
+        <div id="table-area">
             <table class="list-rank">
                 <thead class="header-table">
                 <h3> GAME History </h3>
@@ -156,6 +156,7 @@ $(document).ready(function(){
     const refresh = function() {
         $('#containerGame').load("@{Application.play(game.uuid)} #containerGame");
     }
+
     // Appel la recharge
     setInterval(refresh, 1000);
 
@@ -167,7 +168,6 @@ $(document).ready(function(){
         let href = $(this).attr('href');
         console.log("href : "+href);
         $('#currentGame').load(href+" #currentGame");
-
     });
 });
 </script>

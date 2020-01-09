@@ -247,7 +247,7 @@ li
     padding: 0;
 }
 
-.gameHistory
+#gameHistory
 {
     position: relative;
     width: 25%;
@@ -260,7 +260,7 @@ li
     text-align: center;
 }
 
-.table-area
+#table-area
 {
     border: ridge 1px rgba(0, 200, 255, 1);
     position: relative;
@@ -557,6 +557,32 @@ li
     justify-content: center;
 }
 
+.panel-records
+{
+    position: relative;
+    z-index: 4;
+    width: 75%;
+    height: 600px;
+    overflow: auto;
+}
+
+.list-records
+{
+    position: relative;
+    width: 100%;
+    height: 100%;
+    color: white;
+}
+
+.panel-history
+{
+    position: relative;
+    z-index: 4;
+    width: 25%;
+    height: 600px;
+    overflow: auto;
+}
+
 .body-table-records
 {
      text-align: center;
@@ -565,6 +591,30 @@ li
      font-family: 'Orbitron', sans-serif;
      font-size: 15px;
 }
+
+.winner
+{
+    height: 30px;
+    background-color: rgba(0,153,51,0.2);
+}
+
+.looser
+{
+    height: 30px;
+    background-color: rgba(255,0,0,0.2);
+}
+.leaver
+{
+    height: 30px;
+    background-color: rgba(0,0,0,0.2);
+}
+
+.leavewinner
+{
+    height: 30px;
+    background-color: rgba(255,255,0,0.2);
+}
+
 
 .body-table-history
 {
@@ -580,29 +630,9 @@ li
     height: 25px;
 }
 
-.panel-records
-{
-    position: relative;
-    z-index: 4;
-    width: 75%;
-    height: 400px;
-    overflow: auto;
-}
-.panel-history
-{
-    position: relative;
-    z-index: 4;
-    width: 25%;
-    height: 400px;
-    overflow: auto;
-}
 
-.list-records
-{
-    width: 100%;
-    height: 100%;
-    color: white;
-}
+
+
 
 .gameid
 {
@@ -630,28 +660,7 @@ li
 }
 
 
-.winner
-{
-    height: 30px;
-    background-color: rgba(0,153,51,0.2);
-}
 
-.looser
-{
-    height: 30px;
-    background-color: rgba(255,0,0,0.2);
-}
-.leaver
-{
-    height: 30px;
-    background-color: rgba(0,0,0,0.2);
-}
-
-.leavewinner
-{
-    height: 30px;
-    background-color: rgba(255,255,0,0.2);
-}
 
 
 
