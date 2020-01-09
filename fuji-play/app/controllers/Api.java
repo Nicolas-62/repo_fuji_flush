@@ -19,7 +19,7 @@ import services.GameService;
 import services.UserService;
 
 public class Api extends TrackerController{
-    private static final Gson gson = new GsonBuilder()
+    private static final Gson gsonBuilder = new GsonBuilder()
             .registerTypeAdapter(Game.class, new GameAdapter())
             .registerTypeAdapter(User.class, new PlayerAdapter())
             .registerTypeAdapter(Hand.class, new HandAdapter())
@@ -44,7 +44,7 @@ public class Api extends TrackerController{
     
 	public static void gameRoom() {
 		List<Game> games = GameService.findAll();
-		renderJSON(games, gson);
+		renderJSON(games, gsonBuilder);
 	} 
 	
 	public static void addGame() {
@@ -55,6 +55,6 @@ public class Api extends TrackerController{
 		game = GameService.addGame(player, game.nbPlayerMissing);
 		
 		GameService.joinGame(game, player);
-		renderJSON(game, new GameForRoomAdapter(), new PlayerAdapter());
+		renderJSON(game, gsonBuilder);
 	}
 }
