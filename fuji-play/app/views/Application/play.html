@@ -7,9 +7,6 @@
 
         <h3>Current Game</h3>
 
-        <button class="leavebtn"><a href="@{Application.leave(game.uuid)}">Quit</a></button>
-        <button class="backbtn"><a href="@{Application.gameRoom()}">Back</a></button>
-
         <table class="table-game">
             <thead>
                 <td> NICKNAME </td>
@@ -112,20 +109,27 @@
     </div>
 
     <div class="gameHistory">
-        <table class="list-rank">
-            <thead class="header-table">
-            <h3> GAME History </h3>
-            </thead>
+        <div class="table-area">
+            <table class="list-rank">
+                <thead class="header-table">
+                <h3> GAME History </h3>
+                </thead>
 
-            <tbody class="body-table">
-            #{list items:gameEvents, as:'aGameEvent' }
-            <tr>
-                <td class="ranka"> ${aGameEvent.date.format()} </td>
-                <td class="pseudo"> ${aGameEvent.message} </td>
-            </tr>
-            #{/list}
-            </tbody>
-        </table>
+                <tbody class="body-table">
+                #{list items:gameEvents, as:'aGameEvent' }
+                <tr>
+                    <td class="ranka"> ${aGameEvent.date.format()} </td>
+                    <td class="pseudo"> ${aGameEvent.message} </td>
+                </tr>
+                #{/list}
+                </tbody>
+            </table>
+        </div>
+
+        <div class="button-area">
+            <button class="backbtn"><a href="@{Application.gameRoom()}">Back</a></button>
+            <button class="leavebtn"><a href="@{Application.leave(game.uuid)}">Quit</a></button>
+        </div>
     </div>
 </div>
 #{/if}
