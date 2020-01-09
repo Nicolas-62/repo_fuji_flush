@@ -15,6 +15,7 @@ public class GameAdapter implements JsonSerializer<Game> {
     @Override
     public JsonElement serialize(Game game, Type type, JsonSerializationContext jsonSerializationContext) {
         JsonObject obj = new JsonObject();
+        obj.addProperty("id", game.id);
         obj.add("author", jsonSerializationContext.serialize(game.author));
         obj.addProperty("nbPlayerMissing", game.nbPlayerMissing);
         obj.add("hands", jsonSerializationContext.serialize(game.hands));
