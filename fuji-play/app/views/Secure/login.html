@@ -1,0 +1,33 @@
+#{extends 'main.html' /}
+#{extends 'Secure/layout.html' /}
+
+<div class="register">
+
+    <form class="formulaire" action="@{authenticate()}" method="post">
+        <h1 class="titre">Login</h1>
+        <p>Please login to access this functionality</p>
+
+        #{if flash.error}
+        <p class="error">
+            ${messages.get(flash.error)}
+        </p>
+        #{/if}
+        #{if flash.success}
+        <p class="success">
+            ${messages.get(flash.success)}
+        </p>
+        #{/if}
+
+        <label class="form-titre" for="username"><b>Email</b></b></label>
+        <input class="form-saisie" type="text" name="username" id="username" value="${flash.username}" />
+
+        <label class="form-titre" for="password"><b>Password</b></label>
+        <input class="form-saisie"  type="password" name="password" id="password" value="" />
+
+        <label class="form-saisie" for="remember"><b>&{'secure.remember'}</b></label>
+        <input type="checkbox" name="remember" id="remember" value="true" ${flash.remember ? 'checked="true"' : ''} />
+
+        <button type="submit" class="registerbtn" id="value="&{'secure.signin'}"> Login </button>
+        <button class="registerbtn"><a href="/register">New account</a></button>
+    </form>
+</div>
