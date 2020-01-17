@@ -1,139 +1,152 @@
 #{extends 'main.html' /}
 #{set title:'Current Game' /}
 
-<nav class="navigation">
-    <a href="@{Application.gameRoom()}" class="navigation-item"> Back to Game Room </a>
-</nav>
-
-<div id="currentGame">
-    #{if !game.isFinished}
+<div id="containerGame">
+    <div id="currentGame">
+        #{if !game.isFinished}
 
         <h3>Current Game</h3>
 
+        <table class="table-game">
+            <thead>
+                <td> NICKNAME </td>
+                <td> CARDS </td>
+                <td> BOARD </td>
+            </thead>
 
-    <button class="leavebtn"><a href="@{Application.leave(game.uuid)}">Quit game</a></button>
+            <tbody>
+            #{list items:game.hands, as:'aHand'}
+                <!-- OTHER PLAYER -->
+                #{if !aHand.equals(handPlayer)}
+                    #{if game.currentPlayer.equals(aHand.player)}
+                        <!-- JOUEUR COURANT -->
+                        <tr class="currentPlayer">
+                    #{/if}
+                    #{else}
+                        <!-- JOUEUR NON COURANT -->
+                        <tr class="otherPlayer">
+                    #{/else}
 
+                    <!-- NICKNAME -->
+                    <td class="column-nickname">
+                        ${aHand.player.nickName}
+                        #{if aHand.hasLeft}<span>Left the game</span>#{/if}
+                    </td>
 
-    <table class="table-game">
-        <thead>
-        <td> NICKNAME </td>
-        <td> CARDS </td>
-        <td> BOARD </td>
-        </thead>
+                    <!-- CARDS -->
+                    <td class="column-cards">
+                        #{list items:aHand.cards, as:'aCard'}
+                        <img src="/public/images/png/dosv3.png" class="playerCards"/>
+                        #{/list}
+                    </td>
 
-        <tbody>
-        #{list items:game.hands, as:'aHand'}
-        <!-- OTHER PLAYER -->
-        #{if !aHand.equals(handPlayer)}
-        #{if game.currentPlayer.equals(aHand.player)}
-        <!-- JOUEUR COURANT -->
-        <tr class="currentPlayer">
-            #{/if}
-            #{else}
-            <!-- JOUEUR NON COURANT -->
-        <tr class="otherPlayer">
-            #{/else}
-
-            <!-- NICKNAME -->
-            <td class="column-nickname">
-                ${aHand.player.nickName}
-                #{if aHand.hasLeft}<span>Left the game</span>#{/if}
-            </td>
-
-            <!-- CARDS -->
-            <td class="column-cards">
-                #{list items:aHand.cards, as:'aCard'}
-                <img src="/public/images/png/dosv3.png" class="playerCards"/>
-                #{/list}
-            </td>
-
-            <!-- BOARD -->
-            #{if aHand.cardP.equals(null)}
-                <td>
-                    <img src="/public/images/png/dos.png" class="playerCards"/>
-                </td>
-            #{/if}
-            #{else}
-                <td class="column-board">
-                    <img src="/public/images/png/${aHand.cardP.value}.png" class="playerCards"/>
-                </td>
-            #{/else}
-        </tr>
-        #{/if}
-
-        <!-- CONNECTED PLAYER -->
-        #{else}
-        #{if game.currentPlayer.equals(player)}
-        <!-- JOUEUR COURANT -->
-        <tr class="currentPlayer" height="80">
-            #{/if}
-            #{else}
-            <!-- JOUEUR NON COURANT -->
-        <tr class="otherPlayer">
-            #{/else}
-
-            <!-- NICKNAME -->
-            #{if game.currentPlayer.equals(player)}
-            <td class="column-nickname">
-                ${player.nickName}
-                #{if aHand.hasLeft}<span>Left the game</span>#{/if}
-            </td>
-            #{/if}
-            #{else}
-            <td class="column-nickname"> ${player.nickName} </td>
-            #{/else}
-
-            <!-- CARDS -->
-            <td class="cards">
-                #{list items:handPlayer.cards, as:'aCard'}
-                #{if game.currentPlayer.equals(player)}
-                <a class="playCard" href="@{Application.playCard(handPlayer.id, aCard_index-1, game.uuid)}">
-                    <img src="/public/images/png/${aCard.value}.png" class="playerCards"/>
-                </a>
+                    <!-- BOARD -->
+                    #{if aHand.cardP.equals(null)}
+                        <td>
+                            <img src="/public/images/png/dos.png" class="playerCards"/>
+                        </td>
+                    #{/if}
+                    #{else}
+                        <td class="column-board">
+                            <img src="/public/images/png/${aHand.cardP.value}.png" class="playerCards"/>
+                        </td>
+                    #{/else}
+                    </tr>
                 #{/if}
+
+                <!-- CONNECTED PLAYER -->
                 #{else}
-                <img src="/public/images/png/${aCard.value}.png" class="playerCards"/>
+                    #{if game.currentPlayer.equals(player)}
+                        <!-- JOUEUR COURANT -->
+                        <tr class="currentPlayer" height="80">
+                    #{/if}
+                    #{else}
+                        <!-- JOUEUR NON COURANT -->
+                        <tr class="otherPlayer">
+                    #{/else}
+
+                    <!-- NICKNAME -->
+                    #{if game.currentPlayer.equals(player)}
+                        <td class="column-nickname">
+                            ${player.nickName}
+                            #{if aHand.hasLeft}<span>Left the game</span>#{/if}
+                        </td>
+                    #{/if}
+                    #{else}
+                        <td class="column-nickname"> ${player.nickName} </td>
+                    #{/else}
+
+                    <!-- CARDS -->
+                    <td class="cards">
+                        #{list items:handPlayer.cards, as:'aCard'}
+                            #{if game.currentPlayer.equals(player)}
+                                <a class="playCard" href="@{Application.playCard(handPlayer.id, aCard_index-1, game.uuid)}">
+                                    <img src="/public/images/png/${aCard.value}.png" class="playerCards"/>
+                                </a>
+                            #{/if}
+                            #{else}
+                                <img src="/public/images/png/${aCard.value}.png" class="playerCards"/>
+                            #{/else}
+                        #{/list}
+                    </td>
+
+                    <!-- BOARD -->
+                    #{if !handPlayer.cardP.equals(null)}
+                        <td>
+                            <img src="/public/images/png/${handPlayer.cardP.value}.png" class="playerCards"/>
+                        </td>
+                    #{/if}
+                    #{else}
+                        <td>
+                            <img src="/public/images/png/dos.png" class="playerCards"/>
+                        </td>
+                    #{/else}
+                    </tr>
                 #{/else}
+            #{/list}
+            </tbody>
+        </table>
+    </div>
+
+    <div id="gameHistory">
+        <div id="table-area">
+            <table class="list-rank">
+                <thead class="header-table">
+                <h3> GAME History </h3>
+                </thead>
+
+                <tbody class="body-table">
+                #{list items:gameEvents, as:'aGameEvent' }
+                <tr>
+                    <td class="ranka"> ${aGameEvent.date.format()} </td>
+                    <td class="pseudo"> ${aGameEvent.message} </td>
+                </tr>
                 #{/list}
-            </td>
+                </tbody>
+            </table>
+        </div>
 
-            <!-- BOARD -->
-            #{if !handPlayer.cardP.equals(null)}
-            <td>
-                <img src="/public/images/png/${handPlayer.cardP.value}.png" class="playerCards"/>
-            </td>
-            #{/if}
-            #{else}
-            <td>
-                <img src="/public/images/png/dos.png" class="playerCards"/>
-            </td>
-            #{/else}
-        </tr>
-        #{/else}
-        #{/list}
-        </tbody>
-    </table>
-
-    <table class="list-rank">
-    <thead class="header-table">
-    <td> GAME History </td>
-    </thead>
-
-    <tbody class="body-table">
-    #{list items:gameEvents, as:'aGameEvent' }
-    <tr>
-    <td class="ranka"> ${aGameEvent.date} </td>
-    <td class="pseudo"> ${aGameEvent.message} </td>
-    </tr>
-    #{/list}
-    </tbody>
-    </table>
-
+        <div class="button-area">
+            <button class="backbtn"><a href="@{Application.gameRoom()}">Back</a></button>
+            <button class="leavebtn"><a href="@{Application.leave(game.uuid)}">Quit</a></button>
+        </div>
+    </div>
 </div>
 #{/if}
 
 #{else}
-<img src="${handPlayer.hasWon? "/public/images/victory.png":"/public/images/defeat.png"}" class="resultImage">
+
+#{if handPlayer.hasWon}
+<img src="/public/images/victory.png" class="resultImage">
+#{/if}
+#{else}
+#{if handPlayer.hasLeaveWon}
+<img src="/public/images/victory.png" class="resultImage">
+#{/if}
+#{else}
+<img src="/public/images/defeat.png" class="resultImage">
+#{/else}
+#{/else}
 #{/else}
 
 
@@ -141,20 +154,20 @@
 $(document).ready(function(){
     // Recharge du plateau dans un interval donnÃ©S
     const refresh = function() {
-        $('#currentGame').load("@{Application.play(game.uuid)} #currentGame");
+        $('#containerGame').load("@{Application.play(game.uuid)} #containerGame");
     }
+
     // Appel la recharge
     setInterval(refresh, 1000);
 
     // appel ajax qd un joueur joue une carte
-    //const playButton = $('body #currentGame playCard');
-    // const playButton = $('#currentGame table tr:nth-child(2) a');
-    $('#currentGame').on('click',  '.playCard', function(e){
+    //const playButton = $('body #containerGame playCard');
+    // const playButton = $('#containerGame table tr:nth-child(2) a');
+    $('#containerGame').on('click',  '.playCard', function(e){
         e.preventDefault();
         let href = $(this).attr('href');
         console.log("href : "+href);
         $('#currentGame').load(href+" #currentGame");
-
     });
 });
 </script>

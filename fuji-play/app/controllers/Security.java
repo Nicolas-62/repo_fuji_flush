@@ -32,4 +32,8 @@ public class Security extends Secure.Security {
         }
         return connectedUser;
     }
+
+    public static void logout() throws Throwable {
+        Home.index();
+    }
 }

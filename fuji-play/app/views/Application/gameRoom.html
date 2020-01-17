@@ -1,16 +1,8 @@
 #{extends 'main.html' /}
 #{set title:'Game Room' /}
 
-<nav class="navigation">
-    <a href="@{Application.ranking()}" class="navigation-item"> Ranking </a>
-    <a href="@{Application.gameRoom()}" class="navigation-item"> Game Room </a>
-    <a href="/records" class="navigation-item"> Records </a>
-    <a href="/ruleOfGame" class="navigation-item"> Rule of the game </a>
-</nav>
-
-<div class="gameRoom">
-    <div class="newGame">
-
+<div class="panel-gameRoom">
+    <div class="panel-newGame">
         <form action="@{Application.addGame()}" method="post">
             <div class ="radio">
                 <input type="radio"
@@ -41,7 +33,7 @@
         </form>
     </div>
 
-    <div class="games">
+    <div class="panel-games">
         <div class="availablegames">
             <h3>Available games</h3>
 
@@ -120,7 +112,7 @@
     $(document).ready(function(){
         // Recharge du plateau dans un interval donnÃ©S
         const refresh = function() {
-            $('.games').load("@{Application.gameRoom()} .games");
+            $('.panel-games').load("@{Application.gameRoom()} .panel-games");
         }
         // Appel la recharge
         setInterval(refresh, 1000);

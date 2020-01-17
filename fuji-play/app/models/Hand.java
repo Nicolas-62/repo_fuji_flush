@@ -11,8 +11,9 @@ import javax.persistence.OneToOne;
 
 @Entity
 public class Hand extends UUIDModel{
-	
-	public Hand(){
+
+
+    public Hand(){
 		this.cards = new ArrayList<Card>();
 	}
 
@@ -34,4 +35,6 @@ public class Hand extends UUIDModel{
     public boolean hasLeft =false;
 
     public boolean hasWon =false;
+
+    public boolean hasLeaveWon=false;
 }

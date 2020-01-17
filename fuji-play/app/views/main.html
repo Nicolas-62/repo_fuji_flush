@@ -12,19 +12,35 @@
     <body>
         <header>
             <div class="bandeau">
-                <h1>FUJI FLUSH SPACE</h1>
+                <div class="header-title">
+                    <h1>FUJI FLUSH SPACE</h1>
+                </div>
+                <div class="header-infos">
+            #{if controllers.Security.isConnected()}
+                <span>User : ${controllers.Security.connectedUser().nickName} </span>
+                <a href="@{Secure.logout()}">Logout</a>
+            #{/if}
+            #{else}
+                <a href="@{Application.gameRoom()}"> Login </a>
+                <a href="@{Home.register()}"> Register </a>
+            #{/else}
+                </div>
             </div>
-            <ul class="logout">
-                    #{if controllers.Security.isConnected()}
-                        <li> User : ${controllers.Security.connectedUser().nickName} </li>
-                        <li> <a href="@{Secure.logout()}">Logout</a> </li>
-
-                    #{/if}
-            </ul>
         </header>
+
+        <nav class="navigation">
+            <a href="@{Application.ranking()}" class="navigation-item"> Ranking </a>
+            <a href="@{Application.gameRoom()}" class="navigation-item"> Game Room </a>
+            <a href="/records" class="navigation-item"> Records </a>
+            <a href="/ruleOfGame" class="navigation-item"> Game Rules </a>
+        </nav>
 
         <div class="animate">
             <img src="/public/images/xwings.png">
+        </div>
+
+        <div class="animate2">
+            <img src="/public/images/tie.png">
         </div>
         
         <div>

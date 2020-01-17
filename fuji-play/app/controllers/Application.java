@@ -7,6 +7,7 @@ import models.Game;
 import models.GameEvent;
 import models.Hand;
 import models.User;
+import org.apache.commons.lang.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.Level;
@@ -43,42 +44,45 @@ public class Application extends Controller {
 		gameRoom();
 	}
 
-	public static void records() {
+	/**
+	 * Voir toutes ses parties terminées ainsi que le détail des logs quand on clique sur l'oeil
+	 *
+	 * @param selectedRecordUuid : uuid de la partie sélectionnée
+	 */
+	public static void records(String selectedRecordUuid) {
 		User player = Security.connectedUser();
 		List<Game> games = GameService.findFinishedGamesByPlayer(player);
 
+		// Savoir si un joueur a gagné une partie
 		HashMap <Game, Boolean> gameResults = new HashMap<Game, Boolean>();
 		for(int i = 0; i < games.size(); i++)
 		{
-			gameResults.put(games.get(i), isAWinner(games.get(i), player));
+			gameResults.put(games.get(i), HandService.getByPlayerAndGame(player, games.get(i)).hasWon);
 		}
-		render(games, player, gameResults);
-	}
 
-	public static boolean isAWinner(Game game, User user)
-	{
-		for(Hand main : game.winners)
+		// Savoir si un joueur a quitté une partie
+		HashMap <Game, Boolean> gameLeavers = new HashMap<Game, Boolean>();
+		for(int i = 0; i < games.size(); i++)
 		{
-			if(main.player.equals(user))
-			{
-				return true;
-			}
+			gameLeavers.put(games.get(i), HandService.getByPlayerAndGame(player, games.get(i)).hasLeft);
 		}
-		return false;
-	}
-	public static void ruleOfGame(){
-		User player = Security.connectedUser();
-		render();
 
+		// Savoir si un joueur a gagné une partie car quelqu'un a quitté
+		HashMap <Game, Boolean> gameLeaveWinners = new HashMap<Game, Boolean>();
+		for(int i = 0; i < games.size(); i++)
+		{
+			gameLeaveWinners.put(games.get(i), HandService.getByPlayerAndGame(player, games.get(i)).hasLeaveWon);
+		}
 
-	}
+		Game game = null;
+		List<GameEvent> gameEvents = new ArrayList<>();
+		if(StringUtils.isNotBlank(selectedRecordUuid)) {
+			game = GameService.findByUUID(selectedRecordUuid);
+			notFoundIfNull(game);
+			gameEvents = GameEventService.findAllByGame(game);
+		}
 
-	public static void history(String uuid) {
-		User player = Security.connectedUser();
-		Game game = GameService.findByUUID(uuid);
-		notFoundIfNull(game);
-		List<GameEvent> gameEvents = GameEventService.findAllByGame(game);
-		render(player, gameEvents);
+		render(games, player, game, gameEvents, gameResults, gameLeavers, gameLeaveWinners);
 	}
 
 	/**

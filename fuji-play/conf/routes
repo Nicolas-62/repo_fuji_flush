@@ -9,11 +9,11 @@ GET     /register                               Home.register
 POST    /register                               Home.createAccount
 
 # Application page
-GET     /gameRoom                               Application.gameRoom
+GET     /gameRoom/?                             Application.gameRoom
 GET     /ranking                                Application.ranking
-GET     /records                                Application.records
-GET     /ruleOfGame                             Application.ruleOfGame
-GET     /history                                Application.history
+GET     /records/{selectedRecordUuid}/?         Application.records
+GET     /records/?                              Application.records
+GET     /ruleOfGame                             Home.ruleOfGame
 GET     /play                                   Application.play
 GET     /card/play                              Application.playCard
 GET		/game/join								Application.joinGame

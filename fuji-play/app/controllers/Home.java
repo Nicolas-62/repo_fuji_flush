@@ -51,4 +51,9 @@ public class Home extends Controller {
 
         gameRoom();
     }
+
+    public static void ruleOfGame(){
+        render();
+    }
+
 }

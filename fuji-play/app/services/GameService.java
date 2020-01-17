@@ -169,6 +169,10 @@ public class GameService {
 		game.currentPlayer = null;
 		hand.hasWon = true;
 		hand.save();
+
+		// GameEvent qui gère le fait de gagner une partie
+		GameEventService.addGameEvent(game, hand.player.nickName+" won the game. Score + 3 !");
+
 		hand.player.score = hand.player.score + 3;
 		hand.player.save();
 		game.winners.add(hand);
@@ -183,8 +187,12 @@ public class GameService {
 	 */
 	public static void leaveWin(Hand hand) {
 		Game game = hand.game;
-		hand.hasWon = true;
+		hand.hasLeaveWon = true;
 		hand.save();
+
+		// GameEvent qui gère le fait de gagner une partie par abandon
+		GameEventService.addGameEvent(game, hand.player.nickName+" won the game because number of players under 3. Score + 1 !");
+
 		game.winners.add(hand);
 		hand.player.score = hand.player.score + 1;
 		hand.player.save();
@@ -202,6 +210,10 @@ public class GameService {
 		Hand hand = HandService.getByPlayerAndGame(player, game);
 		hand.hasLeft = true;
 		hand.save();
+
+		// GameEvent qui gère le fait d'abandonner une partie
+		GameEventService.addGameEvent(game, hand.player.nickName+" Left the game. Score - 3 !");
+
 		List<Hand> remainingHands = new ArrayList();
 
 		for (Hand iter : game.hands) {
