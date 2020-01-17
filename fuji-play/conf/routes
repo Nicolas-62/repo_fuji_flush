@@ -23,7 +23,9 @@ GET     /game/leave                             Application.leave
 GET     /api/games                              Api.gameRoom(format:'json')
 POST    /api/game/add                        	Api.addGame(format:'json')
 
-
+WS      /websocket/join		              		WebSocket.GameSocket.joinGame 
+WS      /websocket/games			            WebSocket.GameSocket.gameRoom
+ 
 # Ignore favicon requests
 GET     /favicon.ico                            404
 
