@@ -1,4 +1,4 @@
-package models.adaptaters;
+package models.adapters;
 
 import java.lang.reflect.Type;
 
