@@ -22,4 +22,9 @@ public class HandService {
     public static  List<Hand> FindAllByGame(Game game){
     	return Hand.find("game = ?1", game).fetch();
     }
+
+	public static Hand findByUUID(String uuid) {
+		// TODO Auto-generated method stub
+		return Hand.find("uuid= ?1", uuid).first();
+	}
 }

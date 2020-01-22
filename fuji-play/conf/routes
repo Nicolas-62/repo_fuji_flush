@@ -20,11 +20,12 @@ GET		/game/join								Application.joinGame
 POST 	/game/add								Application.addGame
 GET     /game/leave                             Application.leave
 
-GET     /api/games                              Api.gameRoom(format:'json')
-POST    /api/game/add                        	Api.addGame(format:'json')
+GET     /api/games                              Api.games
+GET		/api/game/{uuid}						Api.game
+POST    /api/game/add                        	Api.addGame
 
-WS      /websocket/join		              		WebSocket.GameSocket.joinGame 
-WS      /websocket/games			            WebSocket.GameSocket.gameRoom
+WS      /websocket/game		              		WebSocket.GameSocket.game
+WS      /websocket/room				            WebSocket.GameSocket.room
  
 # Ignore favicon requests
 GET     /favicon.ico                            404
